@@ -12,6 +12,9 @@ class FoodHealthy extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Montaga',
+      ),
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -21,6 +24,7 @@ class FoodHealthy extends StatelessWidget {
             ),
           ),
           backgroundColor: Colors.green,
+
         ),
         body: const Center(
           child: Text(
