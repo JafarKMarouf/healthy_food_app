@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:healthyfood/features/splash/view/splash_view.dart';
 
 void main() {
   runApp(const FoodHealthy());
@@ -15,23 +16,7 @@ class FoodHealthy extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Montaga',
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Healthy Food',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          backgroundColor: Colors.green,
-
-        ),
-        body: const Center(
-          child: Text(
-            'Healthy Food App',
-          ),
-        ),
-      ),
+      home: const SplashView(),
     );
   }
 }
