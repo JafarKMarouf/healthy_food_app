@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:healthyfood/features/splash/view/splash_view.dart';
+import 'package:healthyfood/features/auth/view/login_view.dart';
+import 'package:healthyfood/features/splash/view/widgets/splash_body.dart';
 
 void main() {
   runApp(const FoodHealthy());
@@ -16,7 +17,11 @@ class FoodHealthy extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Montaga',
       ),
-      home: const SplashView(),
+      routes: {
+        'login': (p0) => const LoginView(),
+        // 'signup' : ()=> const
+      },
+      home: const SplashBody(),
     );
   }
 }

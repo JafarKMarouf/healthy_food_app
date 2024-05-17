@@ -7,21 +7,23 @@ class SplashBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SplashController>(
-      init: SplashController(),
-      builder: (controller) {
-        return AnimatedBuilder(
-          animation: controller,
-          builder: (BuildContext context, Widget? child) {
-            return Center(
-              child: Image.asset(
-                'assets/images/image.png',
-                fit: BoxFit.cover,
-              ),
-            );
-          },
-        );
-      },
+    return Scaffold(
+      body: GetBuilder<SplashController>(
+        init: SplashController(),
+        builder: (controller) {
+          return AnimatedBuilder(
+            animation: controller,
+            builder: (BuildContext context, Widget? child) {
+              return Center(
+                child: Image.asset(
+                  'assets/images/image.png',
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
