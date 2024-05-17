@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constant.dart';
 import 'package:healthyfood/features/auth/view/login_view.dart';
