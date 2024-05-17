@@ -12,8 +12,8 @@ class CustomeButton extends StatelessWidget {
     super.key,
     required this.title,
     this.onTap,
-    required this.borderWidth ,
-    required this.backgroundColor ,
+    required this.borderWidth,
+    required this.backgroundColor,
     required this.borderColor,
     required this.width,
   });
@@ -23,7 +23,6 @@ class CustomeButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: width,
-        // height: 38,
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -38,7 +37,7 @@ class CustomeButton extends StatelessWidget {
           style: const TextStyle(
             fontSize: 16,
             fontFamily: 'Montaga',
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
             color: kFontColor,
           ),
           textAlign: TextAlign.center,

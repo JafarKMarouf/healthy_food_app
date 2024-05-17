@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthyfood/features/auth/view/widgets/signup_body.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});
@@ -6,9 +7,7 @@ class SignupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text('sign up'),
-      ),
+      body: SignupBody(),
     );
   }
 }

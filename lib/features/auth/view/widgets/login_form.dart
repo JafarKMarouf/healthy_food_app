@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:healthyfood/core/constant.dart';
 import 'package:healthyfood/features/auth/view/widgets/custome_button.dart';
 import 'package:healthyfood/features/auth/view/widgets/custome_text_form_field.dart';
@@ -13,38 +14,28 @@ class LoginForm extends StatelessWidget {
       child: Column(
         children: [
           CustomeTextFormField(
-            type: TextInputType.text,
+            type: TextInputType.emailAddress,
             isSuffix: false,
-            hintText: 'email',
+            hintText: 'Email',
             suffix: Image.asset('assets/images/edit_icon.png'),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           const CustomeTextFormField(
             type: TextInputType.text,
             isSuffix: true,
             hintText: 'Mobile Number',
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           CustomeTextFormField(
             type: TextInputType.visiblePassword,
             isObscure: visible,
             isSuffix: true,
             hintText: 'Password',
             suffix: InkWell(
-                // child: visible
-                child: Image.asset(
-              'assets/images/invisible_icon.png',
-            )
-                // : Image.asset('assets/images/invisible_icon.png'),
-                ),
+              child: Image.asset('assets/images/invisible_icon.png'),
+            ),
           ),
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16),
           CustomeButton(
             title: 'Log in',
             width: MediaQuery.of(context).size.width,
@@ -53,28 +44,24 @@ class LoginForm extends StatelessWidget {
             borderColor: kborderButtonColor,
             borderWidth: 1,
           ),
-          const SizedBox(
-            height: 8,
-          ),
+          const SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
-                  Image.asset(
-                    'assets/images/checkcircle.png',
-                    color: const Color(0xff035014),
-                    fit: BoxFit.fill,
+                  SvgPicture.asset(
+                    'assets/images/checkcircle.svg',
+                    height: 16,
+                    width: 16,
                   ),
-                  const SizedBox(
-                    width: 4,
-                  ),
+                  const SizedBox(width: 4),
                   const Text(
                     'Remember me',
                     style: TextStyle(
                       color: kFontColor,
                       fontSize: 13,
-                      // fontWeight: FontWeight.w600,
+                      fontFamily: 'Montaga',
                     ),
                   ),
                 ],

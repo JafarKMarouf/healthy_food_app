@@ -10,49 +10,47 @@ class LoginBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 40,
-      ),
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          Image.asset(
-            'assets/images/image.png',
-            fit: BoxFit.cover,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 34),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height / 2,
-                  child: const Expanded(
-                    child: LoginForm(),
-                  ),
-                ),
-                CustomeButton(
-                  title: 'Create new account',
-                  width: MediaQuery.of(context).size.width,
-                  onTap: () {
-                    Get.to(
-                      () => const SignupView(),
-                      duration: kdurationTransition,
-                      transition: Transition.fadeIn,
-                    );
-                  },
-                  backgroundColor: kFillFormColor,
-                  borderColor: const Color(0xffA3C5B0),
-                  borderWidth: 2,
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-              ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          top: 45,
+        ),
+        child: Column(
+          children: [
+            Image.asset(
+              'assets/images/image.png',
+              fit: BoxFit.fill,
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 34),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .5,
+                    child: const LoginForm(),
+                  ),
+                  CustomeButton(
+                    title: 'Create new account',
+                    width: MediaQuery.of(context).size.width,
+                    onTap: () {
+                      Get.to(
+                        () => const SignupView(),
+                        duration: kdurationTransition,
+                        transition: Transition.fadeIn,
+                      );
+                    },
+                    backgroundColor: kFillFormColor,
+                    borderColor: const Color(0xffA3C5B0),
+                    borderWidth: 2,
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
