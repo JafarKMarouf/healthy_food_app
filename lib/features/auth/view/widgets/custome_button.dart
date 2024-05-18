@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:healthyfood/core/constant.dart';
 
 class CustomeButton extends StatelessWidget {
   final String title;
   final VoidCallback? onTap;
   final Color backgroundColor;
   final Color borderColor;
+  final Color textColor;
   final double width;
   final double borderWidth;
+  final double fontSize;
+  final String fontFamily;
+  final FontWeight fontWeight;
   const CustomeButton({
     super.key,
     required this.title,
@@ -16,6 +19,10 @@ class CustomeButton extends StatelessWidget {
     required this.backgroundColor,
     required this.borderColor,
     required this.width,
+    required this.textColor,
+    this.fontSize = 16,
+    this.fontFamily = 'Montaga',
+    this.fontWeight = FontWeight.w600,
   });
   @override
   Widget build(BuildContext context) {
@@ -34,11 +41,11 @@ class CustomeButton extends StatelessWidget {
         ),
         child: Text(
           title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontFamily: 'Montaga',
-            fontWeight: FontWeight.w600,
-            color: kFontColor,
+          style: TextStyle(
+            fontSize: fontSize,
+            fontFamily: fontFamily,
+            fontWeight: fontWeight,
+            color: textColor,
           ),
           textAlign: TextAlign.center,
         ),

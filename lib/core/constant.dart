@@ -8,4 +8,4 @@ const Color kBorderColors = Color(0xff97BFA0);
 const Color khintTextColor = Color(0xffA3C5B0);
 const Color kborderButtonColor = Color(0xff97BFA0);
 
-const Duration kdurationTransition = Duration(microseconds: 800);
+const Duration kdurationTransition = Duration(milliseconds: 500);

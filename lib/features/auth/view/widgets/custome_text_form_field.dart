@@ -58,14 +58,6 @@ class CustomeTextFormField extends StatelessWidget {
         enabledBorder: buildBorder(kBorderColors),
         focusedBorder: buildBorder(kBorderColors),
         prefixIcon: prefix,
-
-        // suffixIcon: suffix,
-
-        // prefixIcon: Icon(
-        //   prefixIcon,
-        //   color: const Color(0xffB6E5B9),
-        // ),
-
         suffixIcon: suffix,
       ),
     );

@@ -30,10 +30,11 @@ class LoginBody extends StatelessWidget {
                     child: const LoginForm(),
                   ),
                   CustomeButton(
+                    textColor: kFontColor,
                     title: 'Create new account',
                     width: MediaQuery.of(context).size.width,
                     onTap: () {
-                      Get.to(
+                      Get.offAll(
                         () => const SignupView(),
                         duration: kdurationTransition,
                         transition: Transition.fadeIn,

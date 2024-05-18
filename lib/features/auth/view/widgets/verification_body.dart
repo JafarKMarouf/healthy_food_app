@@ -1,7 +1,8 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:get/get.dart';
 import 'package:healthyfood/core/constant.dart';
+import 'package:healthyfood/features/auth/view/widgets/warning_view.dart';
 
 class VerificationBody extends StatelessWidget {
   const VerificationBody({super.key});
@@ -84,7 +85,11 @@ class VerificationBody extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Get.to(
+                () => const WarningView(),
+              );
+            },
             child: const Text(
               'Send again',
               style: TextStyle(

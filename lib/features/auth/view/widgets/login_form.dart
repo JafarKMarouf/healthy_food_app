@@ -8,11 +8,15 @@ import 'package:healthyfood/features/auth/view/widgets/custome_fails.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
-
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> formKey = GlobalKey();
+    AutovalidateMode autoValidate = AutovalidateMode.disabled;
+
     bool visible = true;
     return Form(
+      key: formKey,
+      autovalidateMode: autoValidate,
       child: Column(
         children: [
           CustomeTextFormField(
@@ -20,15 +24,36 @@ class LoginForm extends StatelessWidget {
             isSuffix: false,
             hintText: 'Email',
             suffix: Image.asset('assets/images/edit_icon.png'),
-          ),
-          const SizedBox(height: 16),
-          const CustomeTextFormField(
-            type: TextInputType.text,
-            isSuffix: true,
-            hintText: 'Mobile Number',
+            validate: (value) {
+              if (value!.isEmpty) {
+                return "password is require";
+              }
+              return null;
+            },
           ),
           const SizedBox(height: 16),
           CustomeTextFormField(
+            type: TextInputType.text,
+            isSuffix: true,
+            hintText: 'Mobile Number',
+            validate: (value) {
+              if (value!.isEmpty) {
+                return "mobile number is require";
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+          CustomeTextFormField(
+            validate: (value) {
+              if (value!.isEmpty) {
+                return "password is require";
+              }
+              if (value.length < 8) {
+                return 'password is short';
+              }
+              return null;
+            },
             type: TextInputType.visiblePassword,
             isObscure: visible,
             isSuffix: true,
@@ -39,14 +64,19 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           CustomeButton(
+            textColor: kFontColor,
             title: 'Log in',
             width: MediaQuery.of(context).size.width,
             onTap: () {
-              customeShowDialog(
-                context,
-                const Duration(seconds: 3),
-                const CustomeFails(),
-              );
+              if (formKey.currentState!.validate()) {
+                customeShowDialog(
+                  context,
+                  const CustomeFails(),
+                  duration: const Duration(milliseconds: 1200),
+                );
+              } else {
+                autoValidate = AutovalidateMode.always;
+              }
             },
             backgroundColor: kBackgroundColor,
             borderColor: kborderButtonColor,

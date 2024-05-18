@@ -116,12 +116,13 @@ class SignupForm extends StatelessWidget {
               title: 'Sign up',
               width: MediaQuery.of(context).size.width,
               onTap: () {
-                Get.to(
+                Get.offAll(
                   () => const VerificationView(),
                   duration: kdurationTransition,
                   transition: Transition.fadeIn,
                 );
               },
+              textColor: kFontColor,
               backgroundColor: kBackgroundColor,
               borderColor: kborderButtonColor,
               borderWidth: 1,

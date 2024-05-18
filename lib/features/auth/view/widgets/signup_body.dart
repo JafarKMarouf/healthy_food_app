@@ -41,7 +41,7 @@ class SignupBody extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(
+                    Get.offAll(
                       () => const LoginView(),
                       duration: kdurationTransition,
                       transition: Transition.fadeIn,

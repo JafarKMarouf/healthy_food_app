@@ -1,4 +1,4 @@
-  import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:healthyfood/core/constant.dart';
 
 class CustomeFails extends StatelessWidget {
@@ -11,12 +11,12 @@ class CustomeFails extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 3,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Color(0xff000000),
+            color:const Color(0xff000000).withOpacity(.5),
             spreadRadius: 1,
             blurRadius: 20,
-            offset: Offset(1.5, 1.5),
+            offset: const Offset(1.5, 1.5),
           ),
         ],
         color: const Color(0xffFFFDFD),
