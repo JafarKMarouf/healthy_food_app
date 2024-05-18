@@ -26,7 +26,7 @@ class LoginForm extends StatelessWidget {
             suffix: Image.asset('assets/images/edit_icon.png'),
             validate: (value) {
               if (value!.isEmpty) {
-                return "password is require";
+                return "email is require";
               }
               return null;
             },

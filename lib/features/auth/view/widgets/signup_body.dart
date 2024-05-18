@@ -9,58 +9,25 @@ class SignupBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 45,
-          right: 34,
-          left: 34,
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              width: 262,
-              height: 130,
-              child: Image.asset(
-                'assets/images/image.png',
-                fit: BoxFit.fitWidth,
-              ),
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 45,
+        right: 34,
+        left: 34,
+      ),
+      child: ListView(
+        children: [
+          SizedBox(
+            width: 262,
+            height: 130,
+            child: Image.asset(
+              'assets/images/image.png',
+              fit: BoxFit.fitWidth,
             ),
-            const SignupForm(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'Already have an account ? ',
-                  style: TextStyle(
-                    fontFamily: 'Cabin Medium',
-                    color: kFontColor,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.offAll(
-                      () => const LoginView(),
-                      duration: kdurationTransition,
-                      transition: Transition.fadeIn,
-                    );
-                  },
-                  child: const Text(
-                    'Log in',
-                    style: TextStyle(
-                      fontFamily: 'Cabin Medium',
-                      fontSize: 12,
-                      color: Color(0xff25A340),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+          ),
+          const SignupForm(),
+          // const SizedBox(height: 8),
+        ],
       ),
     );
   }

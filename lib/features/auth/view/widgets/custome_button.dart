@@ -22,7 +22,7 @@ class CustomeButton extends StatelessWidget {
     required this.textColor,
     this.fontSize = 16,
     this.fontFamily = 'Montaga',
-    this.fontWeight = FontWeight.w600,
+    this.fontWeight = FontWeight.normal,
   });
   @override
   Widget build(BuildContext context) {
