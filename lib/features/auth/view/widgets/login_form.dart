@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:healthyfood/core/constant.dart';
-import 'package:healthyfood/features/auth/view/verification_view.dart';
+import 'package:healthyfood/core/reusable_widgets/custome_dialog.dart';
 import 'package:healthyfood/features/auth/view/widgets/custome_button.dart';
 import 'package:healthyfood/features/auth/view/widgets/custome_text_form_field.dart';
+import 'package:healthyfood/features/auth/view/widgets/custome_fails.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -42,10 +42,10 @@ class LoginForm extends StatelessWidget {
             title: 'Log in',
             width: MediaQuery.of(context).size.width,
             onTap: () {
-              Get.to(
-                () => const VerificationView(),
-                duration: kdurationTransition,
-                transition: Transition.fadeIn,
+              customeShowDialog(
+                context,
+                const Duration(seconds: 3),
+                const CustomeFails(),
               );
             },
             backgroundColor: kBackgroundColor,

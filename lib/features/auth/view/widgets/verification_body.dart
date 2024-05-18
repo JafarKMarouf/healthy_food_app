@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:healthyfood/core/constant.dart';
@@ -82,11 +83,14 @@ class VerificationBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          const Text(
-            'Send again',
-            style: TextStyle(
-              color: kFontColor,
-              fontSize: 17,
+          InkWell(
+            onTap: () {},
+            child: const Text(
+              'Send again',
+              style: TextStyle(
+                color: kFontColor,
+                fontSize: 17,
+              ),
             ),
           ),
           const Spacer(flex: 2)
