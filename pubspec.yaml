@@ -8,7 +8,6 @@ environment:
   sdk: ">=3.3.3 <4.0.0"
 
 dependencies:
-  awesome_dialog: ^3.2.1
   cupertino_icons: ^1.0.6
   flutter:
     sdk: flutter
@@ -38,6 +37,7 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/vectors/
 
   fonts:
     - family: Montaga

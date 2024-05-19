@@ -27,13 +27,6 @@ class SplashController extends GetxController
       vsync: this,
       duration: duration,
     );
-    // _colorAnimation.value = (ColorTween(
-    //   end: Colors.white,
-    //   begin: const Color(0xff1E1E1E),
-    // ).chain(CurveTween(curve: Curves.ease)).animate(_animationController.value!)
-    //   ..addListener(() {
-    //     update();
-    //   }));
     _animationController.value?.forward();
   }
 

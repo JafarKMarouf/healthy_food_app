@@ -89,7 +89,7 @@ class LoginForm extends StatelessWidget {
               Row(
                 children: [
                   SvgPicture.asset(
-                    'assets/images/checkcircle.svg',
+                    'assets/vectors/checkcircle.svg',
                     height: 16,
                     width: 16,
                   ),

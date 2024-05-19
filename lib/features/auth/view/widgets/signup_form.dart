@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constant.dart';
 import 'package:healthyfood/features/auth/view/login_view.dart';
@@ -14,6 +15,8 @@ class SignupForm extends StatelessWidget {
     bool visible = false;
     GlobalKey<FormState> formKey = GlobalKey();
     AutovalidateMode autoValidate = AutovalidateMode.disabled;
+    void uploadImage() {
+    }
 
     return SizedBox(
       child: Form(
@@ -22,19 +25,20 @@ class SignupForm extends StatelessWidget {
         child: Column(
           children: [
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                uploadImage();
+              },
               child: Stack(
                 alignment: Alignment.center,
                 children: [
-                  Image.asset('assets/images/bordercamera.png'),
-                  Image.asset(
-                    'assets/images/camera.png',
-                    color: const Color(0xff035014),
+                  SvgPicture.asset(
+                    'assets/vectors/camera.svg',
                   ),
+                  SvgPicture.asset('assets/vectors/bordercamera.svg'),
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: MediaQuery.of(context).size.height * .04),
             CustomeTextFormField(
               type: TextInputType.text,
               isSuffix: false,
@@ -51,7 +55,9 @@ class SignupForm extends StatelessWidget {
               type: TextInputType.emailAddress,
               isSuffix: false,
               hintText: 'Email',
-              suffix: Image.asset('assets/images/edit_icon.png'),
+              suffix: Image.asset(
+                'assets/images/edit_icon.png',
+              ),
               validate: (value) {
                 if (value!.isEmpty) {
                   return "email is require";
