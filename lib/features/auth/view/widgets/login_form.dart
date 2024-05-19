@@ -33,7 +33,7 @@ class LoginForm extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           CustomeTextFormField(
-            type: TextInputType.text,
+            type: TextInputType.number,
             isSuffix: true,
             hintText: 'Mobile Number',
             validate: (value) {
@@ -79,7 +79,7 @@ class LoginForm extends StatelessWidget {
               }
             },
             backgroundColor: kBackgroundColor,
-            borderColor: kborderButtonColor,
+            borderColor: kBorderButtonColor,
             borderWidth: 1,
           ),
           const SizedBox(height: 8),

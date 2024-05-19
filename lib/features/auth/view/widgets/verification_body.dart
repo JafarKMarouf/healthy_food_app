@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constant.dart';
+import 'package:healthyfood/features/auth/view/widgets/opt_form.dart';
 import 'package:healthyfood/features/auth/view/widgets/warning_view.dart';
 
 class VerificationBody extends StatelessWidget {
   const VerificationBody({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,7 +21,7 @@ class VerificationBody extends StatelessWidget {
               Center(
                 child: SizedBox(
                   width: 270,
-                  height: 130,
+                  height: 100,
                   child: Image.asset(
                     'assets/images/image.png',
                     fit: BoxFit.cover,
@@ -54,29 +53,11 @@ class VerificationBody extends StatelessWidget {
             ],
           ),
           const Spacer(flex: 1),
-          Form(
-            child: OtpTextField(
-              focusedBorderColor: const Color(0xff757575),
-              numberOfFields: 6,
-              fieldWidth: 50,
-              fieldHeight: 60,
-              borderRadius: BorderRadius.circular(50),
-              showFieldAsBox: true,
-              borderWidth: 2,
-              cursorColor: kFontColor,
-              textStyle: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w900,
-                color: Color(0xff757575),
-              ),
-              obscureText: false,
-              keyboardType: TextInputType.number,
-            ),
-          ),
-          const SizedBox(height: 18),
+          const OtpForm(),
+          const SizedBox(height: 16),
           const Center(
             child: Text(
-              '03 : 00',
+              '03 : 00 s',
               style: TextStyle(
                 color: kFontColor,
                 fontSize: 17,
@@ -98,7 +79,7 @@ class VerificationBody extends StatelessWidget {
               ),
             ),
           ),
-          const Spacer(flex: 2)
+          const Spacer(flex: 4)
         ],
       ),
     );

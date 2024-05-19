@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constant.dart';
 import 'package:healthyfood/features/auth/view/login_view.dart';
@@ -17,7 +16,6 @@ class SignupForm extends StatelessWidget {
     AutovalidateMode autoValidate = AutovalidateMode.disabled;
 
     return SizedBox(
-      height: MediaQuery.of(context).size.height,
       child: Form(
         key: formKey,
         autovalidateMode: autoValidate,
@@ -63,7 +61,7 @@ class SignupForm extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             CustomeTextFormField(
-              type: TextInputType.text,
+              type: TextInputType.number,
               isSuffix: true,
               hintText: 'Mobile Number',
               validate: (value) {
@@ -115,7 +113,7 @@ class SignupForm extends StatelessWidget {
                 return null;
               },
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 12),
             GestureDetector(
               child: Container(
                 padding: const EdgeInsets.symmetric(
@@ -136,7 +134,7 @@ class SignupForm extends StatelessWidget {
                       'Certificate PDF file',
                       style: TextStyle(
                         fontFamily: 'Cabin Medium',
-                        color: khintTextColor,
+                        color: kHintTextColor,
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -148,7 +146,7 @@ class SignupForm extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             CustomeButton(
               title: 'Sign up',
               width: MediaQuery.of(context).size.width,
@@ -156,7 +154,7 @@ class SignupForm extends StatelessWidget {
                 if (formKey.currentState!.validate()) {
                   Get.off(
                     () => const VerificationView(),
-                    duration: kdurationTransition,
+                    duration: kDurationTransition,
                     transition: Transition.fadeIn,
                   );
                 } else {
@@ -165,10 +163,10 @@ class SignupForm extends StatelessWidget {
               },
               textColor: kFontColor,
               backgroundColor: kBackgroundColor,
-              borderColor: kborderButtonColor,
+              borderColor: kBorderButtonColor,
               borderWidth: 1,
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -185,7 +183,7 @@ class SignupForm extends StatelessWidget {
                   onTap: () {
                     Get.offAll(
                       () => const LoginView(),
-                      duration: kdurationTransition,
+                      duration: kDurationTransition,
                       transition: Transition.fadeIn,
                     );
                   },
@@ -201,7 +199,7 @@ class SignupForm extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
           ],
         ),
       ),

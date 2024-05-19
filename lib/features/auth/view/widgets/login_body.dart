@@ -11,10 +11,9 @@ class LoginBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 45,
-        ),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 1.08,
+        padding: const EdgeInsets.only(top: 45),
         child: Column(
           children: [
             Image.asset(
@@ -26,7 +25,7 @@ class LoginBody extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * .5,
+                    height: MediaQuery.of(context).size.height * .45,
                     child: const LoginForm(),
                   ),
                   CustomeButton(
@@ -36,7 +35,7 @@ class LoginBody extends StatelessWidget {
                     onTap: () {
                       Get.offAll(
                         () => const SignupView(),
-                        duration: kdurationTransition,
+                        duration: kDurationTransition,
                         transition: Transition.fadeIn,
                       );
                     },
@@ -44,9 +43,7 @@ class LoginBody extends StatelessWidget {
                     borderColor: const Color(0xffA3C5B0),
                     borderWidth: 2,
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
+                  // const Spacer(flex: 1),
                 ],
               ),
             ),

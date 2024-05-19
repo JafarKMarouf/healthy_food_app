@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:healthyfood/core/constant.dart';
-import 'package:healthyfood/features/auth/view/login_view.dart';
 import 'package:healthyfood/features/auth/view/widgets/signup_form.dart';
 
 class SignupBody extends StatelessWidget {
@@ -9,7 +6,8 @@ class SignupBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      height: MediaQuery.of(context).size.height * 1.07,
       padding: const EdgeInsets.only(
         top: 45,
         right: 34,
@@ -18,15 +16,18 @@ class SignupBody extends StatelessWidget {
       child: ListView(
         children: [
           SizedBox(
-            width: 262,
-            height: 130,
+            height: MediaQuery.of(context).size.height * .16,
+            // width: 262,
+            // height: 110,
             child: Image.asset(
               'assets/images/image.png',
               fit: BoxFit.fitWidth,
             ),
           ),
-          const SignupForm(),
-          // const SizedBox(height: 8),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * .02,
+          ),
+          const Expanded(child: SignupForm()),
         ],
       ),
     );

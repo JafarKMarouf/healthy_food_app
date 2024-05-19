@@ -76,7 +76,7 @@ class WarningView extends StatelessWidget {
                       g.Get.offAll(
                         () => const VerificationView(),
                         transition: Transition.rightToLeft,
-                        duration: kdurationTransition,
+                        duration: kDurationTransition,
                       );
                     },
                   )
@@ -91,7 +91,7 @@ class WarningView extends StatelessWidget {
                   g.Get.offAll(
                     () => const VerificationView(),
                     transition: Transition.rightToLeft,
-                    duration: kdurationTransition,
+                    duration: kDurationTransition,
                   );
                 },
                 child: Image.asset(

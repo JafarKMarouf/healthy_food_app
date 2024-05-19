@@ -50,7 +50,7 @@ class CustomeTextFormField extends StatelessWidget {
         ),
         hintText: hintText,
         hintStyle: const TextStyle(
-          color: khintTextColor,
+          color: kHintTextColor,
           fontSize: 16,
           fontFamily: 'Cabin-Medium',
         ),
