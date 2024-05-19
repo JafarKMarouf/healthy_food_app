@@ -27,7 +27,7 @@ class SignupBody extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * .02,
           ),
-          const Expanded(child: SignupForm()),
+          const SignupForm(),
         ],
       ),
     );

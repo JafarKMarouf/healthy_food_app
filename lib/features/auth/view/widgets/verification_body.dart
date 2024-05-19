@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constant.dart';
+import 'package:healthyfood/features/auth/view/verification_view.dart';
+import 'package:healthyfood/features/auth/view/widgets/custome_button.dart';
 import 'package:healthyfood/features/auth/view/widgets/opt_form.dart';
 import 'package:healthyfood/features/auth/view/widgets/warning_view.dart';
 
@@ -68,7 +70,36 @@ class VerificationBody extends StatelessWidget {
           InkWell(
             onTap: () {
               Get.to(
-                () => const WarningView(),
+                () => WarningView(
+                  image: 'assets/images/error.png',
+                  text1: 'Oh no!',
+                  text2: 'Something went wrong.',
+                  text: const Text(
+                    'Please try again.',
+                    style: TextStyle(
+                      fontFamily: 'Montaga',
+                      color: Colors.black,
+                      fontSize: 12,
+                    ),
+                  ),
+                  buttons: CustomeButton(
+                    title: 'Try again',
+                    borderWidth: 0,
+                    backgroundColor: const Color(0xff103412),
+                    borderColor: const Color(0xffFFFDFD),
+                    textColor: const Color(0xffFFFDFD),
+                    width: 120,
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal,
+                    onTap: () {
+                      Get.offAll(
+                        () => const VerificationView(),
+                        transition: Transition.rightToLeft,
+                        duration: kDurationTransition,
+                      );
+                    },
+                  ),
+                ),
               );
             },
             child: const Text(

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:healthyfood/core/constant.dart';
+import 'package:healthyfood/features/auth/view/login_view.dart';
 import 'package:healthyfood/features/auth/view/widgets/custome_button.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' as g;
+import 'package:healthyfood/features/auth/view/widgets/warning_view.dart';
+import 'package:healthyfood/features/splash/view/splash_view.dart';
 
-class CustomeBSheet extends StatelessWidget {
-  const CustomeBSheet({super.key});
+class SuccessBSheet extends StatelessWidget {
+  const SuccessBSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +17,11 @@ class CustomeBSheet extends StatelessWidget {
         Color(0xff82A485),
         Color(0xff657F67),
       ],
-    ).createShader(const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+    ).createShader(
+      const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+    );
 
-    return  Container(
+    return Container(
       padding: EdgeInsets.only(
         top: 8,
         right: MediaQuery.of(context).size.width / 8,
@@ -68,12 +73,64 @@ class CustomeBSheet extends StatelessWidget {
             width: MediaQuery.of(context).size.width * .5,
             textColor: kFontColor,
             onTap: () {
-              Get.back();
+              g.Get.to(
+                () => const WarningView(
+                  image: 'assets/images/logout.png',
+                  text1: 'Oh no! You’re leaving...',
+                  text2: 'Are you sure?',
+                  buttons: WarningButtons(),
+                ),
+              );
             },
           ),
           const Spacer(flex: 3),
         ],
       ),
+    );
+  }
+}
+
+class WarningButtons extends StatelessWidget {
+  const WarningButtons({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CustomeButton(
+          title: 'No',
+          backgroundColor: const Color(0xffB6E5B9),
+          textColor: kFontColor,
+          width: MediaQuery.of(context).size.width / 2.8,
+          fontSize: 12,
+          fontWeight: FontWeight.normal,
+          onTap: () {
+            g.Get.offAll(
+              () => const SplashView(),
+              transition: g.Transition.fadeIn,
+              duration: kDurationTransition,
+            );
+          },
+        ),
+        SizedBox(
+          height: MediaQuery.of(context).size.height * .02,
+        ),
+        CustomeButton(
+          title: 'Yes,Log Me Out',
+          backgroundColor: const Color(0xffB6E5B9),
+          textColor: kFontColor,
+          width: MediaQuery.of(context).size.width / 2.8,
+          fontSize: 12,
+          fontWeight: FontWeight.normal,
+          onTap: () {
+            g.Get.offAll(
+              () => const LoginView(),
+              transition: g.Transition.rightToLeft,
+              duration: kDurationTransition,
+            );
+          },
+        )
+      ],
     );
   }
 }

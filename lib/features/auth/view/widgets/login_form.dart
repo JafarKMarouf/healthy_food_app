@@ -72,7 +72,7 @@ class LoginForm extends StatelessWidget {
                 customeShowDialog(
                   context,
                   const CustomeFails(),
-                  duration: const Duration(milliseconds: 1200),
+                  duration: const Duration(milliseconds: 2500),
                 );
               } else {
                 autoValidate = AutovalidateMode.always;

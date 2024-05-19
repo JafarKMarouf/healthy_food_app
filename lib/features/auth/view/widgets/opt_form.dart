@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:healthyfood/core/constant.dart';
 import 'package:get/get.dart';
-import 'package:healthyfood/features/auth/view/widgets/custome_bottom_sheet.dart';
+import 'package:healthyfood/features/auth/view/widgets/success_bottom_sheet.dart';
 
 class OtpForm extends StatelessWidget {
   const OtpForm({super.key});
@@ -35,7 +35,7 @@ class OtpForm extends StatelessWidget {
             autoValidate = AutovalidateMode.always;
           } else {
             Get.bottomSheet(
-              const CustomeBSheet(),
+              const SuccessBSheet(),
               enterBottomSheetDuration: kDurationTransition,
               exitBottomSheetDuration: kDurationTransition,
               enableDrag: false,

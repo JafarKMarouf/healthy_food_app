@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' as g;
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:healthyfood/core/constant.dart';
-import 'package:healthyfood/features/auth/view/verification_view.dart';
-import 'package:healthyfood/features/auth/view/widgets/custome_button.dart';
 
 class WarningView extends StatelessWidget {
-  const WarningView({super.key});
+  const WarningView({
+    super.key,
+    required this.image,
+    required this.text1,
+    required this.text2,
+    this.text,
+    required this.buttons,
+  });
+  final String image;
+  final String text1;
+  final String text2;
+  final Widget? text;
+  final Widget buttons;
 
   @override
   Widget build(BuildContext context) {
@@ -35,68 +42,36 @@ class WarningView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Column(
+                  Column(
                     children: [
                       Text(
-                        'Oh no!',
-                        style: TextStyle(
+                        text1,
+                        style: const TextStyle(
                           fontFamily: 'Montagu Slab',
                           color: Colors.black,
                           fontSize: 20,
                         ),
                       ),
                       Text(
-                        'Something went wrong.',
-                        style: TextStyle(
+                        text2,
+                        style: const TextStyle(
                           fontFamily: 'Montaga',
                           color: Colors.black,
                           fontSize: 16,
                         ),
                       ),
-                      Text(
-                        'Please try again.',
-                        style: TextStyle(
-                          fontFamily: 'Montaga',
-                          color: Colors.black,
-                          fontSize: 12,
-                        ),
-                      ),
+                      text == null ? const SizedBox() : text!
                     ],
                   ),
-                  CustomeButton(
-                    title: 'Try again',
-                    borderWidth: 0,
-                    backgroundColor: const Color(0xff103412),
-                    borderColor: const Color(0xffFFFDFD),
-                    textColor: const Color(0xffFFFDFD),
-                    width: 120,
-                    fontSize: 12,
-                    fontWeight: FontWeight.normal,
-                    onTap: () {
-                      g.Get.offAll(
-                        () => const VerificationView(),
-                        transition: Transition.rightToLeft,
-                        duration: kDurationTransition,
-                      );
-                    },
-                  )
+                  buttons
                 ],
               ),
             ),
             Positioned(
               top: MediaQuery.of(context).size.height * -.03,
               right: MediaQuery.of(context).size.width / 3,
-              child: InkWell(
-                onTap: () {
-                  g.Get.offAll(
-                    () => const VerificationView(),
-                    transition: Transition.rightToLeft,
-                    duration: kDurationTransition,
-                  );
-                },
-                child: Image.asset(
-                  'assets/images/error.png',
-                ),
+              child: Image.asset(
+                image,
               ),
             ),
           ],
