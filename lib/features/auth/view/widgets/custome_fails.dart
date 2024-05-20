@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:healthyfood/core/constant.dart';
+import 'package:healthyfood/core/constants/app_colors.dart';
+import 'package:healthyfood/core/constants/app_images.dart';
+import 'package:healthyfood/core/functions/custome_shadow.dart';
+import 'package:healthyfood/core/shared/custome_text.dart';
 
 class CustomeFails extends StatelessWidget {
   const CustomeFails({super.key});
@@ -12,10 +15,10 @@ class CustomeFails extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
-          BoxShadow(
-            color:const Color(0xff000000).withOpacity(.5),
-            spreadRadius: 1,
-            blurRadius: 20,
+          customeShadow(
+            color: AppColors.black.withOpacity(.5),
+            spread: 1,
+            blur: 20,
             offset: const Offset(1.5, 1.5),
           ),
         ],
@@ -25,28 +28,22 @@ class CustomeFails extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Image.asset('assets/images/dialog.png'),
+          Image.asset(AppImages.dialog),
           const SizedBox(height: 24),
           const Expanded(
             child: Column(
               children: [
-                Text(
-                  'Sorry!',
-                  style: TextStyle(
-                    fontFamily: 'Cabin Medium',
-                    color: kFontColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 32,
-                  ),
+                CustomeText(
+                  text: 'Sorry!',
+                  fontFamily: 'Cabin Medium',
+                  fontWeight: FontWeight.bold,
+                  fontSize: 32,
                 ),
-                Text(
-                  'Incorrect password or email',
-                  style: TextStyle(
-                    fontFamily: 'Cabin Medium',
-                    color: kFontColor,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                  ),
+                CustomeText(
+                  text: 'Incorrect password or email',
+                  fontFamily: 'Cabin Medium',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20,
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthyfood/core/shared/custome_text.dart';
 
 class CustomeButton extends StatelessWidget {
   final String title;
@@ -16,10 +17,10 @@ class CustomeButton extends StatelessWidget {
     required this.title,
     this.onTap,
     this.borderWidth = 0,
-    required this.backgroundColor,
+    this.backgroundColor = const Color(0xff103412),
     this.borderColor = const Color(0xffFFFDFD),
     required this.width,
-    required this.textColor,
+    this.textColor = const Color(0xffFFFDFD),
     this.fontSize = 16,
     this.fontFamily = 'Montaga',
     this.fontWeight = FontWeight.normal,
@@ -39,14 +40,12 @@ class CustomeButton extends StatelessWidget {
             width: borderWidth,
           ),
         ),
-        child: Text(
-          title,
-          style: TextStyle(
-            fontSize: fontSize,
-            fontFamily: fontFamily,
-            fontWeight: fontWeight,
-            color: textColor,
-          ),
+        child: CustomeText(
+          text: title,
+          fontSize: fontSize,
+          fontFamily: fontFamily,
+          fontWeight: fontWeight,
+          color: textColor,
           textAlign: TextAlign.center,
         ),
       ),

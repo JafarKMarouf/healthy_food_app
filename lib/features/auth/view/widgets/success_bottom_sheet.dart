@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:healthyfood/core/constant.dart';
-import 'package:healthyfood/features/auth/view/login_view.dart';
-import 'package:healthyfood/features/auth/view/widgets/custome_button.dart';
-import 'package:get/get.dart' as g;
-import 'package:healthyfood/features/auth/view/widgets/warning_view.dart';
-import 'package:healthyfood/features/splash/view/splash_view.dart';
+import 'package:healthyfood/core/constants/app_colors.dart';
+import 'package:healthyfood/core/constants/app_images.dart';
+import 'package:healthyfood/core/shared/custome_text.dart';
+import 'package:healthyfood/features/auth/controller/successcontroller.dart';
+import 'package:healthyfood/core/shared/custome_button.dart';
+import 'package:get/get.dart';
 
 class SuccessBSheet extends StatelessWidget {
   const SuccessBSheet({super.key});
@@ -20,6 +20,7 @@ class SuccessBSheet extends StatelessWidget {
     ).createShader(
       const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
     );
+    final success = Get.put(SuccessControllerImpl());
 
     return Container(
       padding: EdgeInsets.only(
@@ -30,7 +31,7 @@ class SuccessBSheet extends StatelessWidget {
       height: MediaQuery.of(context).size.height * .4,
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
-        color: kFillFormColor,
+        color: AppColors.fillFormColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
           topRight: Radius.circular(20),
@@ -39,11 +40,9 @@ class SuccessBSheet extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Image.asset(
-            'assets/images/close_bottom_sheet.png',
-          ),
+          Image.asset(AppImages.close),
           const Spacer(flex: 1),
-          Image.asset('assets/images/success.png'),
+          Image.asset(AppImages.success),
           const Spacer(flex: 1),
           Text(
             'Success!',
@@ -55,82 +54,27 @@ class SuccessBSheet extends StatelessWidget {
             ),
           ),
           const Spacer(flex: 1),
-          const Text(
-            'Congratulations! You have been successfully authenticated',
-            style: TextStyle(
-              fontSize: 18,
-              fontFamily: 'Cabin Medium',
-              color: Color(0xffB6B6B6),
-            ),
-            textAlign: TextAlign.center,
+          const CustomeText(
+            text: 'Congratulations! You have been successfully authenticated',
+            fontSize: 18,
+            fontFamily: 'Cabin Medium',
+            color: Color.fromARGB(255, 161, 149, 149),
           ),
           const Spacer(flex: 1),
           CustomeButton(
             title: 'Continue',
             borderWidth: 0,
             backgroundColor: const Color(0xffB6E5B9),
-            borderColor: kBorderColors,
+            borderColor: AppColors.borderColors,
             width: MediaQuery.of(context).size.width * .5,
-            textColor: kFontColor,
+            textColor: AppColors.fontColor,
             onTap: () {
-              g.Get.to(
-                () => const WarningView(
-                  image: 'assets/images/logout.png',
-                  text1: 'Oh no! You’re leaving...',
-                  text2: 'Are you sure?',
-                  buttons: WarningButtons(),
-                ),
-              );
+              success.goToLogout();
             },
           ),
           const Spacer(flex: 3),
         ],
       ),
-    );
-  }
-}
-
-class WarningButtons extends StatelessWidget {
-  const WarningButtons({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomeButton(
-          title: 'No',
-          backgroundColor: const Color(0xffB6E5B9),
-          textColor: kFontColor,
-          width: MediaQuery.of(context).size.width / 2.8,
-          fontSize: 12,
-          fontWeight: FontWeight.normal,
-          onTap: () {
-            g.Get.offAll(
-              () => const SplashView(),
-              transition: g.Transition.fadeIn,
-              duration: kDurationTransition,
-            );
-          },
-        ),
-        SizedBox(
-          height: MediaQuery.of(context).size.height * .02,
-        ),
-        CustomeButton(
-          title: 'Yes,Log Me Out',
-          backgroundColor: const Color(0xffB6E5B9),
-          textColor: kFontColor,
-          width: MediaQuery.of(context).size.width / 2.8,
-          fontSize: 12,
-          fontWeight: FontWeight.normal,
-          onTap: () {
-            g.Get.offAll(
-              () => const LoginView(),
-              transition: g.Transition.rightToLeft,
-              duration: kDurationTransition,
-            );
-          },
-        )
-      ],
     );
   }
 }

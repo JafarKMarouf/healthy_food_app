@@ -1,32 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:healthyfood/core/constant.dart';
-import 'package:healthyfood/core/reusable_widgets/custome_dialog.dart';
-import 'package:healthyfood/features/auth/view/widgets/custome_button.dart';
-import 'package:healthyfood/features/auth/view/widgets/custome_text_form_field.dart';
+import 'package:get/get.dart';
+import 'package:healthyfood/core/constants/app_colors.dart';
+import 'package:healthyfood/core/constants/app_images.dart';
+import 'package:healthyfood/core/constants/constants.dart';
+import 'package:healthyfood/core/functions/show_dialog.dart';
+import 'package:healthyfood/core/shared/custome_button.dart';
+import 'package:healthyfood/core/shared/custome_text_form_field.dart';
+import 'package:healthyfood/features/auth/controller/logincontroller.dart';
 import 'package:healthyfood/features/auth/view/widgets/custome_fails.dart';
+import 'package:healthyfood/features/auth/view/widgets/row_login.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
   @override
   Widget build(BuildContext context) {
-    GlobalKey<FormState> formKey = GlobalKey();
-    AutovalidateMode autoValidate = AutovalidateMode.disabled;
-
-    bool visible = true;
+    LoginControllerImp loginControllerImp = Get.put(LoginControllerImp());
     return Form(
-      key: formKey,
-      autovalidateMode: autoValidate,
+      key: loginControllerImp.formKey,
+      autovalidateMode: loginControllerImp.autoValidate,
       child: Column(
         children: [
           CustomeTextFormField(
             type: TextInputType.emailAddress,
             isSuffix: false,
             hintText: 'Email',
-            suffix: Image.asset('assets/images/edit_icon.png'),
+            suffix: Image.asset(AppImages.edit),
             validate: (value) {
               if (value!.isEmpty) {
-                return "email is require";
+                return "email is required";
               }
               return null;
             },
@@ -38,82 +39,67 @@ class LoginForm extends StatelessWidget {
             hintText: 'Mobile Number',
             validate: (value) {
               if (value!.isEmpty) {
-                return "mobile number is require";
+                return "mobile number is required";
               }
               return null;
             },
           ),
           const SizedBox(height: 16),
-          CustomeTextFormField(
-            validate: (value) {
-              if (value!.isEmpty) {
-                return "password is require";
-              }
-              if (value.length < 8) {
-                return 'password is short';
-              }
-              return null;
-            },
-            type: TextInputType.visiblePassword,
-            isObscure: visible,
-            isSuffix: true,
-            hintText: 'Password',
-            suffix: InkWell(
-              child: Image.asset('assets/images/invisible_icon.png'),
+
+          GetX<LoginControllerImp>(
+            builder: (controller) => CustomeTextFormField(
+              validate: (value) {
+                if (value!.isEmpty) {
+                  return "password is required";
+                }
+                if (value.length < 6) {
+                  return 'password must contain at least 6 character';
+                }
+                return null;
+              },
+              type: TextInputType.visiblePassword,
+              isObscure: controller.visible.value,
+              isSuffix: true,
+              hintText: 'Password',
+              suffix: InkWell(
+                onTap: () {
+                  controller.visible.value = !controller.visible.value;
+                },
+                child: controller.visible.value
+                    ? Image.asset(AppImages.invisible)
+                    : Image.asset(AppImages.visible),
+              ),
             ),
           ),
+          
           const SizedBox(height: 16),
           CustomeButton(
-            textColor: kFontColor,
+            textColor: AppColors.fontColor,
             title: 'Log in',
             width: MediaQuery.of(context).size.width,
             onTap: () {
-              if (formKey.currentState!.validate()) {
+              if (loginControllerImp.validate()) {
+                // here you must call login method and
+                // go to verify otp if login is success or
+                // go show error dialog ontherwise
+
+                loginControllerImp.login();
+
                 customeShowDialog(
                   context,
                   const CustomeFails(),
-                  duration: const Duration(milliseconds: 2500),
+                  duration: kDuration,
                 );
               } else {
-                autoValidate = AutovalidateMode.always;
+                loginControllerImp.autoValidate = AutovalidateMode.always;
               }
             },
-            backgroundColor: kBackgroundColor,
-            borderColor: kBorderButtonColor,
+            backgroundColor: AppColors.backgroundColor,
+            borderColor: AppColors.borderButtonColor,
             borderWidth: 1,
           ),
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  SvgPicture.asset(
-                    'assets/vectors/checkcircle.svg',
-                    height: 16,
-                    width: 16,
-                  ),
-                  const SizedBox(width: 4),
-                  const Text(
-                    'Remember me',
-                    style: TextStyle(
-                      color: kFontColor,
-                      fontSize: 13,
-                      fontFamily: 'Montaga',
-                    ),
-                  ),
-                ],
-              ),
-              const Text(
-                'Forget Password?',
-                style: TextStyle(
-                  color: kFontColor,
-                  fontSize: 14,
-                  fontFamily: 'Cabin',
-                ),
-              ),
-            ],
-          ),
+          const RowLogin(),
         ],
       ),
     );

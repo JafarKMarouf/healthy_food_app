@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:healthyfood/core/constant.dart';
+import 'package:healthyfood/core/constants/app_colors.dart';
 
 class CustomeTextFormField extends StatelessWidget {
   final TextEditingController? customController;
@@ -16,12 +16,12 @@ class CustomeTextFormField extends StatelessWidget {
 
   const CustomeTextFormField({
     super.key,
+    required this.type,
+    required this.isSuffix,
     this.validate,
     this.customController,
     this.hintText,
     this.prefix,
-    required this.type,
-    required this.isSuffix,
     this.suffix,
     this.isObscure = false,
     this.onPressedSuffix,
@@ -33,30 +33,30 @@ class CustomeTextFormField extends StatelessWidget {
     return TextFormField(
       obscureText: isObscure,
       style: const TextStyle(
-        color: kFontColor,
+        color: AppColors.fontColor,
       ),
       controller: customController,
       keyboardType: type,
       onChanged: onChange,
       onFieldSubmitted: onSubmit,
       validator: validate,
-      cursorColor: kFontColor,
+      cursorColor: AppColors.fontColor,
       decoration: InputDecoration(
         filled: true,
-        fillColor: kFillFormColor,
+        fillColor: AppColors.fillFormColor,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 10.5,
         ),
         hintText: hintText,
         hintStyle: const TextStyle(
-          color: kHintTextColor,
+          color: AppColors.hintTextColor,
           fontSize: 16,
           fontFamily: 'Cabin-Medium',
         ),
-        border: buildBorder(kBorderColors),
-        enabledBorder: buildBorder(kBorderColors),
-        focusedBorder: buildBorder(kBorderColors),
+        border: buildBorder(AppColors.borderColors),
+        enabledBorder: buildBorder(AppColors.borderColors),
+        focusedBorder: buildBorder(AppColors.borderColors),
         prefixIcon: prefix,
         suffixIcon: suffix,
       ),
