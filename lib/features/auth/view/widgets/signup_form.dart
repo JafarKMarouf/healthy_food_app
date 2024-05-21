@@ -44,7 +44,7 @@ class SignupForm extends StatelessWidget {
               return null;
             },
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 21),
           CustomeTextFormField(
             type: TextInputType.emailAddress,
             isSuffix: false,
@@ -57,7 +57,7 @@ class SignupForm extends StatelessWidget {
               return null;
             },
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 21),
           CustomeTextFormField(
             type: TextInputType.number,
             isSuffix: true,
@@ -69,7 +69,7 @@ class SignupForm extends StatelessWidget {
               return null;
             },
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 21),
           GetX<SignupControllerImp>(
             builder: (controller) => CustomeTextFormField(
               type: TextInputType.visiblePassword,
@@ -95,7 +95,7 @@ class SignupForm extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 21),
           GetX<SignupControllerImp>(
             builder: (controller) => CustomeTextFormField(
               type: TextInputType.visiblePassword,
@@ -128,7 +128,7 @@ class SignupForm extends StatelessWidget {
             },
             child: const CertificateFile(),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 21),
           CustomeButton(
             title: 'Sign up',
             width: MediaQuery.of(context).size.width,

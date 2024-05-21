@@ -32,7 +32,7 @@ class LoginForm extends StatelessWidget {
               return null;
             },
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 21),
           CustomeTextFormField(
             type: TextInputType.number,
             isSuffix: true,
@@ -44,8 +44,7 @@ class LoginForm extends StatelessWidget {
               return null;
             },
           ),
-          const SizedBox(height: 16),
-
+          const SizedBox(height: 21),
           GetX<LoginControllerImp>(
             builder: (controller) => CustomeTextFormField(
               validate: (value) {
@@ -71,8 +70,7 @@ class LoginForm extends StatelessWidget {
               ),
             ),
           ),
-          
-          const SizedBox(height: 16),
+          const SizedBox(height: 21),
           CustomeButton(
             textColor: AppColors.fontColor,
             title: 'Log in',
