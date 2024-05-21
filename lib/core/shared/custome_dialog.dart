@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:healthyfood/core/constants/app_colors.dart';
+import 'package:healthyfood/core/functions/custome_shadow.dart';
+import 'package:healthyfood/core/shared/custome_text.dart';
 
-class WarningView extends StatelessWidget {
-  const WarningView({
+class DialogView extends StatelessWidget {
+  const DialogView({
     super.key,
     required this.image,
     required this.text1,
     required this.text2,
-    this.text,
+    this.text3,
     required this.buttons,
+    this.tapImage,
   });
   final String image;
   final String text1;
   final String text2;
-  final Widget? text;
+  final Widget? text3;
   final Widget buttons;
+  final void Function()? tapImage;
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +35,10 @@ class WarningView extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 boxShadow: [
-                  BoxShadow(
-                    color: const Color(0xff000000).withOpacity(.5),
-                    spreadRadius: 1,
-                    blurRadius: 20,
+                  customeShadow(
+                    color: AppColors.black.withOpacity(.5),
+                    spread: 1,
+                    blur: 20,
                     offset: const Offset(1.5, 1.5),
                   ),
                 ],
@@ -44,23 +49,17 @@ class WarningView extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Text(
-                        text1,
-                        style: const TextStyle(
-                          fontFamily: 'Montagu Slab',
-                          color: Colors.black,
-                          fontSize: 20,
-                        ),
+                      CustomeText(
+                        text: text1,
+                        fontFamily: 'Montagu Slab',
+                        color: Colors.black,
+                        fontSize: 20,
                       ),
-                      Text(
-                        text2,
-                        style: const TextStyle(
-                          fontFamily: 'Montaga',
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
+                      CustomeText(
+                        text: text2,
+                        color: Colors.black,
                       ),
-                      text == null ? const SizedBox() : text!
+                      text3 == null ? const SizedBox() : text3!
                     ],
                   ),
                   buttons
@@ -70,8 +69,9 @@ class WarningView extends StatelessWidget {
             Positioned(
               top: MediaQuery.of(context).size.height * -.03,
               right: MediaQuery.of(context).size.width / 3,
-              child: Image.asset(
-                image,
+              child: InkWell(
+                onTap: tapImage,
+                child: Image.asset(image),
               ),
             ),
           ],
