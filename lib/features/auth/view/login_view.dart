@@ -5,6 +5,7 @@ import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/features/auth/controller/logincontroller.dart';
 import 'package:healthyfood/features/auth/view/widgets/auth_logo.dart';
 import 'package:healthyfood/features/auth/view/widgets/login_form.dart';
+import 'package:healthyfood/features/auth/view/widgets/row_login.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -23,9 +24,13 @@ class LoginView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 34),
               child: Column(
                 children: [
+                  const LoginForm(),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * .45,
-                    child: const LoginForm(),
+                    height: MediaQuery.of(context).size.height * .005,
+                  ),
+                  const RowLogin(),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * .16,
                   ),
                   CustomeButton(
                     textColor: AppColors.fontColor,
