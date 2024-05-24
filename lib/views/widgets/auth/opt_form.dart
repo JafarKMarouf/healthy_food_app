@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:get/get.dart';
-import 'package:healthyfood/features/auth/controller/verifycontroller.dart';
+import 'package:healthyfood/controllers/auth/verifycontroller.dart';
 
 class OtpForm extends StatelessWidget {
   const OtpForm({super.key});

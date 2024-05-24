@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
-import 'package:healthyfood/features/auth/controller/logincontroller.dart';
-import 'package:healthyfood/features/auth/view/widgets/auth_logo.dart';
-import 'package:healthyfood/features/auth/view/widgets/login_form.dart';
-import 'package:healthyfood/features/auth/view/widgets/row_login.dart';
+import 'package:healthyfood/controllers/auth/logincontroller.dart';
+import 'package:healthyfood/views/widgets/auth/auth_logo.dart';
+import 'package:healthyfood/views/widgets/auth/login_form.dart';
+import 'package:healthyfood/views/widgets/auth/row_login.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});

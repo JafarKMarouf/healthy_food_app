@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/constants.dart';
-import 'package:healthyfood/features/auth/view/warning_view.dart';
+import 'package:healthyfood/views/screens/warning_view.dart';
 
-import '../view/widgets/success_bottom_sheet.dart';
+import '../../views/widgets/auth/success_bottom_sheet.dart';
 
 abstract class VerifyController extends GetxController {
   void verify();
@@ -21,12 +21,10 @@ class VerifyControllerImp extends VerifyController {
   GlobalKey<FormState> formKey = GlobalKey();
   Rx<AutovalidateMode> autoValidate = AutovalidateMode.disabled.obs;
   @override
-  void resend() {
-  }
+  void resend() {}
 
   @override
-  void verify() {
-  }
+  void verify() {}
 
   @override
   bool validate() {
@@ -39,11 +37,10 @@ class VerifyControllerImp extends VerifyController {
 
   @override
   void showBSheet() {
-
     Get.bottomSheet(
       const SuccessBSheet(),
-      enterBottomSheetDuration: kDuration,
-      exitBottomSheetDuration: kDuration,
+      enterBottomSheetDuration: AppConstant.kduration,
+      exitBottomSheetDuration: AppConstant.kduration,
       enableDrag: true,
       isDismissible: false,
       barrierColor: Colors.black.withOpacity(.48),
