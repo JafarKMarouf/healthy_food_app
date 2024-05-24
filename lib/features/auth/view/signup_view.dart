@@ -12,7 +12,7 @@ class SignupView extends StatelessWidget {
       body: Container(
         height: MediaQuery.of(context).size.height * 1.07,
         padding: const EdgeInsets.only(
-          top: 45,
+          top: 35,
           right: 34,
           left: 34,
         ),
@@ -27,6 +27,9 @@ class SignupView extends StatelessWidget {
             ),
             const SignupForm(),
             const RowSignup(),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * .02,
+            ),
           ],
         ),
       ),

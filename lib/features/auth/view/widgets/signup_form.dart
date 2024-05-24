@@ -32,7 +32,7 @@ class SignupForm extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: MediaQuery.of(context).size.height * .04),
+          SizedBox(height: MediaQuery.of(context).size.height * .03),
           CustomeTextFormField(
             type: TextInputType.text,
             isSuffix: false,
@@ -44,7 +44,7 @@ class SignupForm extends StatelessWidget {
               return null;
             },
           ),
-          const SizedBox(height: 21),
+          const SizedBox(height: 18),
           CustomeTextFormField(
             type: TextInputType.emailAddress,
             isSuffix: false,
@@ -57,7 +57,7 @@ class SignupForm extends StatelessWidget {
               return null;
             },
           ),
-          const SizedBox(height: 21),
+          const SizedBox(height: 18),
           CustomeTextFormField(
             type: TextInputType.number,
             isSuffix: true,
@@ -69,7 +69,7 @@ class SignupForm extends StatelessWidget {
               return null;
             },
           ),
-          const SizedBox(height: 21),
+          const SizedBox(height: 18),
           GetX<SignupControllerImp>(
             builder: (controller) => CustomeTextFormField(
               type: TextInputType.visiblePassword,
@@ -82,7 +82,10 @@ class SignupForm extends StatelessWidget {
                 },
                 child: controller.visible1.value
                     ? Image.asset(AppImages.invisible)
-                    : Image.asset(AppImages.visible),
+                    : const Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: AppColors.hintTextColor,
+                      ),
               ),
               validate: (value) {
                 if (value!.isEmpty) {
@@ -95,7 +98,7 @@ class SignupForm extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 21),
+          const SizedBox(height: 18),
           GetX<SignupControllerImp>(
             builder: (controller) => CustomeTextFormField(
               type: TextInputType.visiblePassword,
@@ -108,7 +111,10 @@ class SignupForm extends StatelessWidget {
                 },
                 child: controller.visible2.value
                     ? Image.asset(AppImages.invisible)
-                    : Image.asset(AppImages.visible),
+                    : const Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: AppColors.hintTextColor,
+                      ),
               ),
               validate: (value) {
                 if (value!.isEmpty) {
@@ -121,14 +127,14 @@ class SignupForm extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 12),
+          const SizedBox(height: 18),
           GestureDetector(
             onTap: () {
               signupController.uploadCertificate();
             },
             child: const CertificateFile(),
           ),
-          const SizedBox(height: 21),
+          const SizedBox(height: 16),
           CustomeButton(
             title: 'Sign up',
             width: MediaQuery.of(context).size.width,
