@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/shared/custome_text.dart';
-import 'package:healthyfood/features/auth/controller/verifycontroller.dart';
-import 'package:healthyfood/features/auth/view/widgets/opt_form.dart';
-import 'package:healthyfood/features/auth/view/widgets/verification_bar.dart';
+import 'package:healthyfood/controllers/auth/verifycontroller.dart';
+import 'package:healthyfood/views/widgets/auth/opt_form.dart';
+import 'package:healthyfood/views/widgets/auth/verification_bar.dart';
 
 class VerificationView extends StatelessWidget {
   const VerificationView({super.key});

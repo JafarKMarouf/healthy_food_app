@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
 
-const Duration kDuration = Duration(milliseconds: 1500);
-const Transition kTransition = Transition.fadeIn;
+class AppConstant {
+  static const Duration kduration = Duration(milliseconds: 900);
+  static const Transition ktransition = Transition.fadeIn;
+}

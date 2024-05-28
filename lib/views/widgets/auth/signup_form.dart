@@ -3,10 +3,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
-import 'package:healthyfood/features/auth/controller/signupcontroller.dart';
+import 'package:healthyfood/controllers/auth/signupcontroller.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/core/shared/custome_text_form_field.dart';
-import 'package:healthyfood/features/auth/view/widgets/certificate_file.dart';
+import 'package:healthyfood/views/widgets/auth/certificate_file.dart';
 
 class SignupForm extends StatelessWidget {
   const SignupForm({super.key});

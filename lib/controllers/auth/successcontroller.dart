@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:healthyfood/features/auth/view/logout_view.dart';
+import 'package:healthyfood/views/screens/logout_view.dart';
 
 abstract class SuccessController extends GetxController {
   void goToLogout();

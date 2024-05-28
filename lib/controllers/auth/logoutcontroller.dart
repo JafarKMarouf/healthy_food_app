@@ -2,7 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/constants.dart';
-import 'package:healthyfood/features/auth/view/login_view.dart';
+import 'package:healthyfood/views/screens/login_view.dart';
 
 abstract class LogoutController extends GetxController {
   void logout();
@@ -15,7 +15,7 @@ class LogoutControllerImpl extends LogoutController {
     Get.offAll(
       () => const LoginView(),
       transition: Transition.rightToLeft,
-      duration: kDuration,
+      duration: AppConstant.kduration,
     );
   }
 

@@ -3,8 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/constants.dart';
-import 'package:healthyfood/features/auth/view/login_view.dart';
-import 'package:healthyfood/features/auth/view/verification_view.dart';
+import 'package:healthyfood/views/screens/login_view.dart';
+import 'package:healthyfood/views/screens/verification_view.dart';
 
 abstract class SignupController extends GetxController {
   void signup();
@@ -30,8 +30,8 @@ class SignupControllerImp extends SignupController {
   void goToLogin() {
     Get.offAll(
       () => const LoginView(),
-      duration: kDuration,
-      transition: kTransition,
+      duration: AppConstant.kduration,
+      transition: AppConstant.ktransition,
     );
   }
 
@@ -48,8 +48,8 @@ class SignupControllerImp extends SignupController {
   void goToVerify() {
     Get.to(
       () => const VerificationView(),
-      duration: kDuration,
-      transition: kTransition,
+      duration: AppConstant.kduration,
+      transition: AppConstant.ktransition,
     );
   }
 

@@ -6,8 +6,8 @@ import 'package:healthyfood/core/constants/constants.dart';
 import 'package:healthyfood/core/functions/show_dialog.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/core/shared/custome_text_form_field.dart';
-import 'package:healthyfood/features/auth/controller/logincontroller.dart';
-import 'package:healthyfood/features/auth/view/widgets/custome_fails.dart';
+import 'package:healthyfood/controllers/auth/logincontroller.dart';
+import 'package:healthyfood/views/widgets/auth/custome_fails.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -90,7 +90,7 @@ class LoginForm extends StatelessWidget {
                   customeShowDialog(
                     context,
                     const CustomeFails(),
-                    duration: kDuration,
+                    duration: AppConstant.kduration,
                   );
                 } else {
                   loginControllerImp.autoValidate = AutovalidateMode.always;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/constants.dart';
-import 'package:healthyfood/features/auth/view/login_view.dart';
+import 'package:healthyfood/views/screens/login_view.dart';
 
 class SplashController extends GetxController
     implements GetSingleTickerProviderStateMixin {
@@ -33,11 +33,11 @@ class SplashController extends GetxController
 
   void navigateToLogin() {
     Future.delayed(
-      kDuration,
+      AppConstant.kduration,
       () {
         Get.offAll(
           () => const LoginView(),
-          transition: Transition.fadeIn,
+          transition: AppConstant.ktransition,
         );
       },
     );

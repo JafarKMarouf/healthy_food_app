@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:healthyfood/features/splash/view/splash_view.dart';
+import 'package:healthyfood/views/screens/splash_view.dart';
 
 void main() {
   runApp(const HealthyFood());

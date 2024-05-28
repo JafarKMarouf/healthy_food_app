@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:healthyfood/features/auth/view/widgets/auth_logo.dart';
-import 'package:healthyfood/features/auth/view/widgets/row_signup.dart';
-import 'package:healthyfood/features/auth/view/widgets/signup_form.dart';
+import 'package:healthyfood/views/widgets/auth/auth_logo.dart';
+import 'package:healthyfood/views/widgets/auth/row_signup.dart';
+import 'package:healthyfood/views/widgets/auth/signup_form.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});

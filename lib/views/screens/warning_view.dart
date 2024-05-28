@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/core/shared/custome_text.dart';
-import 'package:healthyfood/features/auth/controller/errorcontroller.dart';
+import 'package:healthyfood/controllers/auth/errorcontroller.dart';
 import 'package:healthyfood/core/shared/custome_dialog.dart';
 
 class WarningView extends StatelessWidget {

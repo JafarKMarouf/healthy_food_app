@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/shared/custome_text.dart';
-import 'package:healthyfood/features/auth/controller/signupcontroller.dart';
+import 'package:healthyfood/controllers/auth/signupcontroller.dart';
 
 class RowSignup extends StatelessWidget {
   const RowSignup({super.key});
