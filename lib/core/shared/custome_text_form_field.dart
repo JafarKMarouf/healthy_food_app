@@ -34,6 +34,8 @@ class CustomeTextFormField extends StatelessWidget {
       obscureText: isObscure,
       style: const TextStyle(
         color: AppColors.fontColor,
+        fontSize: 16,
+        fontFamily: 'Cabin Medium',
       ),
       controller: textEditingController,
       keyboardType: type,
@@ -46,7 +48,7 @@ class CustomeTextFormField extends StatelessWidget {
         fillColor: AppColors.fillFormColor,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 20,
-          vertical: 10.5,
+          vertical: 9.5,
         ),
         hintText: hintText,
         hintStyle: const TextStyle(

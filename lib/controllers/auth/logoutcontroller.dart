@@ -1,8 +1,6 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 
 import 'package:get/get.dart';
-import 'package:healthyfood/core/constants/constants.dart';
-import 'package:healthyfood/views/screens/login_view.dart';
 
 abstract class LogoutController extends GetxController {
   void logout();
@@ -12,15 +10,11 @@ abstract class LogoutController extends GetxController {
 class LogoutControllerImpl extends LogoutController {
   @override
   void goToLogin() {
-    Get.offAll(
-      () => const LoginView(),
-      transition: Transition.rightToLeft,
-      duration: AppConstant.kduration,
-    );
+    Get.offAllNamed('login');
   }
 
   @override
   void logout() {
-    print('================Log out============');
+    log('================Log out============');
   }
 }

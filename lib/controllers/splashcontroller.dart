@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/constants.dart';
-import 'package:healthyfood/views/screens/login_view.dart';
 
 class SplashController extends GetxController
     implements GetSingleTickerProviderStateMixin {
@@ -21,9 +20,7 @@ class SplashController extends GetxController
   }
 
   void initSlidingAnimation() {
-    const duration = Duration(
-      milliseconds: 10,
-    );
+    const duration = Duration(milliseconds: 1000);
     _animationController.value = AnimationController(
       vsync: this,
       duration: duration,
@@ -35,10 +32,7 @@ class SplashController extends GetxController
     Future.delayed(
       AppConstant.kduration,
       () {
-        Get.offAll(
-          () => const LoginView(),
-          transition: AppConstant.ktransition,
-        );
+        Get.offAllNamed('login');
       },
     );
   }

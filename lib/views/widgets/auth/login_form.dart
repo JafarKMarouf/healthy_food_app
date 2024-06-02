@@ -8,101 +8,103 @@ import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/core/shared/custome_text_form_field.dart';
 import 'package:healthyfood/controllers/auth/logincontroller.dart';
 import 'package:healthyfood/views/widgets/auth/custome_fails.dart';
+import 'package:healthyfood/views/widgets/auth/row_login.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
   @override
   Widget build(BuildContext context) {
-    LoginControllerImp loginControllerImp = Get.put(LoginControllerImp());
-    return SizedBox(
-      // height: MediaQuery.of(context).size.height * .45,
-      child: Form(
-        key: loginControllerImp.formKey,
-        autovalidateMode: loginControllerImp.autoValidate,
-        child: Column(
-          children: [
-            CustomeTextFormField(
-              type: TextInputType.emailAddress,
-              isSuffix: false,
-              hintText: 'Email',
-              suffix: Image.asset(AppImages.edit),
+    LoginControllerImp loginControllerImp = Get.find();
+    return Form(
+      key: loginControllerImp.formKey,
+      autovalidateMode: loginControllerImp.autoValidate,
+      child: Column(
+        children: [
+          CustomeTextFormField(
+            type: TextInputType.emailAddress,
+            isSuffix: false,
+            hintText: 'Email',
+            suffix: Image.asset(AppImages.edit),
+            validate: (value) {
+              if (value!.isEmpty) {
+                return "email is required";
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 18),
+          CustomeTextFormField(
+            type: TextInputType.number,
+            isSuffix: true,
+            hintText: 'Mobile Number',
+            validate: (value) {
+              if (value!.isEmpty) {
+                return "mobile number is required";
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 18),
+          GetX<LoginControllerImp>(
+            builder: (controller) => CustomeTextFormField(
               validate: (value) {
                 if (value!.isEmpty) {
-                  return "email is required";
+                  return "password is required";
+                }
+                if (value.length < 6) {
+                  return 'password must contain at least 6 character';
                 }
                 return null;
               },
-            ),
-            const SizedBox(height: 18),
-            CustomeTextFormField(
-              type: TextInputType.number,
+              type: TextInputType.visiblePassword,
+              isObscure: controller.visible.value,
               isSuffix: true,
-              hintText: 'Mobile Number',
-              validate: (value) {
-                if (value!.isEmpty) {
-                  return "mobile number is required";
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 18),
-            GetX<LoginControllerImp>(
-              builder: (controller) => CustomeTextFormField(
-                validate: (value) {
-                  if (value!.isEmpty) {
-                    return "password is required";
-                  }
-                  if (value.length < 6) {
-                    return 'password must contain at least 6 character';
-                  }
-                  return null;
+              hintText: 'Password',
+              suffix: InkWell(
+                onTap: () {
+                  controller.visible.value = !controller.visible.value;
                 },
-                type: TextInputType.visiblePassword,
-                isObscure: controller.visible.value,
-                isSuffix: true,
-                hintText: 'Password',
-                suffix: InkWell(
-                  onTap: () {
-                    controller.visible.value = !controller.visible.value;
-                  },
-                  child: controller.visible.value
-                      ? Image.asset(AppImages.invisible)
-                      : const Icon(
-                          Icons.remove_red_eye_outlined,
-                          color: AppColors.hintTextColor,
-                        ),
-                ),
+                child: controller.visible.value
+                    ? Image.asset(
+                        AppImages.invisible,
+                        color: AppColors.hintTextColor,
+                      )
+                    : const Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: AppColors.hintTextColor,
+                      ),
               ),
             ),
-            const SizedBox(height: 18),
-            CustomeButton(
-              textColor: AppColors.fontColor,
-              title: 'Log in',
-              width: MediaQuery.of(context).size.width,
-              onTap: () {
-                if (loginControllerImp.validate()) {
-                  // here you must call login method and
-                  // go to verify otp if login is success or
-                  // go show error dialog ontherwise
+          ),
+          const SizedBox(height: 18),
+          CustomeButton(
+            textColor: AppColors.fontColor,
+            title: 'Log in',
+            width: MediaQuery.of(context).size.width,
+            onTap: () {
+              if (loginControllerImp.validate()) {
+                // here you must call login method and
+                // go to verify otp if login is success or
+                // go show error dialog ontherwise
 
-                  loginControllerImp.login();
+                loginControllerImp.login();
 
-                  customeShowDialog(
-                    context,
-                    const CustomeFails(),
-                    duration: AppConstant.kduration,
-                  );
-                } else {
-                  loginControllerImp.autoValidate = AutovalidateMode.always;
-                }
-              },
-              backgroundColor: AppColors.backgroundColor,
-              borderColor: AppColors.borderButtonColor,
-              borderWidth: 1,
-            ),
-            const SizedBox(height: 12),
-          ],
-        ),
+                customeShowDialog(
+                  context,
+                  const CustomeFails(),
+                  duration: AppConstant.kduration,
+                );
+              } else {
+                loginControllerImp.autoValidate = AutovalidateMode.always;
+              }
+            },
+            backgroundColor: AppColors.backgroundColor,
+            borderColor: AppColors.borderButtonColor,
+            borderWidth: 1,
+          ),
+          const SizedBox(height: 8),
+          const RowLogin(),
+        ],
       ),
     );
   }
