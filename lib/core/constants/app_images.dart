@@ -12,6 +12,8 @@ class AppImages {
   static const String close = '$routepng/close_bottom_sheet.png';
   static const String error = '$routepng/error.png';
   static const String dialog = '$routepng/dialog.png';
+  static const String camerapng = '$routepng/camera.png';
+  static const String bordercamerapng = '$routepng/bordercamera.png';
 
   static const String bordercamera = '$routesvg/bordercamera.svg';
   static const String camera = '$routesvg/camera.svg';

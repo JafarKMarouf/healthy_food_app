@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 
 import 'package:get/get.dart';
 
@@ -9,7 +9,7 @@ abstract class WarningController extends GetxController {
 class WarningControllerImpl extends WarningController {
   @override
   void tryAgain() {
-    print('=====back to verifiction==');
+    log('=====back to verifiction==');
     Get.back();
   }
 }

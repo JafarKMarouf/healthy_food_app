@@ -45,9 +45,12 @@ flutter:
       fonts:
         - asset: assets/fonts/Montaga-Regular.ttf
 
-    - family: Cabin
+    - family: Cabin Regular
       fonts:
         - asset: assets/fonts/Cabin-Regular.ttf
+
+    - family: Cabin Medium
+      fonts:
         - asset: assets/fonts/Cabin-Medium.ttf
 
     - family: Montagu Slab

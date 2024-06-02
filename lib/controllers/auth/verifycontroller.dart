@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/constants.dart';
-import 'package:healthyfood/views/screens/warning_view.dart';
 
 import '../../views/widgets/auth/success_bottom_sheet.dart';
 
@@ -49,8 +48,6 @@ class VerifyControllerImp extends VerifyController {
 
   @override
   void showWarning() {
-    Get.to(
-      () => const WarningView(),
-    );
+    Get.toNamed('warning');
   }
 }

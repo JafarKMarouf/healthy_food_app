@@ -5,47 +5,42 @@ import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/controllers/auth/logincontroller.dart';
 import 'package:healthyfood/views/widgets/auth/auth_logo.dart';
 import 'package:healthyfood/views/widgets/auth/login_form.dart';
-import 'package:healthyfood/views/widgets/auth/row_login.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
   @override
   Widget build(BuildContext context) {
-    LoginControllerImp loginController = Get.put(LoginControllerImp());
+    LoginControllerImp loginControllerImp = Get.put(LoginControllerImp());
+
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height * 1.08,
-        padding: const EdgeInsets.only(top: 45),
+        height: MediaQuery.of(context).size.height * .96,
+        padding: const EdgeInsets.only(
+          top: 35,
+          right: 34,
+          left: 34,
+        ),
         child: ListView(
-          padding: EdgeInsets.zero,
           children: [
-            const AuthLogo(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 34),
-              child: Column(
-                children: [
-                  const LoginForm(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * .005,
-                  ),
-                  const RowLogin(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * .16,
-                  ),
-                  CustomeButton(
-                    textColor: AppColors.fontColor,
-                    title: 'Create new account',
-                    width: MediaQuery.of(context).size.width,
-                    onTap: () {
-                      loginController.goToSignup();
-                    },
-                    backgroundColor: AppColors.fillFormColor,
-                    borderColor: AppColors.borderColors,
-                    borderWidth: 2,
-                  ),
-                ],
-              ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 1.2 / 4,
+              child: const AuthLogo(),
             ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 2 / 4,
+              child: const LoginForm(),
+            ),
+            CustomeButton(
+              textColor: AppColors.fontColor,
+              title: 'Create new account',
+              width: MediaQuery.of(context).size.width,
+              onTap: () {
+                loginControllerImp.goToSignup();
+              },
+              backgroundColor: AppColors.fillFormColor,
+              borderColor: AppColors.borderColors,
+              borderWidth: 2,
+            )
           ],
         ),
       ),

@@ -1,9 +1,7 @@
-// ignore_for_file: avoid_print
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:healthyfood/core/constants/constants.dart';
-import 'package:healthyfood/views/screens/signup_view.dart';
 
 abstract class LoginController extends GetxController {
   void login();
@@ -20,11 +18,7 @@ class LoginControllerImp extends LoginController {
 
   @override
   void goToSignup() {
-    Get.offAll(
-      () => const SignupView(),
-      duration: AppConstant.kduration,
-      transition:AppConstant.ktransition,
-    );
+    Get.offNamed('signup');
   }
 
   @override
@@ -38,6 +32,6 @@ class LoginControllerImp extends LoginController {
 
   @override
   void login() {
-    print('=====================Signed In Sucessfully=====================');
+    log('=====================Signed In Sucessfully=====================');
   }
 }
