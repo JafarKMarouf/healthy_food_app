@@ -1,6 +1,11 @@
+// ignore_for_file: unnecessary_null_comparison
+
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/controllers/auth/signupcontroller.dart';
@@ -15,7 +20,6 @@ class SignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SignupControllerImp signupController = Get.put(SignupControllerImp());
-
     return Form(
       key: signupController.formKey,
       autovalidateMode: signupController.autoValidate.value,
@@ -25,8 +29,17 @@ class SignupForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             GestureDetector(
-              onTap: () {
-                signupController.uploadImage();
+              onTap: () async {
+                var selectedImage = await signupController.uploadImage();
+                // if (!selectedImage) {
+                // validateField();
+                // Get.snackbar('image','$selectedImage');
+                // ScaffoldMessenger.of(context).showSnackBar(snackBar)
+                // }
+                Get.snackbar('image', '$selectedImage');
+
+                // log(selectedImage);
+                // print(selectedImage);
               },
               child: Stack(
                 alignment: Alignment.center,

@@ -1,7 +1,11 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 abstract class SignupController extends GetxController {
   void signup();
@@ -12,7 +16,7 @@ abstract class SignupController extends GetxController {
 
   bool validate();
 
-  void uploadImage();
+  Future uploadImage();
 
   void uploadCertificate();
 }
@@ -48,8 +52,16 @@ class SignupControllerImp extends SignupController {
   }
 
   @override
-  void uploadImage() {
-    log('=====================Upload Image=====================');
+  Future uploadImage() async {
+    File? selectedImage;
+    selectedImage != null
+        ? Image.file(selectedImage)
+        : const Text('Please Selectd Imaage');
+    final returnedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+    selectedImage = File(returnedImage!.path);
+    return selectedImage;
+    // update();
   }
 
   @override
