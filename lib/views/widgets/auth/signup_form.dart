@@ -1,11 +1,9 @@
 // ignore_for_file: unnecessary_null_comparison
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/controllers/auth/signupcontroller.dart';
@@ -20,6 +18,7 @@ class SignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SignupControllerImp signupController = Get.put(SignupControllerImp());
+    dynamic selectedImage;
     return Form(
       key: signupController.formKey,
       autovalidateMode: signupController.autoValidate.value,
@@ -28,27 +27,61 @@ class SignupForm extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            GestureDetector(
-              onTap: () async {
-                var selectedImage = await signupController.uploadImage();
-                // if (!selectedImage) {
-                // validateField();
-                // Get.snackbar('image','$selectedImage');
-                // ScaffoldMessenger.of(context).showSnackBar(snackBar)
-                // }
-                Get.snackbar('image', '$selectedImage');
+            GetBuilder<SignupControllerImp>(builder: (context) {
+              return GestureDetector(
+                onTap: () {
+                  Get.defaultDialog(
+                    title: '',
+                    middleText: '',
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () async {
+                          selectedImage = await signupController.uploadImage(
+                              uploadType: 'gallary');
+                          Get.back();
 
-                // log(selectedImage);
-                // print(selectedImage);
-              },
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  SvgPicture.asset(AppImages.camera),
-                  SvgPicture.asset(AppImages.bordercamera),
-                ],
-              ),
-            ),
+                          Get.snackbar('image', '$selectedImage');
+                        },
+                        child: const Icon(
+                          Icons.photo,
+                        ),
+                      ),
+                      const SizedBox(height: 32),
+                      ElevatedButton(
+                        onPressed: () async {
+                          selectedImage = await signupController.uploadImage(
+                              uploadType: 'camera');
+                          Get.back();
+                          Get.snackbar('image', '$selectedImage');
+                        },
+                        child: const Icon(
+                          Icons.camera_alt_outlined,
+                        ),
+                      ),
+                    ],
+
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //   children: [
+
+                    //   ],
+                    // ),
+                  );
+                  // selectedImage = await signupController.uploadImage();
+
+                  // Get.snackbar('image', '$selectedImage');
+                },
+                child: selectedImage == null
+                    ? Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SvgPicture.asset(AppImages.camera),
+                          SvgPicture.asset(AppImages.bordercamera),
+                        ],
+                      )
+                    : Image.asset(selectedImage),
+              );
+            }),
             const SizedBox(height: 10),
             Column(
               children: [

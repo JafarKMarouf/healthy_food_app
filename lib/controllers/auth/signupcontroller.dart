@@ -16,7 +16,7 @@ abstract class SignupController extends GetxController {
 
   bool validate();
 
-  Future uploadImage();
+  Future uploadImage({required String uploadType});
 
   void uploadCertificate();
 }
@@ -52,16 +52,17 @@ class SignupControllerImp extends SignupController {
   }
 
   @override
-  Future uploadImage() async {
+  Future uploadImage({required String uploadType}) async {
     File? selectedImage;
-    selectedImage != null
-        ? Image.file(selectedImage)
-        : const Text('Please Selectd Imaage');
-    final returnedImage =
-        await ImagePicker().pickImage(source: ImageSource.camera);
-    selectedImage = File(returnedImage!.path);
+  final returnedImage = uploadType == 'camera'
+        ? await ImagePicker().pickImage(source: ImageSource.camera)
+        : await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    selectedImage = returnedImage != null
+        ? File(returnedImage.path)
+        : File('No Image selected ');
+
     return selectedImage;
-    // update();
   }
 
   @override

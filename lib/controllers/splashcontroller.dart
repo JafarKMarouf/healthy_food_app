@@ -5,13 +5,8 @@ import 'package:healthyfood/core/constants/constants.dart';
 
 class SplashController extends GetxController
     implements GetSingleTickerProviderStateMixin {
-  final Rxn<AnimationController> _animationController =
-      Rxn<AnimationController>();
-
-  AnimationController? get animationController => _animationController.value;
-
   late Animation<Offset> slidingAnimation;
-
+  late AnimationController _animationController;
   @override
   void onInit() {
     super.onInit();
@@ -20,12 +15,14 @@ class SplashController extends GetxController
   }
 
   void initSlidingAnimation() {
-    const duration = Duration(milliseconds: 1000);
-    _animationController.value = AnimationController(
-      vsync: this,
-      duration: duration,
-    );
-    _animationController.value?.forward();
+    _animationController =
+        AnimationController(vsync: this, duration: AppConstant.kduration);
+
+    slidingAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(2, 4),
+    ).animate(_animationController);
+    _animationController.forward();
   }
 
   void navigateToLogin() {
@@ -39,7 +36,7 @@ class SplashController extends GetxController
 
   @override
   void onClose() {
-    _animationController.value?.dispose();
+    _animationController.dispose();
     super.onClose();
   }
 

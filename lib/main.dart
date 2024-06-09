@@ -20,14 +20,17 @@ class HealthyFood extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Montaga',
       ),
-      home: const SplashView(),
-      // ignore: prefer_const_literals_to_create_immutables
-      routes: {
-        'login': (p0) => const LoginView(),
-        'signup': (p1) => const SignupView(),
-        'verify': (p2) => const VerificationView(),
-        'warning': (p2) => const WarningView(),
-      },
+      initialRoute: '/',
+      getPages: [
+        GetPage(name: '/', page: () => const SplashView()),
+        GetPage(
+          name: '/login',
+          page: () => const LoginView(),
+        ),
+        GetPage(name: '/signup', page: () => const SignupView()),
+        GetPage(name: '/verify', page: () => const VerificationView()),
+        GetPage(name: '/warning', page: () => const WarningView()),
+      ],
     );
   }
 }
