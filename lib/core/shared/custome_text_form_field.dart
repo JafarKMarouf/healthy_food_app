@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 
 class CustomeTextFormField extends StatelessWidget {
-  final TextEditingController? textEditingController;
+  final TextEditingController? controller;
   final String? hintText;
   final TextInputType type;
   final bool isSuffix;
@@ -19,7 +19,7 @@ class CustomeTextFormField extends StatelessWidget {
     required this.type,
     required this.isSuffix,
     this.validate,
-    this.textEditingController,
+    this.controller,
     this.hintText,
     this.prefix,
     this.suffix,
@@ -37,7 +37,7 @@ class CustomeTextFormField extends StatelessWidget {
         fontSize: 16,
         fontFamily: 'Cabin Medium',
       ),
-      controller: textEditingController,
+      controller: controller,
       keyboardType: type,
       onChanged: onChange,
       onFieldSubmitted: onSubmit,

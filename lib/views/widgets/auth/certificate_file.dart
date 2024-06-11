@@ -5,7 +5,6 @@ import 'package:healthyfood/core/constants/app_images.dart';
 class CertificateFile extends StatelessWidget {
   const CertificateFile({
     super.key,
-    
   });
 
   @override

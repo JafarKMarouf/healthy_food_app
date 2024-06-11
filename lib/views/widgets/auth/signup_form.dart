@@ -17,207 +17,247 @@ class SignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SignupControllerImp signupController = Get.put(SignupControllerImp());
-    dynamic selectedImage;
-    dynamic selectedFile;
+
     return Form(
       key: signupController.formKey,
       autovalidateMode: signupController.autoValidate.value,
-      child: SizedBox(
-        height: MediaQuery.of(context).size.height * 4 / 4,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GetBuilder<SignupControllerImp>(
-              builder: (context) {
-                return selectedImage == null
-                    ? GestureDetector(
-                        onTap: () {
-                          Get.defaultDialog(
-                            title: 'Select an Image via',
-                            middleText: '',
-                            actions: [
-                              ElevatedButton(
-                                onPressed: () async {
-                                  selectedImage =
-                                      await signupController.uploadImage(
-                                    uploadType: 'gallary',
-                                  );
-                                  Get.back();
-                                  // Get.snackbar('image', '$selectedImage');
-                                },
-                                child: const Icon(
-                                  Icons.photo,
-                                ),
-                              ),
-                              const SizedBox(height: 32),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  selectedImage = await signupController
-                                      .uploadImage(uploadType: 'camera');
-                                  Get.back();
-                                  log('$selectedImage');
-                                  Get.snackbar('image', '$selectedImage');
-                                },
-                                child: const Icon(Icons.camera_alt_outlined),
-                              ),
-                            ],
-                          );
-                        },
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            SvgPicture.asset(AppImages.camera),
-                            SvgPicture.asset(AppImages.bordercamera),
-                          ],
-                        ))
-                    : CircleAvatar(
-                        radius: 45,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(120),
-                          child: Image.file(selectedImage),
-                        ),
-                      );
-              },
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          TextFormField(
+            readOnly: true,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
             ),
-            const SizedBox(height: 10),
-            Column(
-              children: [
-                CustomeTextFormField(
-                  // textEditingController: ,
-                  type: TextInputType.text,
-                  isSuffix: false,
-                  hintText: 'Username',
-                  validate: (value) {
-                    if (value!.isEmpty) {
-                      return "user is required";
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 14),
-                CustomeTextFormField(
-                  type: TextInputType.emailAddress,
-                  isSuffix: false,
-                  hintText: 'Email',
-                  suffix: Image.asset(AppImages.edit),
-                  validate: (value) {
-                    if (value!.isEmpty) {
-                      return "email is required";
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 14),
-                CustomeTextFormField(
-                  type: TextInputType.number,
-                  isSuffix: true,
-                  hintText: 'Mobile Number',
-                  validate: (value) {
-                    if (value!.isEmpty) {
-                      return "mobile number is required";
-                    }
-                    return null;
-                  },
-                ),
-                const SizedBox(height: 14),
-                GetX<SignupControllerImp>(
-                  builder: (controller) => CustomeTextFormField(
-                    type: TextInputType.visiblePassword,
-                    isObscure: signupController.visible1.value,
-                    isSuffix: true,
-                    hintText: 'Password',
-                    suffix: InkWell(
-                      onTap: () {
-                        controller.visible1.value = !controller.visible1.value;
-                      },
-                      child: controller.visible1.value
-                          ? Image.asset(AppImages.invisible)
-                          : const Icon(
-                              Icons.remove_red_eye_outlined,
-                              color: AppColors.hintTextColor,
-                            ),
-                    ),
-                    validate: (value) {
-                      if (value!.isEmpty) {
-                        return "password is required";
-                      }
-                      if (value.length < 6) {
-                        return 'password must contain at least 6 character';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                const SizedBox(height: 14),
-                GetX<SignupControllerImp>(
-                  builder: (controller) => CustomeTextFormField(
-                    type: TextInputType.visiblePassword,
-                    isObscure: signupController.visible2.value,
-                    isSuffix: true,
-                    hintText: 'Confirm Password',
-                    suffix: InkWell(
-                      onTap: () {
-                        controller.visible2.value = !controller.visible2.value;
-                      },
-                      child: controller.visible2.value
-                          ? Image.asset(AppImages.invisible)
-                          : const Icon(
-                              Icons.remove_red_eye_outlined,
-                              color: AppColors.hintTextColor,
-                            ),
-                    ),
-                    validate: (value) {
-                      if (value!.isEmpty) {
-                        return "password is required";
-                      }
-                      if (value.length < 6) {
-                        return 'password must contain at least 6 character';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-              ],
-            ),
-            GetBuilder<SignupControllerImp>(
-              builder: (context) {
-                return selectedFile == null
-                    ? GestureDetector(
-                        onTap: () async {
-                          selectedFile =
-                              await signupController.uploadCertificate();
-                          log('$selectedFile');
-                          Get.snackbar('upload file', '$selectedFile');
-                        },
-                        child: const CertificateFile(),
-                      )
-                    : const Text('selected File');
-              },
-            ),
-            const SizedBox(height: 16),
-            CustomeButton(
-              title: 'Sign up',
-              width: MediaQuery.of(context).size.width,
-              onTap: () {
-                // here you must call signup method and
-                // go to verify otp if signup is success or
-                // go show error dialog otherwise
-                signupController.signup();
-                if (signupController.validate()) {
-                  signupController.goToVerify();
-                } else {
-                  signupController.autoValidate.value = AutovalidateMode.always;
+            style: const TextStyle(fontSize: 0),
+            keyboardType: TextInputType.none,
+            controller: signupController.imageController,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return 'please select an image';
+              }
+              return null;
+            },
+          ),
+          CustomeSelectImage(signupController: signupController),
+          const SizedBox(height: 14),
+          CustomeTextFormField(
+            controller: signupController.usernameController,
+            type: TextInputType.text,
+            isSuffix: false,
+            hintText: 'Username',
+            validate: (value) {
+              if (value!.isEmpty) {
+                return "user is required";
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 14),
+          CustomeTextFormField(
+            controller: signupController.emailController,
+            type: TextInputType.emailAddress,
+            isSuffix: false,
+            hintText: 'Email',
+            suffix: Image.asset(AppImages.edit),
+            validate: (value) {
+              if (value!.isEmpty) {
+                return "email is required";
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 14),
+          CustomeTextFormField(
+            controller: signupController.mobileController,
+            type: TextInputType.number,
+            isSuffix: true,
+            hintText: 'Mobile Number',
+            validate: (value) {
+              if (value!.isEmpty) {
+                return "mobile number is required";
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 14),
+          GetX<SignupControllerImp>(
+            builder: (controller) => CustomeTextFormField(
+              controller: controller.passwordController,
+              type: TextInputType.visiblePassword,
+              isObscure: signupController.visible1.value,
+              isSuffix: true,
+              hintText: 'Password',
+              suffix: InkWell(
+                onTap: () {
+                  controller.visible1.value = !controller.visible1.value;
+                },
+                child: controller.visible1.value
+                    ? Image.asset(AppImages.invisible)
+                    : const Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: AppColors.hintTextColor,
+                      ),
+              ),
+              validate: (value) {
+                if (value!.isEmpty) {
+                  return "password is required";
                 }
+                if (value.length < 6) {
+                  return 'password must contain at least 6 character';
+                }
+                return null;
               },
-              textColor: AppColors.fontColor,
-              backgroundColor: AppColors.backgroundColor,
-              borderColor: AppColors.borderButtonColor,
-              borderWidth: 1,
             ),
-            const RowSignup(),
-            const SizedBox(height: 8),
+          ),
+          const SizedBox(height: 14),
+          GetX<SignupControllerImp>(
+            builder: (controller) => CustomeTextFormField(
+              controller: controller.confirmPasswordController,
+              type: TextInputType.visiblePassword,
+              isObscure: signupController.visible2.value,
+              isSuffix: true,
+              hintText: 'Confirm Password',
+              suffix: InkWell(
+                onTap: () {
+                  controller.visible2.value = !controller.visible2.value;
+                },
+                child: controller.visible2.value
+                    ? Image.asset(AppImages.invisible)
+                    : const Icon(
+                        Icons.remove_red_eye_outlined,
+                        color: AppColors.hintTextColor,
+                      ),
+              ),
+              validate: (value) {
+                if (value!.isEmpty) {
+                  return "password is required";
+                }
+                if (value.length < 6) {
+                  return 'password must contain at least 6 character';
+                }
+                return null;
+              },
+            ),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextFormField(
+                readOnly: true,
+                style: const TextStyle(fontSize: 0),
+                decoration: const InputDecoration(
+                  border: InputBorder.none,
+                  hintText: '',
+                ),
+                keyboardType: TextInputType.none,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'please select a file';
+                  }
+                  return null;
+                },
+                controller: signupController.fileController!,
+              ),
+              GestureDetector(
+                onTap: () async {
+                  signupController.fileController!.text =
+                      await signupController.uploadCertificate() ?? '';
+                },
+                child: const CertificateFile(),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          CustomeButton(
+            title: 'Sign up',
+            width: MediaQuery.of(context).size.width,
+            onTap: () {
+              // here you must call signup method and
+              // go to verify otp if signup is success or
+              // go show error dialog otherwise
+              if (signupController.validate()) {
+                signupController.signup();
+                signupController.goToVerify();
+                log('selectedImage : ${signupController.imageController!.text}');
+                log('selectedFile : ${signupController.fileController!.text}');
+              } else {
+                signupController.autoValidate.value = AutovalidateMode.always;
+              }
+            },
+            textColor: AppColors.fontColor,
+            backgroundColor: AppColors.backgroundColor,
+            borderColor: AppColors.borderButtonColor,
+            borderWidth: 1,
+          ),
+          const RowSignup(),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+}
+
+class CustomeSelectImage extends StatelessWidget {
+  const CustomeSelectImage({
+    super.key,
+    required this.signupController,
+  });
+
+  final SignupControllerImp signupController;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Get.defaultDialog(
+          title: 'Select an Image via',
+          barrierDismissible: false,
+          middleText: '',
+          // backgroundColor: AppColors.borderButtonColor,
+          actions: [
+            ElevatedButton(
+              onPressed: () async {
+                signupController.imageController!.text =
+                    await signupController.uploadImage(uploadType: 'gallery') ??
+                        '';
+                Get.back();
+                Get.snackbar(
+                  'image',
+                  signupController.imageController!.text,
+                );
+              },
+              child: const Icon(
+                Icons.photo,
+              ),
+            ),
+            const SizedBox(height: 32),
+            ElevatedButton(
+              onPressed: () async {
+                signupController.imageController!.text =
+                    await signupController.uploadImage(uploadType: 'camera') ??
+                        '';
+                Get.back();
+                Get.snackbar(
+                  'image',
+                  signupController.imageController!.text,
+                );
+                Get.snackbar(
+                  'image',
+                  signupController.imageController!.text,
+                );
+              },
+              child: const Icon(Icons.camera_alt_outlined),
+            ),
           ],
-        ),
+        );
+      },
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SvgPicture.asset(AppImages.camera),
+          SvgPicture.asset(AppImages.bordercamera),
+        ],
       ),
     );
   }

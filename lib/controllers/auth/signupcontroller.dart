@@ -26,6 +26,15 @@ class SignupControllerImp extends SignupController {
   GlobalKey<FormState> formKey = GlobalKey();
   Rx<AutovalidateMode> autoValidate = AutovalidateMode.disabled.obs;
 
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+  final TextEditingController? imageController = TextEditingController();
+  final TextEditingController? fileController = TextEditingController();
+
   @override
   void goToLogin() {
     Get.offNamed('login');
@@ -52,11 +61,15 @@ class SignupControllerImp extends SignupController {
 
   @override
   Future uploadImage({required String uploadType}) async {
-    final returnedImage = uploadType == 'camera'
+    var returnedImage = uploadType == 'camera'
         ? await ImagePicker().pickImage(source: ImageSource.camera)
         : await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    var xreturnedImage =
+        returnedImage != null ? File(returnedImage.path).toString() : null;
+
     update();
-    return returnedImage != null ? File(returnedImage.path) : null;
+    return xreturnedImage;
   }
 
   @override
@@ -66,7 +79,8 @@ class SignupControllerImp extends SignupController {
       type: FileType.custom,
       allowedExtensions: ['pdf', 'doc'],
     );
+
     update();
-    return filePickerResult;
+    return filePickerResult == null ? filePickerResult!.files.single.path : '';
   }
 }

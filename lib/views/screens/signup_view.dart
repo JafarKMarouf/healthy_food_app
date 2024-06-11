@@ -9,9 +9,8 @@ class SignupView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        height: MediaQuery.of(context).size.height,
+        height: MediaQuery.of(context).size.height * 1.5,
         padding: const EdgeInsets.only(
-          // top: 35,
           right: 34,
           left: 34,
         ),

@@ -23,10 +23,7 @@ class HealthyFood extends StatelessWidget {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const SplashView()),
-        GetPage(
-          name: '/login',
-          page: () => const LoginView(),
-        ),
+        GetPage(name: '/login', page: () => const LoginView()),
         GetPage(name: '/signup', page: () => const SignupView()),
         GetPage(name: '/verify', page: () => const VerificationView()),
         GetPage(name: '/warning', page: () => const WarningView()),
