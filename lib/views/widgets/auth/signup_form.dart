@@ -1,9 +1,8 @@
-// ignore_for_file: unnecessary_null_comparison
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/controllers/auth/signupcontroller.dart';
@@ -19,6 +18,7 @@ class SignupForm extends StatelessWidget {
   Widget build(BuildContext context) {
     SignupControllerImp signupController = Get.put(SignupControllerImp());
     dynamic selectedImage;
+    dynamic selectedFile;
     return Form(
       key: signupController.formKey,
       autovalidateMode: signupController.autoValidate.value,
@@ -27,65 +27,63 @@ class SignupForm extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            GetBuilder<SignupControllerImp>(builder: (context) {
-              return GestureDetector(
-                onTap: () {
-                  Get.defaultDialog(
-                    title: '',
-                    middleText: '',
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () async {
-                          selectedImage = await signupController.uploadImage(
-                              uploadType: 'gallary');
-                          Get.back();
-
-                          Get.snackbar('image', '$selectedImage');
+            GetBuilder<SignupControllerImp>(
+              builder: (context) {
+                return selectedImage == null
+                    ? GestureDetector(
+                        onTap: () {
+                          Get.defaultDialog(
+                            title: 'Select an Image via',
+                            middleText: '',
+                            actions: [
+                              ElevatedButton(
+                                onPressed: () async {
+                                  selectedImage =
+                                      await signupController.uploadImage(
+                                    uploadType: 'gallary',
+                                  );
+                                  Get.back();
+                                  // Get.snackbar('image', '$selectedImage');
+                                },
+                                child: const Icon(
+                                  Icons.photo,
+                                ),
+                              ),
+                              const SizedBox(height: 32),
+                              ElevatedButton(
+                                onPressed: () async {
+                                  selectedImage = await signupController
+                                      .uploadImage(uploadType: 'camera');
+                                  Get.back();
+                                  log('$selectedImage');
+                                  Get.snackbar('image', '$selectedImage');
+                                },
+                                child: const Icon(Icons.camera_alt_outlined),
+                              ),
+                            ],
+                          );
                         },
-                        child: const Icon(
-                          Icons.photo,
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            SvgPicture.asset(AppImages.camera),
+                            SvgPicture.asset(AppImages.bordercamera),
+                          ],
+                        ))
+                    : CircleAvatar(
+                        radius: 45,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(120),
+                          child: Image.file(selectedImage),
                         ),
-                      ),
-                      const SizedBox(height: 32),
-                      ElevatedButton(
-                        onPressed: () async {
-                          selectedImage = await signupController.uploadImage(
-                              uploadType: 'camera');
-                          Get.back();
-                          Get.snackbar('image', '$selectedImage');
-                        },
-                        child: const Icon(
-                          Icons.camera_alt_outlined,
-                        ),
-                      ),
-                    ],
-
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    //   children: [
-
-                    //   ],
-                    // ),
-                  );
-                  // selectedImage = await signupController.uploadImage();
-
-                  // Get.snackbar('image', '$selectedImage');
-                },
-                child: selectedImage == null
-                    ? Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          SvgPicture.asset(AppImages.camera),
-                          SvgPicture.asset(AppImages.bordercamera),
-                        ],
-                      )
-                    : Image.asset(selectedImage),
-              );
-            }),
+                      );
+              },
+            ),
             const SizedBox(height: 10),
             Column(
               children: [
                 CustomeTextFormField(
+                  // textEditingController: ,
                   type: TextInputType.text,
                   isSuffix: false,
                   hintText: 'Username',
@@ -181,11 +179,20 @@ class SignupForm extends StatelessWidget {
                 ),
               ],
             ),
-            GestureDetector(
-              onTap: () {
-                signupController.uploadCertificate();
+            GetBuilder<SignupControllerImp>(
+              builder: (context) {
+                return selectedFile == null
+                    ? GestureDetector(
+                        onTap: () async {
+                          selectedFile =
+                              await signupController.uploadCertificate();
+                          log('$selectedFile');
+                          Get.snackbar('upload file', '$selectedFile');
+                        },
+                        child: const CertificateFile(),
+                      )
+                    : const Text('selected File');
               },
-              child: const CertificateFile(),
             ),
             const SizedBox(height: 16),
             CustomeButton(
@@ -194,7 +201,7 @@ class SignupForm extends StatelessWidget {
               onTap: () {
                 // here you must call signup method and
                 // go to verify otp if signup is success or
-                // go show error dialog ontherwise
+                // go show error dialog otherwise
                 signupController.signup();
                 if (signupController.validate()) {
                   signupController.goToVerify();
