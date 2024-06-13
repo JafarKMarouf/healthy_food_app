@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/core/shared/custome_text.dart';
 
@@ -24,10 +25,15 @@ class RowLogin extends StatelessWidget {
             )
           ],
         ),
-        const CustomeText(
-          text: 'Forget Password?',
-          fontSize: 14,
-          fontFamily: 'Cabin',
+        InkWell(
+          onTap: (){
+            Get.toNamed('forget_password');
+          },
+          child: const CustomeText(
+            text: 'Forget Password?',
+            fontSize: 14,
+            fontFamily: 'Cabin',
+          ),
         ),
       ],
     );

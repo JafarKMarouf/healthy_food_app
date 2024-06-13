@@ -6,13 +6,13 @@ class AuthLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      // clipBehavior: Clip.hardEdge,
-      child: Image.asset(
-        AppImages.logo,
-        // fit: BoxFit.fill,
-        // fit: BoxFit.fitHeight,
-        fit: BoxFit.fitWidth,
+    return Hero(
+      tag: 'logo${AppImages.logo}',
+      child: ClipRRect(
+        child: Image.asset(
+          AppImages.logo,
+          fit: BoxFit.fitWidth,
+        ),
       ),
     );
   }

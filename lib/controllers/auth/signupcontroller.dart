@@ -56,7 +56,7 @@ class SignupControllerImp extends SignupController {
 
   @override
   void signup() {
-    log('=====================Signed Up Sucessfully=====================');
+    log('=====================Signed Up Successfully=====================');
   }
 
   @override
@@ -65,11 +65,11 @@ class SignupControllerImp extends SignupController {
         ? await ImagePicker().pickImage(source: ImageSource.camera)
         : await ImagePicker().pickImage(source: ImageSource.gallery);
 
-    var xreturnedImage =
+    var xReturnedImage =
         returnedImage != null ? File(returnedImage.path).toString() : null;
 
     update();
-    return xreturnedImage;
+    return xReturnedImage;
   }
 
   @override
@@ -81,6 +81,6 @@ class SignupControllerImp extends SignupController {
     );
 
     update();
-    return filePickerResult == null ? filePickerResult!.files.single.path : '';
+    return filePickerResult != null ? filePickerResult.files.single.path : '';
   }
 }

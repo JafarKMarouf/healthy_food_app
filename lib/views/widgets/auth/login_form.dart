@@ -85,10 +85,8 @@ class LoginForm extends StatelessWidget {
               if (loginControllerImp.validate()) {
                 // here you must call login method and
                 // go to verify otp if login is success or
-                // go show error dialog ontherwise
-
+                // go show error dialog otherwise
                 loginControllerImp.login();
-
                 customeShowDialog(
                   context,
                   const CustomeFails(),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:healthyfood/views/screens/forget_password_view.dart';
 import 'package:healthyfood/views/screens/login_view.dart';
 import 'package:healthyfood/views/screens/signup_view.dart';
 import 'package:healthyfood/views/screens/splash_view.dart';
@@ -27,6 +28,8 @@ class HealthyFood extends StatelessWidget {
         GetPage(name: '/signup', page: () => const SignupView()),
         GetPage(name: '/verify', page: () => const VerificationView()),
         GetPage(name: '/warning', page: () => const WarningView()),
+        GetPage(
+            name: '/forget_password', page: () => const ForgetPasswordView()),
       ],
     );
   }

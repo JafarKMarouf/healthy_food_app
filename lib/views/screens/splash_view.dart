@@ -11,15 +11,17 @@ class SplashView extends StatelessWidget {
     SplashController controller = Get.put(SplashController());
     return Scaffold(
       body: AnimatedBuilder(
-        animation: controller,
-        builder: (BuildContext context, Widget? child) {
-          return Center(
+        animation: controller.animationController!,
+        builder: (context, child) => SlideTransition(
+          position: controller.offsetAnimation!,
+          child: Hero(
+            tag: 'logo${AppImages.logo}',
             child: Image.asset(
               AppImages.logo,
-              // fit: BoxFit.cover,
+              fit: BoxFit.cover,
             ),
-          );
-        },
+          ),
+        ),
       ),
     );
   }

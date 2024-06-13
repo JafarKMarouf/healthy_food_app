@@ -1,33 +1,45 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/constants.dart';
 
 class SplashController extends GetxController
-    implements GetSingleTickerProviderStateMixin {
-  late Animation<Offset> slidingAnimation;
-  late AnimationController _animationController;
+    with GetSingleTickerProviderStateMixin {
+  final Rxn<AnimationController> _animationController =
+      Rxn<AnimationController>();
+  AnimationController? get animationController => _animationController.value;
+
+  final Rxn<Animation<Offset>> _offsetAnimation = Rxn<Animation<Offset>>();
+  Animation<Offset>? get offsetAnimation => _offsetAnimation.value;
+
   @override
   void onInit() {
     super.onInit();
-    initSlidingAnimation();
+    slidingAnimation();
     navigateToLogin();
   }
 
-  void initSlidingAnimation() {
-    _animationController =
-        AnimationController(vsync: this, duration: AppConstant.kduration);
+  void slidingAnimation() {
+    const duration = AppConstant.kduration;
+    _animationController.value = AnimationController(
+      vsync: this,
+      duration: duration,
+    );
+    _offsetAnimation.value = Tween<Offset>(
+      begin: const Offset(0, 2),
+      end: const Offset(0, 1),
+    )
+        .chain(CurveTween(curve: Curves.easeIn))
+        .animate(_animationController.value!)
+      ..addListener(() {
+        update();
+      });
 
-    slidingAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(2, 4),
-    ).animate(_animationController);
-    _animationController.forward();
+    _animationController.value?.forward();
   }
 
   void navigateToLogin() {
     Future.delayed(
-      AppConstant.kduration,
+      const Duration(milliseconds: 1500),
       () {
         Get.offAllNamed('login');
       },
@@ -36,15 +48,7 @@ class SplashController extends GetxController
 
   @override
   void onClose() {
-    _animationController.dispose();
     super.onClose();
+    _animationController.value?.dispose();
   }
-
-  @override
-  Ticker createTicker(TickerCallback onTick) {
-    return Ticker((elapsed) {});
-  }
-
-  @override
-  void didChangeDependencies(BuildContext context) {}
 }
