@@ -14,8 +14,11 @@ abstract class LoginController extends GetxController
 
 class LoginControllerImp extends LoginController {
   RxBool visible = true.obs;
-  GlobalKey<FormState> formKey = GlobalKey();
-  AutovalidateMode autoValidate = AutovalidateMode.disabled;
+  Rx<GlobalKey<FormState>> formKey = GlobalKey<FormState>().obs;
+  Rx<AutovalidateMode> autoValidate = AutovalidateMode.disabled.obs;
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
 
   @override
   void goToSignup() {
@@ -24,7 +27,7 @@ class LoginControllerImp extends LoginController {
 
   @override
   bool validate() {
-    if (formKey.currentState!.validate()) {
+    if (formKey.value.currentState!.validate()) {
       return true;
     } else {
       return false;

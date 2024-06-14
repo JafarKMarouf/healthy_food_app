@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:healthyfood/core/constants/app_durations.dart';
+import 'package:healthyfood/core/constants/app_transitions.dart';
 import 'package:healthyfood/views/screens/forget_password_view.dart';
 import 'package:healthyfood/views/screens/login_view.dart';
 import 'package:healthyfood/views/screens/signup_view.dart';
@@ -23,11 +25,36 @@ class HealthyFood extends StatelessWidget {
       ),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => const SplashView()),
-        GetPage(name: '/login', page: () => const LoginView()),
-        GetPage(name: '/signup', page: () => const SignupView()),
-        GetPage(name: '/verify', page: () => const VerificationView()),
-        GetPage(name: '/warning', page: () => const WarningView()),
+        GetPage(
+          name: '/',
+          page: () => const SplashView(),
+          transition: AppTransitions.primaryTransition,
+          transitionDuration: AppDuration.transitionDuration,
+        ),
+        GetPage(
+          name: '/login',
+          page: () => const LoginView(),
+          transitionDuration: AppDuration.transitionDuration,
+          transition: AppTransitions.primaryTransition,
+        ),
+        GetPage(
+          name: '/signup',
+          page: () => const SignupView(),
+          transitionDuration: AppDuration.transitionDuration,
+          transition: AppTransitions.primaryTransition,
+        ),
+        GetPage(
+          name: '/verify',
+          page: () => const VerificationView(),
+          curve: Curves.easeIn,
+          transitionDuration: AppDuration.transitionDuration,
+          transition: AppTransitions.primaryTransition,
+        ),
+        GetPage(
+          name: '/warning',
+          page: () => const WarningView(),
+          transitionDuration: AppDuration.dialogDuration,
+        ),
         GetPage(
             name: '/forget_password', page: () => const ForgetPasswordView()),
       ],

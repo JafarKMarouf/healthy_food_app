@@ -19,7 +19,6 @@ class CustomeSelectImage extends StatelessWidget {
       onTap: () {
         Get.defaultDialog(
           title: 'Select an Image via',
-          barrierDismissible: false,
           middleText: '',
           actions: [
             ElevatedButton(

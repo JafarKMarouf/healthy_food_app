@@ -9,7 +9,7 @@ abstract class WarningController extends GetxController {
 class WarningControllerImpl extends WarningController {
   @override
   void tryAgain() {
-    log('=====back to verifiction==');
+    log('=====back to verifiction===');
     Get.back();
   }
 }

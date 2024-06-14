@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:healthyfood/core/constants/constants.dart';
+import 'package:healthyfood/core/constants/app_durations.dart';
 
 class SplashController extends GetxController
     with GetSingleTickerProviderStateMixin {
+  
   final Rxn<AnimationController> _animationController =
       Rxn<AnimationController>();
   AnimationController? get animationController => _animationController.value;
@@ -19,7 +20,7 @@ class SplashController extends GetxController
   }
 
   void slidingAnimation() {
-    const duration = AppConstant.kduration;
+    const duration = AppDuration.splashDuration;
     _animationController.value = AnimationController(
       vsync: this,
       duration: duration,

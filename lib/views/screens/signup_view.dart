@@ -24,6 +24,7 @@ class SignupView extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 4 / 5,
               child: const SignupForm(),
             ),
+            // const SizedBox(height: 14),
           ],
         ),
       ),
