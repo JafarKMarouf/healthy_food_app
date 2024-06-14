@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:healthyfood/controllers/auth/signupcontroller.dart';
+import 'package:healthyfood/controllers/auth/signup_controller.dart';
 
 import '../../../core/constants/app_images.dart';
 

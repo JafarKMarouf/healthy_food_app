@@ -6,7 +6,7 @@ import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/core/functions/show_dialog.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/core/shared/custome_text_form_field.dart';
-import 'package:healthyfood/controllers/auth/logincontroller.dart';
+import 'package:healthyfood/controllers/auth/login_controller.dart';
 import 'package:healthyfood/views/widgets/auth/custome_fails.dart';
 import 'package:healthyfood/views/widgets/auth/row_login.dart';
 
@@ -89,12 +89,11 @@ class LoginForm extends StatelessWidget {
                   // go to verify otp if login is success or
                   // go show error dialog otherwise
                   loginControllerImp.login();
-                customeShowDialog(
-                  context,
-                  const CustomeFails(),
-                  duration: AppDuration.dialogDuration,
-                  
-                );
+                  customeShowDialog(
+                    context,
+                    const CustomeFails(),
+                    duration: AppDuration.dialogDuration,
+                  );
                 } else {
                   loginControllerImp.autoValidate.value =
                       AutovalidateMode.always;

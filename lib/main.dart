@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
+import 'package:healthyfood/core/constants/app_routes_page.dart';
 import 'package:healthyfood/core/constants/app_transitions.dart';
 import 'package:healthyfood/views/screens/forget_password_view.dart';
 import 'package:healthyfood/views/screens/login_view.dart';
@@ -23,40 +24,43 @@ class HealthyFood extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Montaga',
       ),
-      initialRoute: '/',
       getPages: [
         GetPage(
-          name: '/',
+          name: AppRoutesPage.splash,
           page: () => const SplashView(),
           transition: AppTransitions.primaryTransition,
           transitionDuration: AppDuration.transitionDuration,
         ),
         GetPage(
-          name: '/login',
+          name: AppRoutesPage.login,
           page: () => const LoginView(),
           transitionDuration: AppDuration.transitionDuration,
           transition: AppTransitions.primaryTransition,
         ),
         GetPage(
-          name: '/signup',
+          name: AppRoutesPage.signup,
           page: () => const SignupView(),
           transitionDuration: AppDuration.transitionDuration,
           transition: AppTransitions.primaryTransition,
         ),
         GetPage(
-          name: '/verify',
+          name: AppRoutesPage.verify,
           page: () => const VerificationView(),
           curve: Curves.easeIn,
           transitionDuration: AppDuration.transitionDuration,
           transition: AppTransitions.primaryTransition,
         ),
         GetPage(
-          name: '/warning',
+          name: AppRoutesPage.warning,
           page: () => const WarningView(),
           transitionDuration: AppDuration.dialogDuration,
         ),
         GetPage(
-            name: '/forget_password', page: () => const ForgetPasswordView()),
+          name: AppRoutesPage.forgetpassword,
+          page: () => const ForgetPasswordView(),
+          transitionDuration: AppDuration.transitionDuration,
+          transition: AppTransitions.primaryTransition,
+        ),
       ],
     );
   }

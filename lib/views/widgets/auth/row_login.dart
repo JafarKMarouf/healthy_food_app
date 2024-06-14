@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:healthyfood/controllers/auth/login_controller.dart';
+
 import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/core/shared/custome_text.dart';
 
@@ -9,6 +11,7 @@ class RowLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LoginControllerImp controller = Get.find();
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -26,8 +29,8 @@ class RowLogin extends StatelessWidget {
           ],
         ),
         InkWell(
-          onTap: (){
-            Get.toNamed('forget_password');
+          onTap: () {
+            controller.goToResetPassword();
           },
           child: const CustomeText(
             text: 'Forget Password?',

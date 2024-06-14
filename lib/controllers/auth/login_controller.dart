@@ -2,13 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:healthyfood/core/constants/app_routes_page.dart';
 
 abstract class LoginController extends GetxController
     with GetSingleTickerProviderStateMixin {
   void login();
 
   void goToSignup();
-
+  void goToResetPassword();
   bool validate();
 }
 
@@ -22,7 +23,12 @@ class LoginControllerImp extends LoginController {
 
   @override
   void goToSignup() {
-    Get.offNamed('signup');
+    Get.offNamed(AppRoutesPage.signup);
+  }
+
+  @override
+  void goToResetPassword() {
+    Get.toNamed(AppRoutesPage.forgetpassword);
   }
 
   @override

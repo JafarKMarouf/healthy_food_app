@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
-import 'package:healthyfood/controllers/auth/logoutcontroller.dart';
+import 'package:healthyfood/controllers/auth/logout_controller.dart';
 import 'package:healthyfood/views/widgets/auth/custome_dialog.dart';
 import 'package:healthyfood/views/widgets/auth/logout_buttons.dart';
 

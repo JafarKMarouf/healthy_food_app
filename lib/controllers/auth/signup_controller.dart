@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:healthyfood/core/constants/app_routes_page.dart';
 import 'package:image_picker/image_picker.dart';
 
 abstract class SignupController extends GetxController {
@@ -37,7 +38,7 @@ class SignupControllerImp extends SignupController {
 
   @override
   void goToLogin() {
-    Get.offNamed('login');
+    Get.offNamed(AppRoutesPage.login);
   }
 
   @override
@@ -51,7 +52,7 @@ class SignupControllerImp extends SignupController {
 
   @override
   void goToVerify() {
-    Get.toNamed('verify');
+    Get.toNamed(AppRoutesPage.verify);
   }
 
   @override

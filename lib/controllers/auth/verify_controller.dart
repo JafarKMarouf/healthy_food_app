@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
+import 'package:healthyfood/core/constants/app_routes_page.dart';
 
 import '../../views/widgets/auth/success_bottom_sheet.dart';
 
@@ -49,6 +50,6 @@ class VerifyControllerImp extends VerifyController {
 
   @override
   void showWarning() {
-    Get.toNamed('warning');
+    Get.toNamed(AppRoutesPage.warning);
   }
 }

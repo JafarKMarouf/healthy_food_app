@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
-import 'package:healthyfood/controllers/auth/logoutcontroller.dart';
+import 'package:healthyfood/controllers/auth/logout_controller.dart';
 
 class LogoutButtons extends StatelessWidget {
   const LogoutButtons({super.key});

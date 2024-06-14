@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
-import 'package:healthyfood/controllers/auth/signupcontroller.dart';
+import 'package:healthyfood/controllers/auth/signup_controller.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/core/shared/custome_text_form_field.dart';
 import 'package:healthyfood/views/widgets/auth/certificate_file.dart';

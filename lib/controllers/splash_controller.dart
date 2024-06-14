@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
+import 'package:healthyfood/core/constants/app_routes_page.dart';
 
 class SplashController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  
   final Rxn<AnimationController> _animationController =
       Rxn<AnimationController>();
   AnimationController? get animationController => _animationController.value;
@@ -42,7 +42,7 @@ class SplashController extends GetxController
     Future.delayed(
       const Duration(milliseconds: 1500),
       () {
-        Get.offAllNamed('login');
+        Get.offAllNamed(AppRoutesPage.login);
       },
     );
   }
