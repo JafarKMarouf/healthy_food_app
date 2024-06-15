@@ -28,7 +28,7 @@ class OtpForm extends StatelessWidget {
           fontWeight: FontWeight.w900,
           color: Color(0xff757575),
         ),
-        keyboardType: TextInputType.text,
+        keyboardType: TextInputType.number,
         onSubmit: (otp) {
           if (!verifyController.validate() || otp.length < 6) {
             verifyController.autoValidate.value = AutovalidateMode.always;

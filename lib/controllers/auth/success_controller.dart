@@ -8,6 +8,6 @@ abstract class SuccessController extends GetxController {
 class SuccessControllerImpl extends SuccessController {
   @override
   void goToLogout() {
-    Get.offAllNamed(AppRoutesPage.login);
+    Get.offAllNamed(AppRoutesPage.logout);
   }
 }

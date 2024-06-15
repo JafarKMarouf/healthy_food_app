@@ -182,13 +182,13 @@ class SignupForm extends StatelessWidget {
                   // here you must call signup method and
                   // go to verify otp if signup is success or
                   // go show error dialog otherwise
-                  if (signupController.validate()) {
-                    signupController.signup();
-                    signupController.goToVerify();
-                  } else {
-                    signupController.autoValidate.value =
-                        AutovalidateMode.always;
-                  }
+                  // if (signupController.validate()) {
+                  //   signupController.signup();
+                  signupController.goToVerify();
+                  // } else {
+                  //   signupController.autoValidate.value =
+                  //       AutovalidateMode.always;
+                  // }
                 },
                 textColor: AppColors.fontColor,
                 backgroundColor: AppColors.backgroundColor,

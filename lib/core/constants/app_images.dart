@@ -17,5 +17,6 @@ class AppImages {
 
   static const String bordercamera = '$routesvg/bordercamera.svg';
   static const String camera = '$routesvg/camera.svg';
-  static const String checkcircle = '$routesvg/checkcircle.svg';
+  static const String checkrememberme = '$routesvg/check_remember_me.svg';
+  static const String uncheckrememberme = '$routesvg/uncheck_remember_me.svg';
 }

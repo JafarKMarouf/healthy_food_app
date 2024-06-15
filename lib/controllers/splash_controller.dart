@@ -16,6 +16,7 @@ class SplashController extends GetxController
   void onInit() {
     super.onInit();
     slidingAnimation();
+    
     navigateToLogin();
   }
 

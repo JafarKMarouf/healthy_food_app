@@ -15,18 +15,31 @@ class RowLogin extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            SvgPicture.asset(
-              AppImages.checkcircle,
-              height: 16,
-              width: 16,
-            ),
-            const SizedBox(width: 4),
-            const CustomeText(
-              text: 'Remember me',
-            )
-          ],
+        InkWell(
+          onTap: () {
+            controller.rememberMe();
+          },
+          child: Row(
+            children: [
+              GetX<LoginControllerImp>(
+                builder: (rememberMe) {
+                  return controller.isRememberMe.value
+                      ? SvgPicture.asset(
+                          AppImages.checkrememberme,
+                          height: 16,
+                          width: 16,
+                        )
+                      : SvgPicture.asset(
+                          AppImages.uncheckrememberme,
+                          height: 16,
+                          width: 16,
+                        );
+                },
+              ),
+              const SizedBox(width: 4),
+              const CustomeText(text: 'Remember me'),
+            ],
+          ),
         ),
         InkWell(
           onTap: () {
