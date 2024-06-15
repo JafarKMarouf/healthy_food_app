@@ -67,7 +67,7 @@ class SignupControllerImp extends SignupController {
         : await ImagePicker().pickImage(source: ImageSource.gallery);
 
     var xReturnedImage =
-        returnedImage != null ? File(returnedImage.path).toString() : null;
+        returnedImage != null ? File(returnedImage.name).toString() : null;
 
     update();
     return xReturnedImage;
@@ -82,6 +82,6 @@ class SignupControllerImp extends SignupController {
     );
 
     update();
-    return filePickerResult != null ? filePickerResult.files.single.path : '';
+    return filePickerResult != null ? filePickerResult.files.single.name : '';
   }
 }

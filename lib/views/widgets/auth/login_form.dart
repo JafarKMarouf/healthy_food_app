@@ -4,6 +4,7 @@ import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/core/functions/show_dialog.dart';
+import 'package:healthyfood/core/functions/validator.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/core/shared/custome_text_form_field.dart';
 import 'package:healthyfood/controllers/auth/login_controller.dart';
@@ -27,12 +28,12 @@ class LoginForm extends StatelessWidget {
               isSuffix: false,
               hintText: 'Email',
               suffix: Image.asset(AppImages.edit),
-              validate: (value) {
-                if (value!.isEmpty) {
-                  return "email is required";
-                }
-                return null;
-              },
+              validate: (value) => validate(
+                value: value!,
+                min: 5,
+                max: 30,
+                type: 'email',
+              ),
             ),
             const SizedBox(height: 14),
             CustomeTextFormField(
@@ -40,25 +41,22 @@ class LoginForm extends StatelessWidget {
               type: TextInputType.number,
               isSuffix: true,
               hintText: 'Mobile Number',
-              validate: (value) {
-                if (value!.isEmpty) {
-                  return "mobile number is required";
-                }
-                return null;
-              },
+              validate: (value) => validate(
+                value: value!,
+                min: 10,
+                max: 13,
+                type: 'mobile',
+              ),
             ),
             const SizedBox(height: 14),
             CustomeTextFormField(
               controller: controller.passwordController,
-              validate: (value) {
-                if (value!.isEmpty) {
-                  return "password is required";
-                }
-                if (value.length < 6) {
-                  return 'password must contain at least 6 character';
-                }
-                return null;
-              },
+              validate: (value) => validate(
+                value: value!,
+                min: 6,
+                max: 24,
+                type: 'password',
+              ),
               type: TextInputType.visiblePassword,
               isObscure: controller.visible.value,
               isSuffix: true,
