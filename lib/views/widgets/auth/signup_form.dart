@@ -32,19 +32,14 @@ class SignupForm extends StatelessWidget {
                 children: [
                   TextFormField(
                     readOnly: true,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                    ),
+                    decoration: const InputDecoration(border: InputBorder.none),
                     style: const TextStyle(fontSize: 0),
                     keyboardType: TextInputType.none,
                     controller: signupController.imageController,
                     validator: (value) {
-                      // log('===========$value');
                       return validate(
-                        value: value!.toString(),
+                        value: value!,
                         type: 'image',
-                        min: 8,
-                        max: 100,
                       );
                     },
                   ),
@@ -73,8 +68,6 @@ class SignupForm extends StatelessWidget {
                 suffix: Image.asset(AppImages.edit),
                 validate: (value) => validate(
                   value: value!,
-                  min: 5,
-                  max: 30,
                   type: 'email',
                 ),
               ),
@@ -86,8 +79,6 @@ class SignupForm extends StatelessWidget {
                 hintText: 'Mobile Number',
                 validate: (value) => validate(
                   value: value!,
-                  min: 10,
-                  max: 13,
                   type: 'mobile',
                 ),
               ),
@@ -111,8 +102,6 @@ class SignupForm extends StatelessWidget {
                 ),
                 validate: (value) => validate(
                   value: value!,
-                  min: 6,
-                  max: 24,
                   type: 'password',
                 ),
               ),
@@ -136,8 +125,6 @@ class SignupForm extends StatelessWidget {
                 ),
                 validate: (value) => validate(
                   value: value!,
-                  min: 6,
-                  max: 24,
                   type: 'password confirm',
                 ),
               ),
@@ -155,20 +142,18 @@ class SignupForm extends StatelessWidget {
                     keyboardType: TextInputType.none,
                     controller: signupController.fileController!,
                     validator: (value) => validate(
-                      value: value!.toString(),
+                      value: value!,
                       type: 'file',
-                      min: 8,
-                      max: 100,
                     ),
                   ),
                   InkWell(
                     onTap: () async {
                       signupController.fileController!.text =
                           await signupController.uploadCertificate() ?? '';
-                      Get.snackbar(
-                        'file',
-                        signupController.fileController!.text,
-                      );
+                      // Get.snackbar(
+                      //   'file',
+                      //   signupController.fileController!.text,
+                      // );
                     },
                     child: const CertificateFile(),
                   )
@@ -182,13 +167,13 @@ class SignupForm extends StatelessWidget {
                   // here you must call signup method and
                   // go to verify otp if signup is success or
                   // go show error dialog otherwise
-                  // if (signupController.validate()) {
-                  //   signupController.signup();
-                  signupController.goToVerify();
-                  // } else {
-                  //   signupController.autoValidate.value =
-                  //       AutovalidateMode.always;
-                  // }
+                  if (signupController.validate()) {
+                    signupController.signup();
+                    signupController.goToVerify();
+                  } else {
+                    signupController.autoValidate.value =
+                        AutovalidateMode.always;
+                  }
                 },
                 textColor: AppColors.fontColor,
                 backgroundColor: AppColors.backgroundColor,

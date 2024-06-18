@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 
 validate({
   required String value,
   required String type,
-  min,
-  max,
+  min = 8,
+  max = 120,
 }) {
   if (value.isEmpty) {
     return '$type is required';
@@ -26,16 +28,26 @@ validate({
     }
   }
   if (type == 'image') {
-    if (!GetUtils.isImage(value)) {
-      return 'not valid image';
+    final RegExp regex = RegExp(r'^.*(.jpg|\.jpeg|\.png|\.gif|\.bmp|\.webp)',
+        caseSensitive: false);
+    if (!regex.hasMatch(value)) {
+      return ("$type should containe jpg|jpeg|png|gif|bmp|webp");
     }
   }
   if (type == 'file') {
-    if (!GetUtils.isPDF(value) && !GetUtils.isWord(value)) {
-      return 'not valid file';
+    RegExp regex = RegExp(r'^.*(.pdf|\.docx|)', caseSensitive: false);
+    if (!regex.hasMatch(value)) {
+      return '$type should contain pdf|docx';
     }
   }
+  if (type == 'password' || type == 'password confirm') {
+    RegExp regex =
+        RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');
 
+    if (!regex.hasMatch(value)) {
+      return ("$type should contain upper,lower,digit and Special character ");
+    }
+  }
   if (type == 'otp_code') {
     if (GetUtils.isNumericOnly(value) && value.length == min) {
       return true;

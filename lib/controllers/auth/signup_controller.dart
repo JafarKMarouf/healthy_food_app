@@ -67,7 +67,7 @@ class SignupControllerImp extends SignupController {
         : await ImagePicker().pickImage(source: ImageSource.gallery);
 
     var xReturnedImage =
-        returnedImage != null ? File(returnedImage.name).toString() : null;
+        returnedImage != null ? File(returnedImage.path).toString() : null;
 
     update();
     return xReturnedImage;

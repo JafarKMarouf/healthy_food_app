@@ -27,14 +27,12 @@ class CustomeSelectImage extends StatelessWidget {
                     await signupController.uploadImage(uploadType: 'gallery') ??
                         '';
                 Get.back();
-                Get.snackbar(
-                  'image',
-                  signupController.imageController!.text,
-                );
+                // Get.snackbar(
+                //   'image',
+                //   signupController.imageController!.text,
+                // );
               },
-              child: const Icon(
-                Icons.photo,
-              ),
+              child: const Icon(Icons.photo),
             ),
             const SizedBox(height: 32),
             ElevatedButton(
@@ -43,14 +41,11 @@ class CustomeSelectImage extends StatelessWidget {
                     await signupController.uploadImage(uploadType: 'camera') ??
                         '';
                 Get.back();
-                Get.snackbar(
-                  'image',
-                  signupController.imageController!.text,
-                );
-                Get.snackbar(
-                  'image',
-                  signupController.imageController!.text,
-                );
+
+                // Get.snackbar(
+                //   'image',
+                //   signupController.imageController!.text,
+                // );
               },
               child: const Icon(Icons.camera_alt_outlined),
             ),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
@@ -38,16 +36,7 @@ class OtpForm extends StatelessWidget {
               verifyController.verify();
               verifyController.showBSheet();
             }
-          }
-          // log('=========$valid======');
-          //   if (!verifyController.validate() || otp.length < 6) {
-          // verifyController.autoValidate.value = AutovalidateMode.always;
-          //   } else {
-          // verifyController.verify();
-          // verifyController.showBSheet();
-          //   }
-          // },
-          ),
+          }),
     );
   }
 }
