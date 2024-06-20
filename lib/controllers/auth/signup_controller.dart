@@ -5,10 +5,19 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
+import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:image_picker/image_picker.dart';
 
 abstract class SignupController extends GetxController {
-  void signup();
+  void signup({
+    required String photo,
+    required String username,
+    required String email,
+    required String mobile,
+    required String password,
+    required String confirmPassword,
+    required String file,
+  });
 
   void goToLogin();
 
@@ -35,6 +44,8 @@ class SignupControllerImp extends SignupController {
       TextEditingController();
   final TextEditingController? imageController = TextEditingController();
   final TextEditingController? fileController = TextEditingController();
+  final AuthRepoImpl authRepoImpl;
+  SignupControllerImp({required this.authRepoImpl}) : super();
 
   @override
   void goToLogin() {
@@ -56,8 +67,36 @@ class SignupControllerImp extends SignupController {
   }
 
   @override
-  void signup() {
-    log('=====================Signed Up Successfully=====================');
+  void signup({
+    required String photo,
+    required String username,
+    required String email,
+    required String mobile,
+    required String password,
+    required String confirmPassword,
+    required String file,
+  }) {
+    if (validate()) {
+      authRepoImpl.signupImp(
+        username: username,
+        email: email,
+        mobile: mobile,
+        password: password,
+        confirmPassword: confirmPassword,
+        photo: photo,
+        file: file,
+      );
+      // goToVerify();
+    } else {
+      autoValidate.value = AutovalidateMode.always;
+    }
+    log('======photo:$photo========');
+    log('======username:$username========');
+    log('======email:$email========');
+    log('======mobile:$mobile========');
+    log('======password:$password========');
+    log('======confirmPassword:$confirmPassword========');
+    log('======file:$file========');
   }
 
   @override

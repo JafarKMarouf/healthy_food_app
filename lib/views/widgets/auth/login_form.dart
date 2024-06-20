@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
@@ -81,22 +83,21 @@ class LoginForm extends StatelessWidget {
               textColor: AppColors.fontColor,
               title: 'Log in',
               width: MediaQuery.of(context).size.width,
-              onTap: () {
-                if (loginControllerImp.validate()) {
-                  // here you must call login method and
-                  // go to verify otp if login is success or
-                  // go show error dialog otherwise
+              onTap: () async {
+                // if (loginControllerImp.validate()) {
+                await loginControllerImp.login(
+                  email: loginControllerImp.emailController.text,
+                  password: loginControllerImp.passwordController.text,
+                  mobile: loginControllerImp.mobileController.text,
+                );
+                // x.fold((l) {
 
-                  loginControllerImp.login();
-                  customeShowDialog(
-                    context,
-                    const CustomeFails(),
-                    duration: AppDuration.dialogDuration,
-                  );
-                } else {
-                  loginControllerImp.autoValidate.value =
-                      AutovalidateMode.always;
-                }
+                // }, (r) {});
+                // log('=======x:$x======');
+                // // } else {
+                //   loginControllerImp.autoValidate.value =
+                //       AutovalidateMode.always;
+                // }
               },
               backgroundColor: AppColors.backgroundColor,
               borderColor: AppColors.borderButtonColor,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/shared/custome_text.dart';
 import 'package:healthyfood/controllers/auth/verify_controller.dart';
-import 'package:healthyfood/views/widgets/auth/opt_form.dart';
+import 'package:healthyfood/views/widgets/auth/otp_form.dart';
 import 'package:healthyfood/views/widgets/auth/verification_bar.dart';
 
 class VerificationView extends StatelessWidget {

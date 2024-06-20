@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
@@ -8,6 +9,8 @@ import 'package:healthyfood/controllers/auth/signup_controller.dart';
 import 'package:healthyfood/core/functions/validator.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/core/shared/custome_text_form_field.dart';
+import 'package:healthyfood/core/utils/api_services.dart';
+import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:healthyfood/views/widgets/auth/certificate_file.dart';
 import 'package:healthyfood/views/widgets/auth/row_signup.dart';
 import 'custome_select_image.dart';
@@ -17,7 +20,9 @@ class SignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SignupControllerImp signupController = Get.put(SignupControllerImp());
+    AuthRepoImpl authRepoImpl = AuthRepoImpl(apiServices: ApiServices(Dio()));
+    SignupControllerImp signupController =
+        Get.put(SignupControllerImp(authRepoImpl: authRepoImpl));
     return SingleChildScrollView(
       child: GetX<SignupControllerImp>(
         builder: (controller) => Form(
@@ -164,16 +169,25 @@ class SignupForm extends StatelessWidget {
                 title: 'Sign up',
                 width: MediaQuery.of(context).size.width,
                 onTap: () {
+                  signupController.signup(
+                    photo: signupController.imageController!.text,
+                    username: signupController.usernameController.text,
+                    email: signupController.emailController.text,
+                    mobile: signupController.mobileController.text,
+                    password: signupController.passwordController.text,
+                    confirmPassword:
+                        signupController.confirmPasswordController.text,
+                    file: signupController.fileController!.text,
+                  );
                   // here you must call signup method and
                   // go to verify otp if signup is success or
                   // go show error dialog otherwise
-                  if (signupController.validate()) {
-                    signupController.signup();
-                    signupController.goToVerify();
-                  } else {
-                    signupController.autoValidate.value =
-                        AutovalidateMode.always;
-                  }
+                  // if (signupController.validate()) {
+                  //   // signupController.goToVerify();
+                  // } else {
+                  //   signupController.autoValidate.value =
+                  //       AutovalidateMode.always;
+                  // }
                 },
                 textColor: AppColors.fontColor,
                 backgroundColor: AppColors.backgroundColor,

@@ -1,13 +1,22 @@
 import 'dart:developer';
 
+import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
+import 'package:healthyfood/core/functions/show_dialog.dart';
+import 'package:healthyfood/data/repos/auth_repo_impl.dart';
+import 'package:healthyfood/views/widgets/auth/custome_fails.dart';
 
 abstract class LoginController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  void login();
+  void login({
+    required String email,
+    required String mobile,
+    required String password,
+  });
 
   void goToSignup();
   void goToResetPassword();
@@ -25,6 +34,8 @@ class LoginControllerImp extends LoginController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final AuthRepoImpl authRepoImpl;
+  LoginControllerImp({required this.authRepoImpl}) : super();
 
   @override
   void onInit() {
@@ -52,12 +63,34 @@ class LoginControllerImp extends LoginController {
   }
 
   @override
-  void login() {
-    if (rememberStorage.read('rememberMe')) {
-      rememberStorage.write('email_user', emailController.value.text);
-      rememberStorage.write('mobile_user', mobileController.value.text);
-      rememberStorage.write('password_user', passwordController.value.text);
-    }
+  Future<void> login({
+    required String email,
+    required String mobile,
+    required String password,
+  }) async {
+    var result = await authRepoImpl.loginImpl(
+      email: email,
+      mobile: mobile,
+      password: password,
+    );
+
+    result.fold((l) {
+      if (l.statusCode == 401) {
+        Get.defaultDialog(content: CustomeFails(message: l.data['message']));
+      } else if (l.statusCode == 422) {
+        Get.defaultDialog(content: CustomeFails(message: l.data['errors']));
+      }
+      // log('=========left:${l['errors']}==========');
+    }, (r) {
+      Get.snackbar('success', r['access_token']);
+
+      // log('======right:$r==========');
+    });
+    // if (rememberStorage.read('rememberMe')) {
+    //   rememberStorage.write('email_user', emailController.value.text);
+    //   rememberStorage.write('mobile_user', mobileController.value.text);
+    //   rememberStorage.write('password_user', passwordController.value.text);
+    // }
     log('=====================Signed In Sucessfully=====================');
   }
 

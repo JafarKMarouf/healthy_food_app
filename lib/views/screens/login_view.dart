@@ -1,8 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/controllers/auth/login_controller.dart';
+import 'package:healthyfood/core/utils/api_services.dart';
+import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:healthyfood/views/widgets/auth/auth_logo.dart';
 import 'package:healthyfood/views/widgets/auth/login_form.dart';
 
@@ -10,7 +13,8 @@ class LoginView extends StatelessWidget {
   const LoginView({super.key});
   @override
   Widget build(BuildContext context) {
-    LoginControllerImp loginControllerImp = Get.put(LoginControllerImp());
+    LoginControllerImp loginControllerImp = Get.put(LoginControllerImp(
+        authRepoImpl: AuthRepoImpl(apiServices: ApiServices(Dio()))));
 
     return Scaffold(
       body: Container(

@@ -6,7 +6,8 @@ import 'package:healthyfood/core/functions/custome_shadow.dart';
 import 'package:healthyfood/core/shared/custome_text.dart';
 
 class CustomeFails extends StatelessWidget {
-  const CustomeFails({super.key});
+  const CustomeFails({super.key, required this.message});
+  final dynamic message;
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
@@ -19,17 +20,17 @@ class CustomeFails extends StatelessWidget {
           children: [
             Image.asset(AppImages.dialog),
             const SizedBox(height: 24),
-            const Expanded(
+            Expanded(
               child: Column(
                 children: [
-                  CustomeText(
+                  const CustomeText(
                     text: 'Sorry!',
                     fontFamily: 'Cabin Medium',
                     fontWeight: FontWeight.bold,
                     fontSize: 32,
                   ),
                   CustomeText(
-                    text: 'Incorrect password or email',
+                    text: message.toString(),
                     fontFamily: 'Cabin Medium',
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
