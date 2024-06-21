@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:healthyfood/core/errors/failure.dart';
 import 'package:healthyfood/core/utils/api_services.dart';
 import 'package:healthyfood/data/repos/auth_repo.dart';
 
@@ -10,7 +11,7 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl({required this.apiServices});
 
   @override
-  Future<Either<Response<dynamic>, Map<String, dynamic>>> loginImpl({
+  Future<Either<Failure, Map<String, dynamic>>> loginImpl({
     required String email,
     required String mobile,
     required String password,
@@ -28,34 +29,29 @@ class AuthRepoImpl extends AuthRepo {
       return right(data);
     } catch (e) {
       if (e is DioException) {
-        // log('=====exception:${e.response!.data}=====');
-        // log('=====status code :${e.response!.statusCode}=====');
-        return left(e.response!);
+        return left(ServerFailure.fromDioError(e));
       } else {
-        // log('========failure:${e.toString()}=======');
-        return left(e as Response);
+        return left(ServerFailure(e.toString()));
       }
     }
   }
 
   @override
-  Future<Either<dynamic, Map<String, dynamic>>> logoutImp() async {
+  Future<Either<Failure, Map<String, dynamic>>> logoutImp() async {
     try {
       var data = await apiServices.post(endPoint: 'logout/43');
       return right(data);
     } catch (e) {
       if (e is DioException) {
-        log('========exception${e.response!.data}========');
-        return left(e.response!.data);
+        return left(ServerFailure.fromDioError(e));
       } else {
-        log('========failure:${e.toString()}=======');
-        return left(e);
+        return left(ServerFailure(e.toString()));
       }
     }
   }
 
   @override
-  Future<Either<dynamic, Map<String, dynamic>>> signupImp({
+  Future<Either<Failure, Map<String, dynamic>>> signupImp({
     required String photo,
     required String username,
     required String email,
@@ -80,11 +76,9 @@ class AuthRepoImpl extends AuthRepo {
       return right(data);
     } catch (e) {
       if (e is DioException) {
-        log('========exception${e.response!.data}========');
-        return left(e.response!.data);
+        return left(ServerFailure.fromDioError(e));
       } else {
-        log('========failure:${e.toString()}=======');
-        return left(e);
+        return left(ServerFailure(e.toString()));
       }
     }
   }

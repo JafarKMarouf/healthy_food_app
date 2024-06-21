@@ -78,7 +78,7 @@ class SignupForm extends StatelessWidget {
               const SizedBox(height: 14),
               CustomeTextFormField(
                 controller: signupController.mobileController,
-                type: TextInputType.number,
+                type: TextInputType.phone,
                 isSuffix: true,
                 hintText: 'Mobile Number',
                 validate: (value) => validate(
@@ -88,50 +88,55 @@ class SignupForm extends StatelessWidget {
               ),
               const SizedBox(height: 14),
               CustomeTextFormField(
-                controller: controller.passwordController,
-                type: TextInputType.visiblePassword,
-                isObscure: signupController.visible1.value,
-                isSuffix: true,
-                hintText: 'Password',
-                suffix: InkWell(
-                  onTap: () {
-                    controller.visible1.value = !controller.visible1.value;
-                  },
-                  child: controller.visible1.value
-                      ? Image.asset(AppImages.invisible)
-                      : const Icon(
-                          Icons.remove_red_eye_outlined,
-                          color: AppColors.hintTextColor,
-                        ),
-                ),
-                validate: (value) => validate(
-                  value: value!,
-                  type: 'password',
-                ),
-              ),
+                  controller: controller.passwordController,
+                  type: TextInputType.visiblePassword,
+                  isObscure: signupController.visible1.value,
+                  isSuffix: true,
+                  hintText: 'Password',
+                  suffix: InkWell(
+                    onTap: () {
+                      controller.visible1.value = !controller.visible1.value;
+                    },
+                    child: controller.visible1.value
+                        ? Image.asset(AppImages.invisible)
+                        : const Icon(
+                            Icons.remove_red_eye_outlined,
+                            color: AppColors.hintTextColor,
+                          ),
+                  ),
+                  validate: (value) {
+                    return validate(
+                      value: value!,
+                      type: 'password',
+                    );
+                  }),
               const SizedBox(height: 14),
               CustomeTextFormField(
-                controller: controller.confirmPasswordController,
-                type: TextInputType.visiblePassword,
-                isObscure: signupController.visible2.value,
-                isSuffix: true,
-                hintText: 'Confirm Password',
-                suffix: InkWell(
-                  onTap: () {
-                    controller.visible2.value = !controller.visible2.value;
-                  },
-                  child: controller.visible2.value
-                      ? Image.asset(AppImages.invisible)
-                      : const Icon(
-                          Icons.remove_red_eye_outlined,
-                          color: AppColors.hintTextColor,
-                        ),
-                ),
-                validate: (value) => validate(
-                  value: value!,
-                  type: 'password confirm',
-                ),
-              ),
+                  controller: controller.confirmPasswordController,
+                  type: TextInputType.visiblePassword,
+                  isObscure: signupController.visible2.value,
+                  isSuffix: true,
+                  hintText: 'Confirm Password',
+                  suffix: InkWell(
+                    onTap: () {
+                      controller.visible2.value = !controller.visible2.value;
+                    },
+                    child: controller.visible2.value
+                        ? Image.asset(AppImages.invisible)
+                        : const Icon(
+                            Icons.remove_red_eye_outlined,
+                            color: AppColors.hintTextColor,
+                          ),
+                  ),
+                  validate: (value) {
+                    if (value != controller.passwordController.text) {
+                      return 'not match';
+                    }
+                    return validate(
+                      value: value!,
+                      type: 'password confirm',
+                    );
+                  }),
               const SizedBox(height: 14),
               Stack(
                 alignment: Alignment.center,
@@ -154,7 +159,6 @@ class SignupForm extends StatelessWidget {
                     onTap: () async {
                       signupController.fileController!.text =
                           await signupController.uploadCertificate() ?? '';
-
                     },
                     child: const CertificateFile(),
                   )

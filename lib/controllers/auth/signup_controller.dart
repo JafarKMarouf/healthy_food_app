@@ -1,12 +1,13 @@
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
 import 'package:healthyfood/core/functions/check_connection.dart';
 import 'package:healthyfood/data/repos/auth_repo_impl.dart';
+import 'package:healthyfood/views/widgets/auth/custome_fails.dart';
 import 'package:image_picker/image_picker.dart';
 
 abstract class SignupController extends GetxController {
@@ -57,7 +58,7 @@ class SignupControllerImp extends SignupController {
     super.onInit();
   }
 
-  checkConn()async{
+  checkConn() async {
     isConn.value = await checkConnection();
   }
 
@@ -77,7 +78,7 @@ class SignupControllerImp extends SignupController {
 
   @override
   void goToVerify() {
-    Get.toNamed(AppRoutesPage.verify);
+    Get.offNamed(AppRoutesPage.verify);
   }
 
   @override
@@ -102,10 +103,23 @@ class SignupControllerImp extends SignupController {
     );
     loading.value = false;
     result.fold((l) {
-      Get.snackbar('failed',l['errors'][0]);
+      Get.dialog(
+        barrierColor: const Color(0xffFFFDFD),
+        CustomeFails(message: l.errMessage),
+      );
+      Future.delayed(
+        AppDuration.dialogDuration,
+        () => Get.back(),
+      );
     }, (r) {
-      Get.snackbar('success',r['message']);
-      log('======right :$r=======');
+      Future.delayed(
+        AppDuration.transitionDuration,
+        () {
+          Get.back();
+          goToVerify();
+        },
+      );
+      Get.snackbar('success', r['message']);
     });
   }
 

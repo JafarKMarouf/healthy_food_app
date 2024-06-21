@@ -3,6 +3,8 @@ import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
 import 'package:healthyfood/core/functions/check_connection.dart';
 import 'package:healthyfood/data/repos/auth_repo_impl.dart';
+import 'package:flutter/material.dart';
+import 'package:healthyfood/views/widgets/auth/custome_fails.dart';
 
 import '../../core/utils/app_storage.dart';
 
@@ -40,7 +42,14 @@ class LogoutControllerImpl extends LogoutController {
   void logout() async {
     var result = await authRepoImpl.logoutImp();
     result.fold((l) {
-      Get.snackbar('failed', l['message']);
+      Get.dialog(
+        barrierColor: const Color(0xffFFFDFD),
+        CustomeFails(message: l.errMessage),
+      );
+      Future.delayed(
+        AppDuration.dialogDuration,
+        () => Get.back(),
+      );
     }, (r) async {
       await AppStorage.removeToken();
       Get.snackbar('success', r['message']);

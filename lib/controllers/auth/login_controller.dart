@@ -43,7 +43,6 @@ class LoginControllerImp extends LoginController {
   final AuthRepoImpl authRepoImpl;
   LoginControllerImp({required this.authRepoImpl}) : super();
 
-
   @override
   void onInit() {
     isRememberMe.value = rememberStorage.read('rememberMe') ?? false;
@@ -51,7 +50,7 @@ class LoginControllerImp extends LoginController {
     super.onInit();
   }
 
-  checkConn()async{
+  checkConn() async {
     isConn.value = await checkConnection();
   }
 
@@ -94,11 +93,13 @@ class LoginControllerImp extends LoginController {
 
     result.fold((l) {
       loading.value = false;
-      if (l.statusCode == 401) {
-        Get.dialog(
-          barrierColor: const Color(0xffFFFDFD),
-          CustomeFails(message: l.data['message']),
-        );
+
+      Get.dialog(
+        barrierColor: const Color(0xffFFFDFD),
+        CustomeFails(message: l.errMessage),
+      );
+
+      if (l.errMessage == '401 Invalid credentials') {
         Future.delayed(
           AppDuration.dialogDuration,
           () {
@@ -106,11 +107,7 @@ class LoginControllerImp extends LoginController {
             goToVerify();
           },
         );
-      } else if (l.statusCode == 422) {
-        Get.dialog(
-          barrierColor: const Color(0xffFFFDFD),
-          CustomeFails(message: l.data['errors']),
-        );
+      } else {
         Future.delayed(
           AppDuration.dialogDuration,
           () => Get.back(),
@@ -118,14 +115,14 @@ class LoginControllerImp extends LoginController {
       }
     }, (r) async {
       await AppStorage.storeToken(r['access_token']);
-      log('======store token:${await AppStorage.getToken()}=====');
+      Get.snackbar('success', 'Login Successfully!');
       Get.offAllNamed(AppRoutesPage.home);
     });
-    // if (rememberStorage.read('rememberMe')) {
-    //   rememberStorage.write('email_user', emailController.value.text);
-    //   rememberStorage.write('mobile_user', mobileController.value.text);
-    //   rememberStorage.write('password_user', passwordController.value.text);
-    // }
+    if (rememberStorage.read('rememberMe')) {
+      rememberStorage.write('email_user', emailController.value.text);
+      rememberStorage.write('mobile_user', mobileController.value.text);
+      rememberStorage.write('password_user', passwordController.value.text);
+    }
   }
 
   @override
@@ -133,5 +130,4 @@ class LoginControllerImp extends LoginController {
     isRememberMe.value = !isRememberMe.value;
     rememberStorage.write('rememberMe', isRememberMe.value);
   }
-
 }

@@ -40,7 +40,7 @@ class LoginForm extends StatelessWidget {
               hintText: 'Mobile Number',
               validate: (value) => validate(
                 value: value!,
-                min: 9,
+                min: 13,
                 max: 16,
                 type: 'mobile',
               ),
@@ -79,13 +79,13 @@ class LoginForm extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               onTap: () async {
                 if (loginControllerImp.validate()) {
-                  if(loginControllerImp.isConn.value){
+                  if (loginControllerImp.isConn.value) {
                     await loginControllerImp.login(
                       email: loginControllerImp.emailController.text,
                       password: loginControllerImp.passwordController.text,
                       mobile: loginControllerImp.mobileController.text,
                     );
-                  }else{
+                  } else {
                     Get.snackbar('warning', 'You are offline');
                   }
                 } else {
