@@ -16,8 +16,8 @@ class RowLogin extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         InkWell(
-          onTap: () {
-            controller.rememberMe();
+          onTap: () async {
+            await controller.rememberMe();
           },
           child: Row(
             children: [

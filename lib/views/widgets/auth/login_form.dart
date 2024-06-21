@@ -23,7 +23,10 @@ class LoginForm extends StatelessWidget {
               controller: controller.emailController,
               type: TextInputType.emailAddress,
               isSuffix: false,
-              hintText: 'Email',
+              hintText: controller.isRememberMe.value &&
+                      controller.emailController.text != ''
+                  ? controller.emailController.text
+                  : 'Email',
               suffix: Image.asset(AppImages.edit),
               validate: (value) => validate(
                 value: value!,
@@ -37,7 +40,10 @@ class LoginForm extends StatelessWidget {
               controller: controller.mobileController,
               type: TextInputType.phone,
               isSuffix: true,
-              hintText: 'Mobile Number',
+              hintText: controller.isRememberMe.value &&
+                      controller.mobileController.text != ''
+                  ? controller.mobileController.text
+                  : 'Mobile Number',
               validate: (value) => validate(
                 value: value!,
                 min: 13,
@@ -56,7 +62,10 @@ class LoginForm extends StatelessWidget {
               type: TextInputType.visiblePassword,
               isObscure: controller.visible.value,
               isSuffix: true,
-              hintText: 'Password',
+              hintText: controller.isRememberMe.value &&
+                      controller.passwordController.text != ''
+                  ? controller.passwordController.text
+                  : 'Password',
               suffix: InkWell(
                 onTap: () {
                   controller.visible.value = !controller.visible.value;

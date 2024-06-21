@@ -30,11 +30,9 @@ abstract class LoginController extends GetxController
 class LoginControllerImp extends LoginController {
   final RxBool visible = true.obs;
   late RxBool isConn = false.obs;
-  final RxBool isRememberMe = false.obs;
+  late RxBool isRememberMe = false.obs;
   final RxBool loading = false.obs;
 
-  final GetStorage token = GetStorage();
-  final GetStorage rememberStorage = GetStorage();
   final Rx<GlobalKey<FormState>> formKey = GlobalKey<FormState>().obs;
   final Rx<AutovalidateMode> autoValidate = AutovalidateMode.disabled.obs;
   final TextEditingController emailController = TextEditingController();
@@ -44,14 +42,17 @@ class LoginControllerImp extends LoginController {
   LoginControllerImp({required this.authRepoImpl}) : super();
 
   @override
-  void onInit() {
-    isRememberMe.value = rememberStorage.read('rememberMe') ?? false;
-    checkConn();
-    super.onInit();
-  }
-
-  checkConn() async {
+  void onInit() async {
+    isRememberMe.value = await AppStorage.isRemembered() ?? false;
     isConn.value = await checkConnection();
+
+    if (isRememberMe.value) {
+      emailController.text = await AppStorage.getEmailRemeber() ?? '';
+      mobileController.text = await AppStorage.getMobileRemeber() ?? '';
+      passwordController.text = await AppStorage.getPassRemeber() ?? '';
+    }
+
+    super.onInit();
   }
 
   @override
@@ -115,19 +116,31 @@ class LoginControllerImp extends LoginController {
       }
     }, (r) async {
       await AppStorage.storeToken(r['access_token']);
+
+      if (isRememberMe.value) {
+        await AppStorage.storeEmail(emailController.value.text);
+        await AppStorage.storeMobile(mobileController.value.text);
+        await AppStorage.storePass(passwordController.value.text);
+      }
       Get.snackbar('success', 'Login Successfully!');
       Get.offAllNamed(AppRoutesPage.home);
+
+      var email = await AppStorage.getEmailRemeber();
+      var mobile = await AppStorage.getMobileRemeber();
+      var pass = await AppStorage.getPassRemeber();
+      log('=============email remeber:$email============');
+      log('=============pass remeber:$pass============');
+      log('=============mobile remeber:$mobile============');
     });
-    if (rememberStorage.read('rememberMe')) {
-      rememberStorage.write('email_user', emailController.value.text);
-      rememberStorage.write('mobile_user', mobileController.value.text);
-      rememberStorage.write('password_user', passwordController.value.text);
-    }
   }
 
   @override
-  void rememberMe() {
+  Future<void> rememberMe() async {
+    log('====remember before${isRememberMe.value}====');
     isRememberMe.value = !isRememberMe.value;
-    rememberStorage.write('rememberMe', isRememberMe.value);
+    log('====remember after${isRememberMe.value}====');
+    await AppStorage.rememeberMe(isRememberMe.value);
+    var result = await AppStorage.isRemembered();
+    // log('========reult:$result=======');
   }
 }
