@@ -79,11 +79,15 @@ class LoginForm extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               onTap: () async {
                 if (loginControllerImp.validate()) {
-                  await loginControllerImp.login(
-                    email: loginControllerImp.emailController.text,
-                    password: loginControllerImp.passwordController.text,
-                    mobile: loginControllerImp.mobileController.text,
-                  );
+                  if(loginControllerImp.isConn.value){
+                    await loginControllerImp.login(
+                      email: loginControllerImp.emailController.text,
+                      password: loginControllerImp.passwordController.text,
+                      mobile: loginControllerImp.mobileController.text,
+                    );
+                  }else{
+                    Get.snackbar('warning', 'You are offline');
+                  }
                 } else {
                   loginControllerImp.autoValidate.value =
                       AutovalidateMode.always;

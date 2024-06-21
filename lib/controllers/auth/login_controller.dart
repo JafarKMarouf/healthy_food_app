@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
+import 'package:healthyfood/core/functions/check_connection.dart';
 import 'package:healthyfood/core/functions/show_dialog.dart';
 import 'package:healthyfood/core/utils/app_storage.dart';
 import 'package:healthyfood/data/repos/auth_repo_impl.dart';
@@ -23,14 +24,15 @@ abstract class LoginController extends GetxController
   void goToVerify();
   void goToResetPassword();
   bool validate();
-
   void rememberMe();
 }
 
 class LoginControllerImp extends LoginController {
   final RxBool visible = true.obs;
+  late RxBool isConn = false.obs;
   final RxBool isRememberMe = false.obs;
   final RxBool loading = false.obs;
+
   final GetStorage token = GetStorage();
   final GetStorage rememberStorage = GetStorage();
   final Rx<GlobalKey<FormState>> formKey = GlobalKey<FormState>().obs;
@@ -41,10 +43,16 @@ class LoginControllerImp extends LoginController {
   final AuthRepoImpl authRepoImpl;
   LoginControllerImp({required this.authRepoImpl}) : super();
 
+
   @override
   void onInit() {
     isRememberMe.value = rememberStorage.read('rememberMe') ?? false;
+    checkConn();
     super.onInit();
+  }
+
+  checkConn()async{
+    isConn.value = await checkConnection();
   }
 
   @override
@@ -125,4 +133,5 @@ class LoginControllerImp extends LoginController {
     isRememberMe.value = !isRememberMe.value;
     rememberStorage.write('rememberMe', isRememberMe.value);
   }
+
 }

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -42,10 +40,11 @@ class SignupForm extends StatelessWidget {
                     keyboardType: TextInputType.none,
                     controller: signupController.imageController,
                     validator: (value) {
-                      return validate(
-                        value: value!,
-                        type: 'image',
-                      );
+                      // return validate(
+                      //   value: value!,
+                      //   type: 'image',
+                      // );
+                      return null;
                     },
                   ),
                   CustomeSelectImage(signupController: signupController),
@@ -146,19 +145,16 @@ class SignupForm extends StatelessWidget {
                     ),
                     keyboardType: TextInputType.none,
                     controller: signupController.fileController!,
-                    validator: (value) => validate(
-                      value: value!,
-                      type: 'file',
-                    ),
+                    // validator: (value) => validate(
+                    //   value: value!,
+                    //   type: 'file',
+                    // ),
                   ),
                   InkWell(
                     onTap: () async {
                       signupController.fileController!.text =
                           await signupController.uploadCertificate() ?? '';
-                      // Get.snackbar(
-                      //   'file',
-                      //   signupController.fileController!.text,
-                      // );
+
                     },
                     child: const CertificateFile(),
                   )
@@ -168,17 +164,26 @@ class SignupForm extends StatelessWidget {
               CustomeButton(
                 title: 'Sign up',
                 width: MediaQuery.of(context).size.width,
-                onTap: () {
-                  signupController.signup(
-                    photo: signupController.imageController!.text,
-                    username: signupController.usernameController.text,
-                    email: signupController.emailController.text,
-                    mobile: signupController.mobileController.text,
-                    password: signupController.passwordController.text,
-                    confirmPassword:
-                        signupController.confirmPasswordController.text,
-                    file: signupController.fileController!.text,
-                  );
+                onTap: () async {
+                  if (signupController.validate()) {
+                    if (signupController.isConn.value) {
+                      await signupController.signup(
+                        photo: signupController.imageController!.text,
+                        username: signupController.usernameController.text,
+                        email: signupController.emailController.text,
+                        mobile: signupController.mobileController.text,
+                        password: signupController.passwordController.text,
+                        confirmPassword:
+                            signupController.confirmPasswordController.text,
+                        file: signupController.fileController!.text,
+                      );
+                    } else {
+                      Get.snackbar('warning', 'You are offline');
+                    }
+                  } else {
+                    signupController.autoValidate.value =
+                        AutovalidateMode.always;
+                  }
                   // here you must call signup method and
                   // go to verify otp if signup is success or
                   // go show error dialog otherwise

@@ -15,5 +15,5 @@ abstract class AuthRepo {
     required String password,
   });
 
-  void logout();
+  void logoutImp();
 }

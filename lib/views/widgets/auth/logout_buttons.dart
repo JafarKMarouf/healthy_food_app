@@ -9,7 +9,7 @@ class LogoutButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LogoutControllerImpl controller = Get.put(LogoutControllerImpl());
+    LogoutControllerImpl controller = Get.find<LogoutControllerImpl>();
 
     return Column(
       children: [
@@ -34,8 +34,14 @@ class LogoutButtons extends StatelessWidget {
           fontSize: 12,
           fontWeight: FontWeight.normal,
           onTap: () {
-            controller.logout();
-            controller.goToLogin();
+            if(controller.isConn.value){
+              controller.logout();
+              controller.goToLogin();
+            }
+            else{
+              Get.back();
+              Get.snackbar('warning', 'you are offline');
+            }
           },
         )
       ],

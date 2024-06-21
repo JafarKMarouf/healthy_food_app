@@ -39,10 +39,23 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  void logout() {}
+  Future<Either<dynamic, Map<String, dynamic>>> logoutImp() async {
+    try {
+      var data = await apiServices.post(endPoint: 'logout/43');
+      return right(data);
+    } catch (e) {
+      if (e is DioException) {
+        log('========exception${e.response!.data}========');
+        return left(e.response!.data);
+      } else {
+        log('========failure:${e.toString()}=======');
+        return left(e);
+      }
+    }
+  }
 
   @override
-  Future<void> signupImp({
+  Future<Either<dynamic, Map<String, dynamic>>> signupImp({
     required String photo,
     required String username,
     required String email,
@@ -51,14 +64,28 @@ class AuthRepoImpl extends AuthRepo {
     required String confirmPassword,
     required String file,
   }) async {
-    await apiServices.post(endPoint: 'signup', body: {
-      'user_name': username,
-      'email': email,
-      'password': password,
-      'password_confirmation': confirmPassword,
-      'phone_number': mobile,
-      'profile_photo': photo,
-      'certificate': file,
-    });
+    try {
+      var data = await apiServices.post(
+        endPoint: 'register',
+        body: {
+          'user_name': username,
+          'email': email,
+          'password': password,
+          'password_confirmation': confirmPassword,
+          'phone_number': mobile,
+          'profile_photo': photo,
+          'certificate': file,
+        },
+      );
+      return right(data);
+    } catch (e) {
+      if (e is DioException) {
+        log('========exception${e.response!.data}========');
+        return left(e.response!.data);
+      } else {
+        log('========failure:${e.toString()}=======');
+        return left(e);
+      }
+    }
   }
 }

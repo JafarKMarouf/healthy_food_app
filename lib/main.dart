@@ -66,7 +66,7 @@ class HealthyFood extends StatelessWidget {
         GetPage(
           name: AppRoutesPage.logout,
           page: () => const LogoutView(),
-          transitionDuration: AppDuration.dialogDuration,
+          transitionDuration: AppDuration.transitionDuration,
         ),
         GetPage(
           name: AppRoutesPage.home,
