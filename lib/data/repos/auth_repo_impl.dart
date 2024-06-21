@@ -24,15 +24,15 @@ class AuthRepoImpl extends AuthRepo {
           'password': password,
         },
       );
-      log('=====data:$data=======');
+      // log('=====data:$data=======');
       return right(data);
     } catch (e) {
       if (e is DioException) {
-        log('=====exception:${e.response!.data}=====');
-        log('=====status code :${e.response!.statusCode}=====');
+        // log('=====exception:${e.response!.data}=====');
+        // log('=====status code :${e.response!.statusCode}=====');
         return left(e.response!);
       } else {
-        log('========failure:${e.toString()}=======');
+        // log('========failure:${e.toString()}=======');
         return left(e as Response);
       }
     }

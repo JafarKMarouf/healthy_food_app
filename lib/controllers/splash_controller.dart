@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
+import 'package:healthyfood/core/utils/app_storage.dart';
 
 class SplashController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -11,13 +14,19 @@ class SplashController extends GetxController
 
   final Rxn<Animation<Offset>> _offsetAnimation = Rxn<Animation<Offset>>();
   Animation<Offset>? get offsetAnimation => _offsetAnimation.value;
+  // String token;
+
+  Future<void> loadingUserInfo() async {
+    var token = await AppStorage.getToken();
+    log('======token:$token===');
+    token != null ? navigateToHome() : navigateToLogin();
+  }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     slidingAnimation();
-    
-    navigateToLogin();
+    await loadingUserInfo();
   }
 
   void slidingAnimation() {
@@ -44,6 +53,15 @@ class SplashController extends GetxController
       const Duration(milliseconds: 1500),
       () {
         Get.offAllNamed(AppRoutesPage.login);
+      },
+    );
+  }
+
+  void navigateToHome() {
+    Future.delayed(
+      const Duration(milliseconds: 1500),
+      () {
+        Get.offAllNamed(AppRoutesPage.home);
       },
     );
   }

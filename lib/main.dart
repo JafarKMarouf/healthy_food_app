@@ -4,6 +4,7 @@ import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
 import 'package:healthyfood/core/constants/app_transitions.dart';
 import 'package:healthyfood/views/screens/forget_password_view.dart';
+import 'package:healthyfood/views/screens/home_view.dart';
 import 'package:healthyfood/views/screens/login_view.dart';
 import 'package:healthyfood/views/screens/logout_view.dart';
 import 'package:healthyfood/views/screens/signup_view.dart';
@@ -66,6 +67,11 @@ class HealthyFood extends StatelessWidget {
           name: AppRoutesPage.logout,
           page: () => const LogoutView(),
           transitionDuration: AppDuration.dialogDuration,
+        ),
+        GetPage(
+          name: AppRoutesPage.home,
+          page: () => const HomeView(),
+          transitionDuration: AppDuration.transitionDuration,
         ),
       ],
     );

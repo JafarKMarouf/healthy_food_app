@@ -21,6 +21,8 @@ dependencies:
   get: ^4.6.6
   get_storage: ^2.1.1
   image_picker: ^1.1.2
+  modal_progress_hud_nsn: ^0.5.1
+  shared_preferences: ^2.2.3
 
 dev_dependencies:
   flutter_lints: ^4.0.0

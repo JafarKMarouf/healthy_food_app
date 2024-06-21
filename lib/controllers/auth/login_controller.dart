@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
 import 'package:healthyfood/core/functions/show_dialog.dart';
+import 'package:healthyfood/core/utils/app_storage.dart';
 import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:healthyfood/views/widgets/auth/custome_fails.dart';
 
@@ -19,6 +20,7 @@ abstract class LoginController extends GetxController
   });
 
   void goToSignup();
+  void goToVerify();
   void goToResetPassword();
   bool validate();
 
@@ -28,6 +30,8 @@ abstract class LoginController extends GetxController
 class LoginControllerImp extends LoginController {
   final RxBool visible = true.obs;
   final RxBool isRememberMe = false.obs;
+  final RxBool loading = false.obs;
+  final GetStorage token = GetStorage();
   final GetStorage rememberStorage = GetStorage();
   final Rx<GlobalKey<FormState>> formKey = GlobalKey<FormState>().obs;
   final Rx<AutovalidateMode> autoValidate = AutovalidateMode.disabled.obs;
@@ -46,6 +50,11 @@ class LoginControllerImp extends LoginController {
   @override
   void goToSignup() {
     Get.offNamed(AppRoutesPage.signup);
+  }
+
+  @override
+  void goToVerify() {
+    Get.toNamed(AppRoutesPage.verify);
   }
 
   @override
@@ -68,6 +77,7 @@ class LoginControllerImp extends LoginController {
     required String mobile,
     required String password,
   }) async {
+    loading.value = true;
     var result = await authRepoImpl.loginImpl(
       email: email,
       mobile: mobile,
@@ -75,23 +85,39 @@ class LoginControllerImp extends LoginController {
     );
 
     result.fold((l) {
+      loading.value = false;
       if (l.statusCode == 401) {
-        Get.defaultDialog(content: CustomeFails(message: l.data['message']));
+        Get.dialog(
+          barrierColor: const Color(0xffFFFDFD),
+          CustomeFails(message: l.data['message']),
+        );
+        Future.delayed(
+          AppDuration.dialogDuration,
+          () {
+            Get.back();
+            goToVerify();
+          },
+        );
       } else if (l.statusCode == 422) {
-        Get.defaultDialog(content: CustomeFails(message: l.data['errors']));
+        Get.dialog(
+          barrierColor: const Color(0xffFFFDFD),
+          CustomeFails(message: l.data['errors']),
+        );
+        Future.delayed(
+          AppDuration.dialogDuration,
+          () => Get.back(),
+        );
       }
-      // log('=========left:${l['errors']}==========');
-    }, (r) {
-      Get.snackbar('success', r['access_token']);
-
-      // log('======right:$r==========');
+    }, (r) async {
+      await AppStorage.storeToken(r['access_token']);
+      log('======store token:${await AppStorage.getToken()}=====');
+      Get.offAllNamed(AppRoutesPage.home);
     });
     // if (rememberStorage.read('rememberMe')) {
     //   rememberStorage.write('email_user', emailController.value.text);
     //   rememberStorage.write('mobile_user', mobileController.value.text);
     //   rememberStorage.write('password_user', passwordController.value.text);
     // }
-    log('=====================Signed In Sucessfully=====================');
   }
 
   @override

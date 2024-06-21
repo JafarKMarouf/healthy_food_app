@@ -1,16 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
-import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
-import 'package:healthyfood/core/functions/show_dialog.dart';
 import 'package:healthyfood/core/functions/validator.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/core/shared/custome_text_form_field.dart';
 import 'package:healthyfood/controllers/auth/login_controller.dart';
-import 'package:healthyfood/views/widgets/auth/custome_fails.dart';
 import 'package:healthyfood/views/widgets/auth/row_login.dart';
 
 class LoginForm extends StatelessWidget {
@@ -32,33 +27,32 @@ class LoginForm extends StatelessWidget {
               suffix: Image.asset(AppImages.edit),
               validate: (value) => validate(
                 value: value!,
-                min: 5,
-                max: 30,
+                min: 6,
+                max: 45,
                 type: 'email',
               ),
             ),
             const SizedBox(height: 14),
             CustomeTextFormField(
               controller: controller.mobileController,
-              type: TextInputType.number,
+              type: TextInputType.phone,
               isSuffix: true,
               hintText: 'Mobile Number',
               validate: (value) => validate(
                 value: value!,
-                min: 10,
-                max: 13,
+                min: 9,
+                max: 16,
                 type: 'mobile',
               ),
             ),
             const SizedBox(height: 14),
             CustomeTextFormField(
               controller: controller.passwordController,
-              validate: (value) => validate(
-                value: value!,
-                min: 6,
-                max: 24,
-                type: 'password',
-              ),
+              // validate: (value) => validate(
+              //   value: value!,
+              //   min: 8,
+              //   type: 'password',
+              // ),
               type: TextInputType.visiblePassword,
               isObscure: controller.visible.value,
               isSuffix: true,
@@ -84,20 +78,16 @@ class LoginForm extends StatelessWidget {
               title: 'Log in',
               width: MediaQuery.of(context).size.width,
               onTap: () async {
-                // if (loginControllerImp.validate()) {
-                await loginControllerImp.login(
-                  email: loginControllerImp.emailController.text,
-                  password: loginControllerImp.passwordController.text,
-                  mobile: loginControllerImp.mobileController.text,
-                );
-                // x.fold((l) {
-
-                // }, (r) {});
-                // log('=======x:$x======');
-                // // } else {
-                //   loginControllerImp.autoValidate.value =
-                //       AutovalidateMode.always;
-                // }
+                if (loginControllerImp.validate()) {
+                  await loginControllerImp.login(
+                    email: loginControllerImp.emailController.text,
+                    password: loginControllerImp.passwordController.text,
+                    mobile: loginControllerImp.mobileController.text,
+                  );
+                } else {
+                  loginControllerImp.autoValidate.value =
+                      AutovalidateMode.always;
+                }
               },
               backgroundColor: AppColors.backgroundColor,
               borderColor: AppColors.borderButtonColor,
