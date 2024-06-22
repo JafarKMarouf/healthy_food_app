@@ -43,7 +43,11 @@ class LoginControllerImp extends LoginController {
 
   @override
   void onInit() async {
-    isRememberMe.value = await AppStorage.isRemembered() ?? false;
+    var remember = await AppStorage.isRemembered();
+    var cred = await AppStorage.getEmailRemeber();
+    if (remember == true && cred != null) {
+      isRememberMe.value = true;
+    }
     isConn.value = await checkConnection();
 
     if (isRememberMe.value) {
@@ -92,7 +96,7 @@ class LoginControllerImp extends LoginController {
       password: password,
     );
 
-    result.fold((l) {
+    result.fold((l) async {
       loading.value = false;
 
       Get.dialog(
@@ -101,6 +105,15 @@ class LoginControllerImp extends LoginController {
       );
 
       if (l.errMessage == '401 Invalid credentials') {
+        await AppStorage.removeVerify();
+        if (isRememberMe.value) {
+          await AppStorage.storeEmail(emailController.value.text);
+          await AppStorage.storeMobile(mobileController.value.text);
+          await AppStorage.storePass(passwordController.value.text);
+        } else {
+          await AppStorage.removeRemeberedCred();
+        }
+
         Future.delayed(
           AppDuration.dialogDuration,
           () {
@@ -116,11 +129,13 @@ class LoginControllerImp extends LoginController {
       }
     }, (r) async {
       await AppStorage.storeToken(r['access_token']);
-
+      await AppStorage.storeVerifedEmail(true);
       if (isRememberMe.value) {
         await AppStorage.storeEmail(emailController.value.text);
         await AppStorage.storeMobile(mobileController.value.text);
         await AppStorage.storePass(passwordController.value.text);
+      } else {
+        await AppStorage.removeRemeberedCred();
       }
       Get.snackbar('success', 'Login Successfully!');
       Get.offAllNamed(AppRoutesPage.home);
@@ -136,11 +151,11 @@ class LoginControllerImp extends LoginController {
 
   @override
   Future<void> rememberMe() async {
-    log('====remember before${isRememberMe.value}====');
+    // log('====remember before${isRememberMe.value}====');
     isRememberMe.value = !isRememberMe.value;
-    log('====remember after${isRememberMe.value}====');
+    // log('====remember after${isRememberMe.value}====');
     await AppStorage.rememeberMe(isRememberMe.value);
-    var result = await AppStorage.isRemembered();
+    // var result = await AppStorage.isRemembered();
     // log('========reult:$result=======');
   }
 }

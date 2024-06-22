@@ -5,6 +5,7 @@ import 'package:healthyfood/controllers/auth/login_controller.dart';
 
 import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/core/shared/custome_text.dart';
+import 'package:healthyfood/core/utils/app_storage.dart';
 
 class RowLogin extends StatelessWidget {
   const RowLogin({super.key});
@@ -18,6 +19,9 @@ class RowLogin extends StatelessWidget {
         InkWell(
           onTap: () async {
             await controller.rememberMe();
+            if (!controller.isRememberMe.value) {
+              await AppStorage.removeRemeberedCred();
+            }
           },
           child: Row(
             children: [

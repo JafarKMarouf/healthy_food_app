@@ -46,12 +46,12 @@ validate({
       return ("$type should contain upper,lower,digit and Special character ");
     }
   }
-  if (type == 'otp_code') {
-    if (GetUtils.isNumericOnly(value) && value.length == min) {
-      return true;
-    }
-    return false;
-  }
+  // if (type == 'otp_code') {
+  //   if (GetUtils. && value.length == min) {
+  //     return true;
+  //   }
+  //   return false;
+  // }
   if (value.length < min) {
     return '$type can\'t be less than $min.';
   }

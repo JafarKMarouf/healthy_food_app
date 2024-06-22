@@ -10,7 +10,6 @@ import 'package:healthyfood/views/screens/logout_view.dart';
 import 'package:healthyfood/views/screens/signup_view.dart';
 import 'package:healthyfood/views/screens/splash_view.dart';
 import 'package:healthyfood/views/screens/verification_view.dart';
-import 'package:healthyfood/views/screens/warning_view.dart';
 
 void main() {
   runApp(const HealthyFood());
@@ -53,11 +52,6 @@ class HealthyFood extends StatelessWidget {
           transition: AppTransitions.primaryTransition,
         ),
         GetPage(
-          name: AppRoutesPage.warning,
-          page: () => const WarningView(),
-          transitionDuration: AppDuration.dialogDuration,
-        ),
-        GetPage(
           name: AppRoutesPage.forgetpassword,
           page: () => const ForgetPasswordView(),
           transitionDuration: AppDuration.transitionDuration,
@@ -67,11 +61,13 @@ class HealthyFood extends StatelessWidget {
           name: AppRoutesPage.logout,
           page: () => const LogoutView(),
           transitionDuration: AppDuration.transitionDuration,
+          transition: AppTransitions.dialogTransition,
         ),
         GetPage(
           name: AppRoutesPage.home,
           page: () => const HomeView(),
           transitionDuration: AppDuration.transitionDuration,
+          transition: AppTransitions.primaryTransition,
         ),
       ],
     );

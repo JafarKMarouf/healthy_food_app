@@ -7,7 +7,8 @@ import 'package:healthyfood/controllers/auth/error_controller.dart';
 import 'package:healthyfood/views/widgets/auth/custome_dialog.dart';
 
 class WarningView extends StatelessWidget {
-  const WarningView({super.key});
+  final String message;
+  const WarningView({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class WarningView extends StatelessWidget {
     return DialogView(
       image: AppImages.error,
       text1: 'Oh no!',
-      text2: 'Something went wrong.',
+      text2: message,
       text3: const CustomeText(
         text: 'Please try again.',
         fontFamily: 'Montaga',

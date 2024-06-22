@@ -18,5 +18,11 @@ abstract class AuthRepo {
     required String password,
   });
 
-  void logoutImp();
+  Future<Either<Failure, Map<String, dynamic>>> logoutImp();
+
+  Future<Either<Failure, Map<String, dynamic>>> confirmCodeImp({
+    required String code,
+  });
+
+  Future<Either<Failure, Map<String, dynamic>>> resendCodeImp();
 }

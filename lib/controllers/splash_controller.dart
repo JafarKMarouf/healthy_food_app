@@ -14,13 +14,6 @@ class SplashController extends GetxController
 
   final Rxn<Animation<Offset>> _offsetAnimation = Rxn<Animation<Offset>>();
   Animation<Offset>? get offsetAnimation => _offsetAnimation.value;
-  // String token;
-
-  Future<void> loadingUserInfo() async {
-    var token = await AppStorage.getToken();
-    log('======token:$token===');
-    token != null ? navigateToHome() : navigateToLogin();
-  }
 
   @override
   void onInit() async {
@@ -48,21 +41,42 @@ class SplashController extends GetxController
     _animationController.value?.forward();
   }
 
+  Future<void> loadingUserInfo() async {
+    var token = await AppStorage.getToken();
+    var isVerifed = await AppStorage.getVerifiedEmail();
+
+    log('======token:$token===');
+    log('======verify:$isVerifed===');
+
+    if (token != null && isVerifed != null) {
+      navigateToHome();
+    } else {
+      if (isVerifed == null && token != null) {
+        navigateToVerify();
+      } else {
+        navigateToLogin();
+      }
+    }
+  }
+
   void navigateToLogin() {
     Future.delayed(
       const Duration(milliseconds: 1500),
-      () {
-        Get.offAllNamed(AppRoutesPage.login);
-      },
+      () => Get.offAllNamed(AppRoutesPage.login),
+    );
+  }
+
+  void navigateToVerify() {
+    Future.delayed(
+      const Duration(milliseconds: 1500),
+      () => Get.offAllNamed(AppRoutesPage.verify),
     );
   }
 
   void navigateToHome() {
     Future.delayed(
       const Duration(milliseconds: 1500),
-      () {
-        Get.offAllNamed(AppRoutesPage.home);
-      },
+      () => Get.offAllNamed(AppRoutesPage.home),
     );
   }
 

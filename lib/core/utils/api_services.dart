@@ -22,24 +22,18 @@ class ApiServices {
 
   Future<Map<String, dynamic>> post({
     required String endPoint,
-     dynamic body,
+    dynamic body,
   }) async {
-    String ?token = await AppStorage.getToken();
+    String? token = await AppStorage.getToken();
     _dio.options.headers['Accept'] = ['application/json'];
     _dio.options.headers['Authorization'] = 'Bearer $token';
 
     String url = '$baseUrl/$endPoint';
+
+    log('========token:$token========');
     log('======url: $url========');
 
-    log('========body:$body===');
-    // try {
     var response = await _dio.post(url, data: body);
-    log('===response ${response.data}====');
-    // } catch (e) {
-    //   if (e is DioException) {
-    //     log('exception with ${e.response!.data}');
-    //   }
-    // }
     return response.data;
   }
 }

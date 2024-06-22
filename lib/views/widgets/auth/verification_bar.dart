@@ -7,35 +7,38 @@ class VerificationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Center(
-          child: SizedBox(
-            width: 270,
-            height: 100,
-            child: AuthLogo(),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: SizedBox(
+              width: 270,
+              height: 170,
+              child: AuthLogo(),
+            ),
           ),
-        ),
-        SizedBox(height: 8),
-        CustomeText(
-          text: 'Verification Code',
-          fontSize: 24,
-          fontWeight: FontWeight.w700,
-        ),
-        SizedBox(height: 8),
-        SizedBox(
-          width: 300,
-          child: CustomeText(
-            text: 'We have sent the verification code to your email address',
-            fontSize: 16,
-            color: Colors.black,
-            fontFamily: 'Montaga',
-            textAlign: TextAlign.start,
+          SizedBox(height: 8),
+          CustomeText(
+            text: 'Verification Code',
+            fontSize: 24,
+            fontWeight: FontWeight.w700,
           ),
-        ),
-      ],
+          SizedBox(height: 8),
+          SizedBox(
+            width: 300,
+            child: CustomeText(
+              text: 'We have sent the verification code to your email address',
+              fontSize: 16,
+              color: Colors.black,
+              fontFamily: 'Montaga',
+              textAlign: TextAlign.start,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

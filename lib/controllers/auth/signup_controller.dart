@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
 import 'package:healthyfood/core/functions/check_connection.dart';
+import 'package:healthyfood/core/utils/app_storage.dart';
 import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:healthyfood/views/widgets/auth/custome_fails.dart';
 import 'package:image_picker/image_picker.dart';
@@ -78,7 +79,7 @@ class SignupControllerImp extends SignupController {
 
   @override
   void goToVerify() {
-    Get.offNamed(AppRoutesPage.verify);
+    Get.toNamed(AppRoutesPage.verify);
   }
 
   @override
@@ -111,11 +112,12 @@ class SignupControllerImp extends SignupController {
         AppDuration.dialogDuration,
         () => Get.back(),
       );
-    }, (r) {
+    }, (r) async {
+      await AppStorage.storeToken(r['token']);
+      await AppStorage.removeVerify();
       Future.delayed(
         AppDuration.transitionDuration,
         () {
-          Get.back();
           goToVerify();
         },
       );

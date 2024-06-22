@@ -47,10 +47,12 @@ class ServerFailure extends Failure {
     } else if (statusCode == 422) {
       return ServerFailure(
           'the server was unable to process the request because it contains invalid datas!,');
+    } else if (statusCode == 429) {
+      return ServerFailure('Too Many request :) !,');
     } else if (statusCode == 500) {
       return ServerFailure('Internal Server error, Please try later');
     } else {
-      return ServerFailure('Oppsas There was an Error, Please try again');
+      return ServerFailure('Opps There was an Error, Please try again');
     }
   }
 }

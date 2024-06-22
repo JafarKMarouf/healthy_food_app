@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
+import 'package:healthyfood/core/constants/app_transitions.dart';
 import 'package:healthyfood/core/functions/check_connection.dart';
 import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,9 @@ class LogoutControllerImpl extends LogoutController {
 
   @override
   void logout() async {
+    loading.value = true;
     var result = await authRepoImpl.logoutImp();
+    loading.value = false;
     result.fold((l) {
       Get.dialog(
         barrierColor: const Color(0xffFFFDFD),
@@ -48,11 +51,12 @@ class LogoutControllerImpl extends LogoutController {
       );
       Future.delayed(
         AppDuration.dialogDuration,
-        () => Get.back(),
+        () => Get.offAllNamed(AppRoutesPage.home),
       );
     }, (r) async {
       await AppStorage.removeToken();
       Get.snackbar('success', r['message']);
+      goToLogin();
     });
   }
 }

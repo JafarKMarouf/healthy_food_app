@@ -34,11 +34,9 @@ class LogoutButtons extends StatelessWidget {
           fontSize: 12,
           fontWeight: FontWeight.normal,
           onTap: () {
-            if(controller.isConn.value){
+            if (controller.isConn.value) {
               controller.logout();
-              controller.goToLogin();
-            }
-            else{
+            } else {
               Get.back();
               Get.snackbar('warning', 'you are offline');
             }

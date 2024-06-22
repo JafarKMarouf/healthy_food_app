@@ -26,7 +26,7 @@ class DialogView extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xffFFFDFD).withOpacity(.48),
       body: TweenAnimationBuilder(
-          duration: AppDuration.showDialog,
+          duration: AppDuration.showWarning,
           tween: Tween<double>(
             begin: 0,
             end: 24,

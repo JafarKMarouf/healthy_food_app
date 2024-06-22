@@ -21,6 +21,21 @@ class AppStorage {
     prefs!.remove('token');
   }
 
+  static Future<void> storeVerifedEmail(bool verified) async {
+    prefs = await SharedPreferences.getInstance();
+    await prefs!.setBool('verifed', verified);
+  }
+
+  static Future<bool?> getVerifiedEmail() async {
+    prefs = await SharedPreferences.getInstance();
+    return prefs!.getBool('verifed');
+  }
+
+  static Future<void> removeVerify() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs!.remove('verifed');
+  }
+
   static Future<void> rememeberMe(bool remembered) async {
     prefs = await SharedPreferences.getInstance();
     await prefs!.setBool('rememberMe', remembered);
@@ -61,5 +76,12 @@ class AppStorage {
   static Future<String?> getPassRemeber() async {
     prefs = await SharedPreferences.getInstance();
     return prefs!.getString('password_remember');
+  }
+
+  static Future<void> removeRemeberedCred() async {
+    prefs = await SharedPreferences.getInstance();
+    await prefs!.remove('email_remember');
+    await prefs!.remove('mobile_remember');
+    await prefs!.remove('password_remember');
   }
 }

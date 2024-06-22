@@ -43,7 +43,7 @@ class LoginForm extends StatelessWidget {
               hintText: controller.isRememberMe.value &&
                       controller.mobileController.text != ''
                   ? controller.mobileController.text
-                  : 'Mobile Number',
+                  : 'Mobile: 963 9XXXXXXXX',
               validate: (value) => validate(
                 value: value!,
                 min: 13,
@@ -54,11 +54,11 @@ class LoginForm extends StatelessWidget {
             const SizedBox(height: 14),
             CustomeTextFormField(
               controller: controller.passwordController,
-              // validate: (value) => validate(
-              //   value: value!,
-              //   min: 8,
-              //   type: 'password',
-              // ),
+              validate: (value) => validate(
+                value: value!,
+                min: 8,
+                type: 'password',
+              ),
               type: TextInputType.visiblePassword,
               isObscure: controller.visible.value,
               isSuffix: true,

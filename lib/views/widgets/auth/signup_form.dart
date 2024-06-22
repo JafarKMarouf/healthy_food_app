@@ -58,7 +58,7 @@ class SignupForm extends StatelessWidget {
                 hintText: 'Username',
                 validate: (value) => validate(
                   value: value!,
-                  min: 6,
+                  min: 5,
                   max: 30,
                   type: 'username',
                 ),
@@ -80,7 +80,7 @@ class SignupForm extends StatelessWidget {
                 controller: signupController.mobileController,
                 type: TextInputType.phone,
                 isSuffix: true,
-                hintText: 'Mobile Number',
+                hintText: 'Mobile: 963 9XXXXXXXX',
                 validate: (value) => validate(
                   value: value!,
                   type: 'mobile',
@@ -188,15 +188,6 @@ class SignupForm extends StatelessWidget {
                     signupController.autoValidate.value =
                         AutovalidateMode.always;
                   }
-                  // here you must call signup method and
-                  // go to verify otp if signup is success or
-                  // go show error dialog otherwise
-                  // if (signupController.validate()) {
-                  //   // signupController.goToVerify();
-                  // } else {
-                  //   signupController.autoValidate.value =
-                  //       AutovalidateMode.always;
-                  // }
                 },
                 textColor: AppColors.fontColor,
                 backgroundColor: AppColors.backgroundColor,

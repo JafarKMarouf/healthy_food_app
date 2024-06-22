@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/controllers/auth/signup_controller.dart';
+import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/utils/api_services.dart';
 import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:healthyfood/views/widgets/auth/auth_logo.dart';
@@ -13,13 +14,12 @@ class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // LoginControllerImp loginControllerImp = Get.put(LoginControllerImp(
-    //   authRepoImpl: AuthRepoImpl(apiServices: ApiServices(Dio()))));
     SignupControllerImp signupControllerImp = Get.put(SignupControllerImp(
         authRepoImpl: AuthRepoImpl(apiServices: ApiServices(Dio()))));
     return Scaffold(
       body: Obx(
         () => ModalProgressHUD(
+          color: AppColors.fontColor,
           inAsyncCall: signupControllerImp.loading.value,
           child: Container(
             height: MediaQuery.of(context).size.height * 1.5,
@@ -37,7 +37,6 @@ class SignupView extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 4 / 5,
                   child: const SignupForm(),
                 ),
-                // const SizedBox(height: 14),
               ],
             ),
           ),
