@@ -28,7 +28,8 @@ abstract class SignupController extends GetxController {
 
   bool validate();
 
-  Future uploadImage({required String uploadType});
+  // Future uploadImage({required String uploadType});
+  void getImage(ImageSource imageSource);
 
   Future uploadCertificate();
 }
@@ -52,6 +53,8 @@ class SignupControllerImp extends SignupController {
   final TextEditingController? fileController = TextEditingController();
   final AuthRepoImpl authRepoImpl;
   SignupControllerImp({required this.authRepoImpl}) : super();
+  var selectedImagePath = ''.obs;
+  var selectedImageSize = ''.obs;
 
   @override
   void onInit() {
@@ -125,18 +128,18 @@ class SignupControllerImp extends SignupController {
     });
   }
 
-  @override
-  Future uploadImage({required String uploadType}) async {
-    var returnedImage = uploadType == 'camera'
-        ? await ImagePicker().pickImage(source: ImageSource.camera)
-        : await ImagePicker().pickImage(source: ImageSource.gallery);
+  // @override
+  // Future uploadImage({required String uploadType}) async {
+  //   var pickedFile = uploadType == 'camera'
+  //       ? await ImagePicker().pickImage(source: ImageSource.camera)
+  //       : await ImagePicker().pickImage(source: ImageSource.gallery);
+  //   if (pickedFile != null) {}
+  //   // var xReturnedImage =
+  //   //     returnedImage != null ? File(returnedImage.path).toString() : null;
 
-    var xReturnedImage =
-        returnedImage != null ? File(returnedImage.path).toString() : null;
-
-    update();
-    return xReturnedImage;
-  }
+  //   // update();
+  //   // return xReturnedImage;
+  // }
 
   @override
   Future uploadCertificate() async {
@@ -148,5 +151,25 @@ class SignupControllerImp extends SignupController {
 
     update();
     return filePickerResult != null ? filePickerResult.files.single.name : '';
+  }
+
+  @override
+  void getImage(ImageSource imageSource) async {
+    final pickedFile = await ImagePicker().pickImage(source: imageSource);
+    Get.back();
+
+    if (pickedFile != null) {
+      selectedImagePath.value = pickedFile.path;
+      selectedImageSize.value =
+          "${((File(selectedImagePath.value)).lengthSync() / 1024).toStringAsFixed(2)} Kb";
+
+      imageController!.text = selectedImagePath.value;
+    } else {
+      Get.snackbar(
+        'Error',
+        'No Image selected',
+        // snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 }

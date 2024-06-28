@@ -40,11 +40,10 @@ class SignupForm extends StatelessWidget {
                     keyboardType: TextInputType.none,
                     controller: signupController.imageController,
                     validator: (value) {
-                      // return validate(
-                      //   value: value!,
-                      //   type: 'image',
-                      // );
-                      return null;
+                      return validate(
+                        value: value!,
+                        type: 'image',
+                      );
                     },
                   ),
                   CustomeSelectImage(signupController: signupController),

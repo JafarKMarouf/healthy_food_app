@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/functions/custome_shadow.dart';
@@ -7,16 +8,16 @@ import 'package:healthyfood/core/shared/custome_text.dart';
 class DialogView extends StatelessWidget {
   const DialogView({
     super.key,
-    required this.image,
-    required this.text1,
-    required this.text2,
+    this.image,
+    this.text1,
+    this.text2,
     this.text3,
     required this.buttons,
     this.tapImage,
   });
-  final String image;
-  final String text1;
-  final String text2;
+  final String? image;
+  final String? text1;
+  final String? text2;
   final Widget? text3;
   final Widget buttons;
   final void Function()? tapImage;
@@ -31,19 +32,20 @@ class DialogView extends StatelessWidget {
             begin: 0,
             end: 24,
           ),
+          onEnd: () => Get.back(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Column(
                 children: [
                   CustomeText(
-                    text: text1,
+                    text: text1 ?? '',
                     fontFamily: 'Montagu Slab',
                     color: Colors.black,
                     fontSize: 20,
                   ),
                   CustomeText(
-                    text: text2,
+                    text: text2 ?? '',
                     color: Colors.black,
                   ),
                   text3 == null ? const SizedBox() : text3!
@@ -75,14 +77,16 @@ class DialogView extends StatelessWidget {
                     ),
                     child: child,
                   ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * -.03,
-                    right: MediaQuery.of(context).size.width / 3,
-                    child: InkWell(
-                      onTap: tapImage,
-                      child: Image.asset(image),
-                    ),
-                  ),
+                  image != null
+                      ? Positioned(
+                          top: MediaQuery.of(context).size.height * -.03,
+                          right: MediaQuery.of(context).size.width / 3,
+                          child: InkWell(
+                            onTap: tapImage,
+                            child: Image.asset(image!),
+                          ),
+                        )
+                      : const SizedBox(),
                 ],
               ),
             );

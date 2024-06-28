@@ -22,7 +22,7 @@ class SignupView extends StatelessWidget {
           color: AppColors.fontColor,
           inAsyncCall: signupControllerImp.loading.value,
           child: Container(
-            height: MediaQuery.of(context).size.height * 1.5,
+            height: MediaQuery.of(context).size.height * 1.7,
             padding: const EdgeInsets.only(
               right: 34,
               left: 34,

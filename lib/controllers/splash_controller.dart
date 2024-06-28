@@ -42,7 +42,9 @@ class SplashController extends GetxController
   }
 
   Future<void> loadingUserInfo() async {
+    // await AppStorage.removeToken();
     var token = await AppStorage.getToken();
+    // await AppStorage.removeVerify();
     var isVerifed = await AppStorage.getVerifiedEmail();
 
     log('======token:$token===');
