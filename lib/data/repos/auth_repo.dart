@@ -25,4 +25,5 @@ abstract class AuthRepo {
   });
 
   Future<Either<Failure, Map<String, dynamic>>> resendCodeImp();
+  Future<Either<Failure, Map<String, dynamic>>> refreshTokenImp();
 }

@@ -38,7 +38,7 @@ class VerifyControllerImp extends VerifyController {
   @override
   void onInit() async {
     var token = await AppStorage.getToken();
-    if (token == null) resend();
+    token == null ? resend() : refreshToken();
     super.onInit();
   }
 
@@ -120,5 +120,16 @@ class VerifyControllerImp extends VerifyController {
     } else {
       return false;
     }
+  }
+
+  Future<void> refreshToken() async {
+    var result = await authRepoImpl.refreshTokenImp();
+    result.fold(
+      (l) => Get.snackbar('Error', l.errMessage),
+      (r) async {
+        await AppStorage.removeToken();
+        await AppStorage.storeToken(r['access_token']);
+      },
+    );
   }
 }

@@ -43,6 +43,7 @@ class LogoutControllerImpl extends LogoutController {
     loading.value = true;
     var result = await authRepoImpl.logoutImp();
     loading.value = false;
+
     result.fold((l) {
       Get.dialog(
         barrierColor: const Color(0xffFFFDFD),
@@ -54,7 +55,7 @@ class LogoutControllerImpl extends LogoutController {
       );
     }, (r) async {
       await AppStorage.removeToken();
-      await AppStorage.removeImage();
+
       Get.snackbar('success', r['message']);
       goToLogin();
     });

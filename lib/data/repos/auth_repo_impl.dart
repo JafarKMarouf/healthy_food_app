@@ -84,10 +84,11 @@ class AuthRepoImpl extends AuthRepo {
   @override
   Future<Either<Failure, Map<String, dynamic>>> logoutImp() async {
     try {
-      var data = await apiServices.post(endPoint: 'logout/43');
+      var data = await apiServices.post(endPoint: 'logout/62');
       return right(data);
     } catch (e) {
       if (e is DioException) {
+        // log('=======logout : ${e.response!.data}');
         return left(ServerFailure.fromDioError(e));
       } else {
         return left(ServerFailure(e.toString()));
@@ -124,6 +125,23 @@ class AuthRepoImpl extends AuthRepo {
         return left(ServerFailure.fromDioError(e));
       } else {
         log('======erorr code ${e.toString()}');
+
+        return left(ServerFailure(e.toString()));
+      }
+    }
+  }
+
+  @override
+  Future<Either<Failure, Map<String, dynamic>>> refreshTokenImp() async {
+    try {
+      var data = await apiServices.post(endPoint: 'refresh-token');
+      return right(data);
+    } catch (e) {
+      if (e is DioException) {
+        log('======Refresh Token ${e.response!.data}');
+        return left(ServerFailure.fromDioError(e));
+      } else {
+        log('======refresh token ${e.toString()}');
 
         return left(ServerFailure(e.toString()));
       }

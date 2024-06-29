@@ -72,7 +72,7 @@ class SuccessBSheet extends StatelessWidget {
             onTap: () {
               Future.delayed(
                 AppDuration.transitionDuration,
-                () => success.goToLogin(),
+                () => success.goToHome(),
               );
             },
           ),

@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/controllers/home_controller.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
+import 'package:healthyfood/core/utils/api_services.dart';
+import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:healthyfood/views/widgets/auth/custome_dialog.dart';
 
 class HomeView extends StatelessWidget {
@@ -13,7 +16,8 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeController homeController = Get.put(HomeController());
+    HomeController homeController = Get.put(HomeController(
+        authRepoImpl: AuthRepoImpl(apiServices: ApiServices(Dio()))));
 
     return Scaffold(
       appBar: AppBar(
@@ -82,7 +86,7 @@ class HomeView extends StatelessWidget {
                     );
                   },
                   child: homeController.image.value == ''
-                      ? const CircleAvatar()
+                      ? const CircleAvatar(radius: 85)
                       : CircleAvatar(
                           backgroundImage: FileImage(
                             File(homeController.image.value),
@@ -91,8 +95,6 @@ class HomeView extends StatelessWidget {
                         ),
                 ),
               ),
-              // Text(homeController.file.value),
-              // Text(homeController.image.value),
             ],
           ),
         ),
