@@ -1,8 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/controllers/auth/signup_controller.dart';
@@ -75,23 +73,6 @@ class CustomeSelectImage extends StatelessWidget {
             ),
           ),
         );
-        // Get.defaultDialog(
-        //   title: 'Select an Image via',
-        //   middleText: '',
-        //   backgroundColor: AppColors.fontColor,
-        //   actions: [
-        //
-        //     const SizedBox(height: 32),
-        //     ElevatedButton(
-        //       onPressed: () {
-        //         signupController.getImage(ImageSource.camera);
-        //         // Get.snackbar('image', signupController.imageController!.text);
-        //         Get.back();
-        //       },
-        //       child: const Icon(Icons.camera_alt_outlined),
-        //     ),
-        //   ],
-        // );
       },
       child: Obx(
         () => signupController.selectedImagePath.value == ''
@@ -108,11 +89,11 @@ class CustomeSelectImage extends StatelessWidget {
                     backgroundImage: FileImage(
                       File(signupController.selectedImagePath.value),
                     ),
-                    radius: 55,
+                    radius: 60,
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '${signupController.selectedImageSize}',
+                    signupController.compressImageSize.value,
                     style: const TextStyle(color: AppColors.fontColor),
                   ),
                 ],

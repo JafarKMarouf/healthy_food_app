@@ -21,23 +21,41 @@ class AuthRepoImpl extends AuthRepo {
     required String file,
   }) async {
     try {
-      var data = await apiServices.post(
+      // Map<String, dynamic> data = {
+      //   'user_name': username,
+      //   'email': email,
+      //   'password': password,
+      //   'password_confirmation': confirmPassword,
+      //   'phone_number': mobile,
+      //   'profile_photo': MultipartFile.fromFile(photo),
+      // };
+
+      var formData = FormData.fromMap({});
+      formData.fields.add(MapEntry('user_name', username));
+      formData.fields.add(MapEntry('email', email));
+      formData.fields.add(MapEntry('password', password));
+      formData.fields.add(MapEntry('password_confirmation', confirmPassword));
+      formData.fields.add(MapEntry('phone_number', mobile));
+      formData.files.add(MapEntry(
+        'profile_photo',
+        await MultipartFile.fromFile(photo,
+            filename:
+                "${DateTime.now().millisecondsSinceEpoch}.${photo.split('.').last}"),
+      ));
+
+      var result = await apiServices.post(
         endPoint: 'register',
-        body: {
-          'user_name': username,
-          'email': email,
-          'password': password,
-          'password_confirmation': confirmPassword,
-          'phone_number': mobile,
-          'profile_photo': photo,
-          'certificate': file,
-        },
+        body: formData,
       );
-      return right(data);
+      return right(result);
     } catch (e) {
       if (e is DioException) {
+        log('========${e.response!.data}');
+        log('========${e.response!.statusCode}');
+
         return left(ServerFailure.fromDioError(e));
       } else {
+        log('========${e.toString()}');
         return left(ServerFailure(e.toString()));
       }
     }

@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
-import 'package:healthyfood/core/constants/app_transitions.dart';
 import 'package:healthyfood/core/functions/check_connection.dart';
 import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:flutter/material.dart';

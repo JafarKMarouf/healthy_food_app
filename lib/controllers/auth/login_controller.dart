@@ -1,13 +1,10 @@
 import 'dart:developer';
 
-import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
 import 'package:healthyfood/core/functions/check_connection.dart';
-import 'package:healthyfood/core/functions/show_dialog.dart';
 import 'package:healthyfood/core/utils/app_storage.dart';
 import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:healthyfood/views/widgets/auth/custome_fails.dart';

@@ -29,7 +29,7 @@ validate({
     final RegExp regex = RegExp(r'^.*(.jpg|\.jpeg|\.png|\.gif|\.bmp|\.webp)',
         caseSensitive: false);
     if (!regex.hasMatch(value)) {
-      return ("$type should containe jpg|jpeg|png|gif|bmp|webp");
+      return ("$type should containe\\n jpg|jpeg|png|gif|bmp|webp");
     }
   }
   if (type == 'file') {

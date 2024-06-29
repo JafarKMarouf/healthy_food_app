@@ -1,14 +1,19 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
+import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
 import 'package:healthyfood/core/functions/check_connection.dart';
 import 'package:healthyfood/core/utils/app_storage.dart';
 import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:healthyfood/views/widgets/auth/custome_fails.dart';
+import 'package:image_cropper/image_cropper.dart';
+// import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 abstract class SignupController extends GetxController {
@@ -28,7 +33,6 @@ abstract class SignupController extends GetxController {
 
   bool validate();
 
-  // Future uploadImage({required String uploadType});
   void getImage(ImageSource imageSource);
 
   Future uploadCertificate();
@@ -53,8 +57,18 @@ class SignupControllerImp extends SignupController {
   final TextEditingController? fileController = TextEditingController();
   final AuthRepoImpl authRepoImpl;
   SignupControllerImp({required this.authRepoImpl}) : super();
+
+  // pick image
   var selectedImagePath = ''.obs;
   var selectedImageSize = ''.obs;
+
+  // crop image
+  var cropImagePath = ''.obs;
+  var cropImageSize = ''.obs;
+
+  // compress image
+  var compressImagePath = ''.obs;
+  var compressImageSize = ''.obs;
 
   @override
   void onInit() {
@@ -96,6 +110,7 @@ class SignupControllerImp extends SignupController {
     required String file,
   }) async {
     loading.value = true;
+
     var result = await authRepoImpl.signupImp(
       username: username,
       email: email,
@@ -105,6 +120,7 @@ class SignupControllerImp extends SignupController {
       photo: photo,
       file: file,
     );
+
     loading.value = false;
     result.fold((l) {
       Get.dialog(
@@ -128,19 +144,6 @@ class SignupControllerImp extends SignupController {
     });
   }
 
-  // @override
-  // Future uploadImage({required String uploadType}) async {
-  //   var pickedFile = uploadType == 'camera'
-  //       ? await ImagePicker().pickImage(source: ImageSource.camera)
-  //       : await ImagePicker().pickImage(source: ImageSource.gallery);
-  //   if (pickedFile != null) {}
-  //   // var xReturnedImage =
-  //   //     returnedImage != null ? File(returnedImage.path).toString() : null;
-
-  //   // update();
-  //   // return xReturnedImage;
-  // }
-
   @override
   Future uploadCertificate() async {
     final FilePickerResult? filePickerResult =
@@ -160,15 +163,44 @@ class SignupControllerImp extends SignupController {
 
     if (pickedFile != null) {
       selectedImagePath.value = pickedFile.path;
-      selectedImageSize.value =
-          "${((File(selectedImagePath.value)).lengthSync() / 1024).toStringAsFixed(2)} Kb";
 
-      imageController!.text = selectedImagePath.value;
+      selectedImageSize.value =
+          "${((File(selectedImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
+
+      // Crop
+      final crop = ImageCropper();
+      final cropImageFile = await crop.cropImage(
+          sourcePath: selectedImagePath.value,
+          maxWidth: 512,
+          maxHeight: 512,
+          compressFormat: ImageCompressFormat.jpg);
+      cropImagePath.value = cropImageFile!.path;
+      cropImageSize.value =
+          "${((File(cropImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
+
+      // Compress
+      final dir = Directory.systemTemp;
+      final targetPath = "${dir.absolute.path}/temp.jpg";
+
+      var compressedFile = await FlutterImageCompress.compressAndGetFile(
+        cropImagePath.value,
+        targetPath,
+        quality: 90,
+      );
+
+      compressImageSize.value = compressImagePath.value = compressedFile!.path;
+
+      compressImageSize.value =
+          "${((File(compressImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
+
+      imageController!.text = compressedFile.path;
+
+      log('=======photo profile : ${imageController!.text}');
     } else {
       Get.snackbar(
         'Error',
         'No Image selected',
-        // snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: AppColors.buttonsColor,
       );
     }
   }

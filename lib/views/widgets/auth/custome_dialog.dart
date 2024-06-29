@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/functions/custome_shadow.dart';
@@ -28,11 +27,7 @@ class DialogView extends StatelessWidget {
       backgroundColor: const Color(0xffFFFDFD).withOpacity(.48),
       body: TweenAnimationBuilder(
           duration: AppDuration.showWarning,
-          tween: Tween<double>(
-            begin: 0,
-            end: 24,
-          ),
-          onEnd: () => Get.back(),
+          tween: Tween<double>(begin: 0, end: 24),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

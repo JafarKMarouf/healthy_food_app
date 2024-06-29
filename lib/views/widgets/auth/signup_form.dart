@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -187,6 +189,7 @@ class SignupForm extends StatelessWidget {
                     signupController.autoValidate.value =
                         AutovalidateMode.always;
                   }
+                  log(signupController.imageController!.text);
                 },
                 textColor: AppColors.fontColor,
                 backgroundColor: AppColors.backgroundColor,

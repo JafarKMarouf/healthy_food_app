@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:healthyfood/core/errors/failure.dart';
 
 abstract class AuthRepo {
-  Future<Either<Failure, Map<String, dynamic>>> signupImp({
+  Future<Either<Failure, dynamic>> signupImp({
     required String photo,
     required String username,
     required String email,
