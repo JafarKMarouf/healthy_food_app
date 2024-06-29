@@ -41,16 +41,16 @@ class LoginControllerImp extends LoginController {
   @override
   void onInit() async {
     var remember = await AppStorage.isRemembered();
-    var cred = await AppStorage.getEmailRemeber();
+    var cred = await AppStorage.getEmailRemember();
     if (remember == true && cred != null) {
       isRememberMe.value = true;
     }
     isConn.value = await checkConnection();
 
     if (isRememberMe.value) {
-      emailController.text = await AppStorage.getEmailRemeber() ?? '';
-      mobileController.text = await AppStorage.getMobileRemeber() ?? '';
-      passwordController.text = await AppStorage.getPassRemeber() ?? '';
+      emailController.text = await AppStorage.getEmailRemember() ?? '';
+      mobileController.text = await AppStorage.getMobileRemember() ?? '';
+      passwordController.text = await AppStorage.getPassRemember() ?? '';
     }
 
     super.onInit();
@@ -108,7 +108,7 @@ class LoginControllerImp extends LoginController {
           await AppStorage.storeMobile(mobileController.value.text);
           await AppStorage.storePass(passwordController.value.text);
         } else {
-          await AppStorage.removeRemeberedCred();
+          await AppStorage.removeRememberedCred();
         }
 
         Future.delayed(
@@ -132,14 +132,14 @@ class LoginControllerImp extends LoginController {
         await AppStorage.storeMobile(mobileController.value.text);
         await AppStorage.storePass(passwordController.value.text);
       } else {
-        await AppStorage.removeRemeberedCred();
+        await AppStorage.removeRememberedCred();
       }
       Get.snackbar('success', 'Login Successfully!');
       Get.offAllNamed(AppRoutesPage.home);
 
-      var email = await AppStorage.getEmailRemeber();
-      var mobile = await AppStorage.getMobileRemeber();
-      var pass = await AppStorage.getPassRemeber();
+      var email = await AppStorage.getEmailRemember();
+      var mobile = await AppStorage.getMobileRemember();
+      var pass = await AppStorage.getPassRemember();
       log('=============email remeber:$email============');
       log('=============pass remeber:$pass============');
       log('=============mobile remeber:$mobile============');

@@ -206,12 +206,13 @@ class SignupControllerImp extends SignupController {
       );
     }, (r) async {
       await AppStorage.storeToken(r['token']);
+      await AppStorage.storeUserName(username);
+      await AppStorage.storeCertificate(file);
+      await AppStorage.storeImage(selectedImagePath.value);
       await AppStorage.removeVerify();
       Future.delayed(
         AppDuration.transitionDuration,
-        () {
-          goToVerify();
-        },
+        () => goToVerify(),
       );
       Get.snackbar('success', r['message']);
     });

@@ -89,16 +89,7 @@ class CustomeSelectImage extends StatelessWidget {
                 ),
                 radius: 60,
               ),
-        // Column(
-        //   children: [
 
-        //     const SizedBox(height: 4),
-        //     Text(
-        //       signupController.compressImageSize.value,
-        //       style: const TextStyle(color: AppColors.fontColor),
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

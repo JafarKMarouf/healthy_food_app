@@ -35,7 +35,7 @@ class ApiServices {
     log('=======body: $body ========');
 
     var response = await _dio.post(url, data: body);
-    // log('====status message :${response.statusMessage}');
     return response.data;
   }
+
 }

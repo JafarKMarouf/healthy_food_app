@@ -45,12 +45,23 @@ class AppStorage {
     return prefs!.getBool('rememberMe');
   }
 
+  static Future<void> storeUserName(String username) async {
+    prefs = await SharedPreferences.getInstance();
+    await prefs!.setString('userName', username);
+  }
+
+  static Future<String?> getUserName() async {
+    prefs = await SharedPreferences.getInstance();
+
+    return prefs!.getString('userName');
+  }
+
   static Future<void> storeEmail(String email) async {
     prefs = await SharedPreferences.getInstance();
     await prefs!.setString('email_remember', email);
   }
 
-  static Future<String?> getEmailRemeber() async {
+  static Future<String?> getEmailRemember() async {
     prefs = await SharedPreferences.getInstance();
 
     return prefs!.getString('email_remember');
@@ -61,7 +72,7 @@ class AppStorage {
     await prefs!.setString('mobile_remember', mobile);
   }
 
-  static Future<String?> getMobileRemeber() async {
+  static Future<String?> getMobileRemember() async {
     prefs = await SharedPreferences.getInstance();
     return prefs!.getString('mobile_remember');
   }
@@ -71,12 +82,42 @@ class AppStorage {
     await prefs!.setString('password_remember', password);
   }
 
-  static Future<String?> getPassRemeber() async {
+  static Future<String?> getPassRemember() async {
     prefs = await SharedPreferences.getInstance();
     return prefs!.getString('password_remember');
   }
 
-  static Future<void> removeRemeberedCred() async {
+  static storeCertificate(String file)async{
+    prefs = await SharedPreferences.getInstance();
+    await prefs!.setString('certificate',file );
+  }
+
+  static Future<String?> getCertificate() async {
+    prefs = await SharedPreferences.getInstance();
+    return prefs!.getString('certificate');
+  }
+
+  static Future<void> removeFile() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs!.remove('file');
+  }
+
+  static storeImage(String image)async{
+    prefs = await SharedPreferences.getInstance();
+    await prefs!.setString('image',image );
+  }
+
+  static Future<String?> getImage() async {
+    prefs = await SharedPreferences.getInstance();
+    return prefs!.getString('image');
+  }
+
+  static Future<void> removeImage() async {
+    prefs = await SharedPreferences.getInstance();
+    prefs!.remove('image');
+  }
+
+  static Future<void> removeRememberedCred() async {
     prefs = await SharedPreferences.getInstance();
     await prefs!.remove('email_remember');
     await prefs!.remove('mobile_remember');

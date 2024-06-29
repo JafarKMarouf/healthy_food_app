@@ -21,34 +21,25 @@ class AuthRepoImpl extends AuthRepo {
     required String file,
   }) async {
     try {
-      // Map<String, dynamic> data = {
-      //   'user_name': username,
-      //   'email': email,
-      //   'password': password,
-      //   'password_confirmation': confirmPassword,
-      //   'phone_number': mobile,
-      //   'profile_photo': MultipartFile.fromFile(photo),
-      // };
+      Map<String, dynamic> data = {
+        'user_name': username,
+        'email': email,
+        'password': password,
+        'password_confirmation': confirmPassword,
+        'phone_number': mobile,
+        'profile_photo': await MultipartFile.fromFile(
+          photo,
+          filename:
+              "${DateTime.now().millisecondsSinceEpoch}.${photo.split('.').last}",
+        ),
+        'certificate': await MultipartFile.fromFile(
+          file,
+          filename:
+              "${DateTime.now().millisecondsSinceEpoch}.${file.split('.').last}",
+        ),
+      };
 
-      var formData = FormData.fromMap({});
-      formData.fields.add(MapEntry('user_name', username));
-      formData.fields.add(MapEntry('email', email));
-      formData.fields.add(MapEntry('password', password));
-      formData.fields.add(MapEntry('password_confirmation', confirmPassword));
-      formData.fields.add(MapEntry('phone_number', mobile));
-      formData.files.add(MapEntry(
-        'profile_photo',
-        await MultipartFile.fromFile(photo,
-            filename:
-                "${DateTime.now().millisecondsSinceEpoch}.${photo.split('.').last}"),
-      ));
-
-      formData.files.add(MapEntry(
-        'certificate',
-        await MultipartFile.fromFile(file,
-            filename:
-                "${DateTime.now().millisecondsSinceEpoch}.${file.split('.').last}"),
-      ));
+      var formData = FormData.fromMap(data);
 
       var result = await apiServices.post(
         endPoint: 'register',
@@ -57,9 +48,6 @@ class AuthRepoImpl extends AuthRepo {
       return right(result);
     } catch (e) {
       if (e is DioException) {
-        log('========${e.response!.data}');
-        log('========${e.response!.statusCode}');
-
         return left(ServerFailure.fromDioError(e));
       } else {
         log('========${e.toString()}');
@@ -128,13 +116,15 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<Failure, Map<String, dynamic>>> resendCodeImp() async {
     try {
       var data = await apiServices.post(endPoint: 'resend-code');
-      // log('=====${data.}');
+      log('=====$data');
       return right(data);
     } catch (e) {
       if (e is DioException) {
         log('======send code ${e.response!.data}');
         return left(ServerFailure.fromDioError(e));
       } else {
+        log('======erorr code ${e.toString()}');
+
         return left(ServerFailure(e.toString()));
       }
     }

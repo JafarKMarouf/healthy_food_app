@@ -54,6 +54,7 @@ class LogoutControllerImpl extends LogoutController {
       );
     }, (r) async {
       await AppStorage.removeToken();
+      await AppStorage.removeImage();
       Get.snackbar('success', r['message']);
       goToLogin();
     });

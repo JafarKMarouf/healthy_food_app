@@ -20,7 +20,7 @@ class RowLogin extends StatelessWidget {
           onTap: () async {
             await controller.rememberMe();
             if (!controller.isRememberMe.value) {
-              await AppStorage.removeRemeberedCred();
+              await AppStorage.removeRememberedCred();
             }
           },
           child: Row(

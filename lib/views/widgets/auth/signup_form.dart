@@ -157,14 +157,7 @@ class SignupForm extends StatelessWidget {
                     ),
                   ),
                   CertificateFile(signupController: signupController)
-                  // InkWell(
-                  //   onTap: () {
-                  //     signupController.getFile();
-                  //     // signupController.fileController!.text =
-                  //     //     await signupController.uploadCertificate() ?? '';
-                  //   },
-                  //   child: ,
-                  // )
+
                 ],
               ),
               const SizedBox(height: 14),
