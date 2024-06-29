@@ -83,21 +83,22 @@ class CustomeSelectImage extends StatelessWidget {
                   SvgPicture.asset(AppImages.bordercamera),
                 ],
               )
-            : Column(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: FileImage(
-                      File(signupController.selectedImagePath.value),
-                    ),
-                    radius: 60,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    signupController.compressImageSize.value,
-                    style: const TextStyle(color: AppColors.fontColor),
-                  ),
-                ],
+            : CircleAvatar(
+                backgroundImage: FileImage(
+                  File(signupController.selectedImagePath.value),
+                ),
+                radius: 60,
               ),
+        // Column(
+        //   children: [
+
+        //     const SizedBox(height: 4),
+        //     Text(
+        //       signupController.compressImageSize.value,
+        //       style: const TextStyle(color: AppColors.fontColor),
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }

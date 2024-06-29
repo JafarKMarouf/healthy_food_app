@@ -7,7 +7,7 @@ checkConnection()async{
       return true;
     }
   }
- on SocketException {
+  on SocketException {
     return false;
- }
+  }
 }

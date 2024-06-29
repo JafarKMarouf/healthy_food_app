@@ -26,8 +26,6 @@ class ApiServices {
   }) async {
     String? token = await AppStorage.getToken();
     _dio.options.headers['Accept'] = ['application/json'];
-    // _dio.options.headers['Content-Type'] = ['application/json'];
-
     _dio.options.headers['Authorization'] = 'Bearer $token';
 
     String url = '$baseUrl/$endPoint';
@@ -37,8 +35,7 @@ class ApiServices {
     log('=======body: $body ========');
 
     var response = await _dio.post(url, data: body);
-    log('====status message :${response.statusMessage}');
-    // return response.statusMessage;
+    // log('====status message :${response.statusMessage}');
     return response.data;
   }
 }

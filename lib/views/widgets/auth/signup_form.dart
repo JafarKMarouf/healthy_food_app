@@ -150,19 +150,21 @@ class SignupForm extends StatelessWidget {
                       hintText: '',
                     ),
                     keyboardType: TextInputType.none,
-                    controller: signupController.fileController!,
-                    // validator: (value) => validate(
-                    //   value: value!,
-                    //   type: 'file',
-                    // ),
+                    controller: signupController.fileController,
+                    validator: (value) => validate(
+                      value: value!,
+                      type: 'file',
+                    ),
                   ),
-                  InkWell(
-                    onTap: () async {
-                      signupController.fileController!.text =
-                          await signupController.uploadCertificate() ?? '';
-                    },
-                    child: const CertificateFile(),
-                  )
+                  CertificateFile(signupController: signupController)
+                  // InkWell(
+                  //   onTap: () {
+                  //     signupController.getFile();
+                  //     // signupController.fileController!.text =
+                  //     //     await signupController.uploadCertificate() ?? '';
+                  //   },
+                  //   child: ,
+                  // )
                 ],
               ),
               const SizedBox(height: 14),

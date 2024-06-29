@@ -71,8 +71,8 @@ class VerifyControllerImp extends VerifyController {
         WarningView(message: l.errMessage),
       );
     }, (r) {
-      startTimer();
       Get.snackbar('success', r['message']);
+      startTimer();
     });
   }
 

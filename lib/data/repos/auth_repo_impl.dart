@@ -43,6 +43,13 @@ class AuthRepoImpl extends AuthRepo {
                 "${DateTime.now().millisecondsSinceEpoch}.${photo.split('.').last}"),
       ));
 
+      formData.files.add(MapEntry(
+        'certificate',
+        await MultipartFile.fromFile(file,
+            filename:
+                "${DateTime.now().millisecondsSinceEpoch}.${file.split('.').last}"),
+      ));
+
       var result = await apiServices.post(
         endPoint: 'register',
         body: formData,
@@ -121,9 +128,11 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<Failure, Map<String, dynamic>>> resendCodeImp() async {
     try {
       var data = await apiServices.post(endPoint: 'resend-code');
+      // log('=====${data.}');
       return right(data);
     } catch (e) {
       if (e is DioException) {
+        log('======send code ${e.response!.data}');
         return left(ServerFailure.fromDioError(e));
       } else {
         return left(ServerFailure(e.toString()));
