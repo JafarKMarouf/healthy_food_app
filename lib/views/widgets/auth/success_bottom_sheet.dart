@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
+import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/core/shared/custome_text.dart';
 import 'package:healthyfood/controllers/auth/success_controller.dart';
@@ -69,7 +70,10 @@ class SuccessBSheet extends StatelessWidget {
             width: MediaQuery.of(context).size.width * .5,
             textColor: AppColors.fontColor,
             onTap: () {
-              success.goToLogout();
+              Future.delayed(
+                AppDuration.transitionDuration,
+                () => success.goToHome(),
+              );
             },
           ),
           const Spacer(flex: 3),

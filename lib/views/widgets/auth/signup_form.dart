@@ -1,10 +1,16 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_colors.dart';
 import 'package:healthyfood/core/constants/app_images.dart';
 import 'package:healthyfood/controllers/auth/signup_controller.dart';
+import 'package:healthyfood/core/functions/validator.dart';
 import 'package:healthyfood/core/shared/custome_button.dart';
 import 'package:healthyfood/core/shared/custome_text_form_field.dart';
+import 'package:healthyfood/core/utils/api_services.dart';
+import 'package:healthyfood/data/repos/auth_repo_impl.dart';
 import 'package:healthyfood/views/widgets/auth/certificate_file.dart';
 import 'package:healthyfood/views/widgets/auth/row_signup.dart';
 import 'custome_select_image.dart';
@@ -14,7 +20,9 @@ class SignupForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SignupControllerImp signupController = Get.put(SignupControllerImp());
+    AuthRepoImpl authRepoImpl = AuthRepoImpl(apiServices: ApiServices(Dio()));
+    SignupControllerImp signupController =
+        Get.put(SignupControllerImp(authRepoImpl: authRepoImpl));
     return SingleChildScrollView(
       child: GetX<SignupControllerImp>(
         builder: (controller) => Form(
@@ -29,17 +37,15 @@ class SignupForm extends StatelessWidget {
                 children: [
                   TextFormField(
                     readOnly: true,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                    ),
+                    decoration: const InputDecoration(border: InputBorder.none),
                     style: const TextStyle(fontSize: 0),
                     keyboardType: TextInputType.none,
                     controller: signupController.imageController,
                     validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please select an image';
-                      }
-                      return null;
+                      return validate(
+                        value: value!,
+                        type: 'image',
+                      );
                     },
                   ),
                   CustomeSelectImage(signupController: signupController),
@@ -51,12 +57,12 @@ class SignupForm extends StatelessWidget {
                 type: TextInputType.text,
                 isSuffix: false,
                 hintText: 'Username',
-                validate: (value) {
-                  if (value!.isEmpty) {
-                    return "user is required";
-                  }
-                  return null;
-                },
+                validate: (value) => validate(
+                  value: value!,
+                  min: 5,
+                  max: 30,
+                  type: 'username',
+                ),
               ),
               const SizedBox(height: 14),
               CustomeTextFormField(
@@ -65,82 +71,73 @@ class SignupForm extends StatelessWidget {
                 isSuffix: false,
                 hintText: 'Email',
                 suffix: Image.asset(AppImages.edit),
-                validate: (value) {
-                  if (value!.isEmpty) {
-                    return "email is required";
-                  }
-                  return null;
-                },
+                validate: (value) => validate(
+                  value: value!,
+                  type: 'email',
+                ),
               ),
               const SizedBox(height: 14),
               CustomeTextFormField(
                 controller: signupController.mobileController,
-                type: TextInputType.number,
+                type: TextInputType.phone,
                 isSuffix: true,
-                hintText: 'Mobile Number',
-                validate: (value) {
-                  if (value!.isEmpty) {
-                    return "mobile number is required";
-                  }
-                  return null;
-                },
+                hintText: 'Mobile: 963 9XXXXXXXX',
+                validate: (value) => validate(
+                  value: value!,
+                  type: 'mobile',
+                ),
               ),
               const SizedBox(height: 14),
               CustomeTextFormField(
-                controller: controller.passwordController,
-                type: TextInputType.visiblePassword,
-                isObscure: signupController.visible1.value,
-                isSuffix: true,
-                hintText: 'Password',
-                suffix: InkWell(
-                  onTap: () {
-                    controller.visible1.value = !controller.visible1.value;
-                  },
-                  child: controller.visible1.value
-                      ? Image.asset(AppImages.invisible)
-                      : const Icon(
-                          Icons.remove_red_eye_outlined,
-                          color: AppColors.hintTextColor,
-                        ),
-                ),
-                validate: (value) {
-                  if (value!.isEmpty) {
-                    return "password confirm is required";
-                  }
-                  if (value.length < 6) {
-                    return 'password must contain at least 6 character';
-                  }
-                  return null;
-                },
-              ),
+                  controller: controller.passwordController,
+                  type: TextInputType.visiblePassword,
+                  isObscure: signupController.visible1.value,
+                  isSuffix: true,
+                  hintText: 'Password',
+                  suffix: InkWell(
+                    onTap: () {
+                      controller.visible1.value = !controller.visible1.value;
+                    },
+                    child: controller.visible1.value
+                        ? Image.asset(AppImages.invisible)
+                        : const Icon(
+                            Icons.remove_red_eye_outlined,
+                            color: AppColors.hintTextColor,
+                          ),
+                  ),
+                  validate: (value) {
+                    return validate(
+                      value: value!,
+                      type: 'password',
+                    );
+                  }),
               const SizedBox(height: 14),
               CustomeTextFormField(
-                controller: controller.confirmPasswordController,
-                type: TextInputType.visiblePassword,
-                isObscure: signupController.visible2.value,
-                isSuffix: true,
-                hintText: 'Confirm Password',
-                suffix: InkWell(
-                  onTap: () {
-                    controller.visible2.value = !controller.visible2.value;
-                  },
-                  child: controller.visible2.value
-                      ? Image.asset(AppImages.invisible)
-                      : const Icon(
-                          Icons.remove_red_eye_outlined,
-                          color: AppColors.hintTextColor,
-                        ),
-                ),
-                validate: (value) {
-                  if (value!.isEmpty) {
-                    return "password is required";
-                  }
-                  if (value.length < 6) {
-                    return 'password must contain at least 6 character';
-                  }
-                  return null;
-                },
-              ),
+                  controller: controller.confirmPasswordController,
+                  type: TextInputType.visiblePassword,
+                  isObscure: signupController.visible2.value,
+                  isSuffix: true,
+                  hintText: 'Confirm Password',
+                  suffix: InkWell(
+                    onTap: () {
+                      controller.visible2.value = !controller.visible2.value;
+                    },
+                    child: controller.visible2.value
+                        ? Image.asset(AppImages.invisible)
+                        : const Icon(
+                            Icons.remove_red_eye_outlined,
+                            color: AppColors.hintTextColor,
+                          ),
+                  ),
+                  validate: (value) {
+                    if (value != controller.passwordController.text) {
+                      return 'not match';
+                    }
+                    return validate(
+                      value: value!,
+                      type: 'password confirm',
+                    );
+                  }),
               const SizedBox(height: 14),
               Stack(
                 alignment: Alignment.center,
@@ -153,42 +150,41 @@ class SignupForm extends StatelessWidget {
                       hintText: '',
                     ),
                     keyboardType: TextInputType.none,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please select a file';
-                      }
-                      return null;
-                    },
-                    controller: signupController.fileController!,
+                    controller: signupController.fileController,
+                    validator: (value) => validate(
+                      value: value!,
+                      type: 'file',
+                    ),
                   ),
-                  InkWell(
-                    onTap: () async {
-                      signupController.fileController!.text =
-                          await signupController.uploadCertificate() ?? '';
-                      Get.snackbar(
-                        'file',
-                        signupController.fileController!.text,
-                      );
-                    },
-                    child: const CertificateFile(),
-                  )
+                  CertificateFile(signupController: signupController)
+
                 ],
               ),
               const SizedBox(height: 14),
               CustomeButton(
                 title: 'Sign up',
                 width: MediaQuery.of(context).size.width,
-                onTap: () {
-                  // here you must call signup method and
-                  // go to verify otp if signup is success or
-                  // go show error dialog otherwise
+                onTap: () async {
                   if (signupController.validate()) {
-                    signupController.signup();
-                    signupController.goToVerify();
+                    if (signupController.isConn.value) {
+                      await signupController.signup(
+                        photo: signupController.imageController!.text,
+                        username: signupController.usernameController.text,
+                        email: signupController.emailController.text,
+                        mobile: signupController.mobileController.text,
+                        password: signupController.passwordController.text,
+                        confirmPassword:
+                            signupController.confirmPasswordController.text,
+                        file: signupController.fileController!.text,
+                      );
+                    } else {
+                      Get.snackbar('warning', 'You are offline');
+                    }
                   } else {
                     signupController.autoValidate.value =
                         AutovalidateMode.always;
                   }
+                  log(signupController.imageController!.text);
                 },
                 textColor: AppColors.fontColor,
                 backgroundColor: AppColors.backgroundColor,

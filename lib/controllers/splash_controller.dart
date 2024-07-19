@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:healthyfood/core/constants/app_durations.dart';
 import 'package:healthyfood/core/constants/app_routes_page.dart';
+import 'package:healthyfood/core/utils/app_storage.dart';
 
 class SplashController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -13,10 +16,10 @@ class SplashController extends GetxController
   Animation<Offset>? get offsetAnimation => _offsetAnimation.value;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     slidingAnimation();
-    navigateToLogin();
+    await loadingUserInfo();
   }
 
   void slidingAnimation() {
@@ -38,12 +41,42 @@ class SplashController extends GetxController
     _animationController.value?.forward();
   }
 
+  Future<void> loadingUserInfo() async {
+    var token = await AppStorage.getToken();
+    var isVerifed = await AppStorage.getVerifiedEmail();
+
+    log('======token:$token===');
+    log('======verify:$isVerifed===');
+
+    if (token != null && isVerifed != null) {
+      navigateToHome();
+    } else {
+      if (isVerifed == null && token != null) {
+        navigateToVerify();
+      } else {
+        navigateToLogin();
+      }
+    }
+  }
+
   void navigateToLogin() {
     Future.delayed(
       const Duration(milliseconds: 1500),
-      () {
-        Get.offAllNamed(AppRoutesPage.login);
-      },
+      () => Get.offAllNamed(AppRoutesPage.login),
+    );
+  }
+
+  void navigateToVerify() {
+    Future.delayed(
+      const Duration(milliseconds: 1500),
+      () => Get.offAllNamed(AppRoutesPage.verify),
+    );
+  }
+
+  void navigateToHome() {
+    Future.delayed(
+      const Duration(milliseconds: 1500),
+      () => Get.offAllNamed(AppRoutesPage.home),
     );
   }
 

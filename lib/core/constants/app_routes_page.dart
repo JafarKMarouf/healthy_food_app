@@ -5,4 +5,6 @@ class AppRoutesPage {
   static const String verify = '/verify';
   static const String warning = '/warning';
   static const String forgetpassword = '/forget_password';
+  static const String logout = '/logout';
+  static const String home = '/home';
 }

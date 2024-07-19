@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
+import 'package:healthyfood/core/utils/app_storage.dart';
 
 class ApiServices {
-  final String baseUrl = '';
+  final String baseUrl =
+      'https://task5-lina-sulaiman.trainees-mad-s.com/api/auth';
 
   final Dio _dio;
   ApiServices(this._dio);
@@ -18,11 +22,20 @@ class ApiServices {
 
   Future<Map<String, dynamic>> post({
     required String endPoint,
-    required dynamic body,
+    dynamic body,
   }) async {
+    String? token = await AppStorage.getToken();
     _dio.options.headers['Accept'] = ['application/json'];
+    _dio.options.headers['Authorization'] = 'Bearer $token';
+
     String url = '$baseUrl/$endPoint';
+
+    log('========token:$token========');
+    log('======url: $url========');
+    log('=======body: $body ========');
+
     var response = await _dio.post(url, data: body);
     return response.data;
   }
+
 }

@@ -24,7 +24,6 @@ void customeShowDialog(
         );
       }
       return Dialog(
-        
         surfaceTintColor: Colors.black,
         elevation: .3,
         child: widget,
